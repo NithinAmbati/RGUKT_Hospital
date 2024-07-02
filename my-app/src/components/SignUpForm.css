@@ -1,0 +1,10 @@
+.signup-form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}

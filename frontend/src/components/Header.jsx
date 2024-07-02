@@ -27,7 +27,7 @@ function Header() {
   return (
     <>
       <CssBaseline />
-      <AppBar>
+      <AppBar position="relative">
         <Toolbar>
           <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
             RGUKT Hospital

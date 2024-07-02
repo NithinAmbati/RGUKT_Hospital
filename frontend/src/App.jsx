@@ -1,35 +1,79 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import MenuIcon from "@mui/icons-material/Menu";
+import {
+  Grid,
+  Card,
+  Button,
+  Container,
+  CssBaseline,
+  Typography,
+  Toolbar,
+  AppBar,
+  Box,
+  IconButton,
+  MenuItem,
+  Menu,
+  MenuList,
+} from "@mui/material";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const openMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const closeMenu = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <CssBaseline />
+      <AppBar>
+        <Toolbar>
+          <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
+            RGUKT Hospital
+          </Typography>
+
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <Button color="inherit">Login</Button>
+            <Button color="inherit">Register</Button>
+          </Box>
+
+          <Box sx={{ display: { xs: "flex", md: "none" }, marginLeft: "auto" }}>
+            <IconButton
+              color="inherit"
+              size="large"
+              edge="end"
+              onClick={openMenu}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={closeMenu}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+            >
+              <MenuList>
+                <MenuItem onClick={closeMenu}>Home</MenuItem>
+                <MenuItem onClick={closeMenu}>About</MenuItem>
+                <MenuItem onClick={closeMenu}>Contact</MenuItem>
+              </MenuList>
+            </Menu>
+          </Box>
+        </Toolbar>
+      </AppBar>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

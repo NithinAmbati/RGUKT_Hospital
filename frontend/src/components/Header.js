@@ -12,9 +12,11 @@ import {
   Menu,
   MenuList,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-function Header() {
+const Header = ({ headerContent }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
 
   const openMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -22,6 +24,11 @@ function Header() {
 
   const closeMenu = () => {
     setAnchorEl(null);
+  };
+
+  const handleMenuItemClick = (link) => {
+    navigate(link);
+    closeMenu();
   };
 
   return (
@@ -33,8 +40,15 @@ function Header() {
             RGUKT Hospital
           </Typography>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Button color="inherit">Login</Button>
-            <Button color="inherit">Register</Button>
+            {headerContent.map((item, index) => (
+              <Button
+                key={index}
+                color="inherit"
+                onClick={() => handleMenuItemClick(item.link)}
+              >
+                {item.title}
+              </Button>
+            ))}
           </Box>
 
           <Box sx={{ display: { xs: "flex", md: "none" }, marginLeft: "auto" }}>
@@ -60,9 +74,14 @@ function Header() {
               }}
             >
               <MenuList>
-                <MenuItem onClick={closeMenu}>Home</MenuItem>
-                <MenuItem onClick={closeMenu}>About</MenuItem>
-                <MenuItem onClick={closeMenu}>Contact</MenuItem>
+                {headerContent.map((item, index) => (
+                  <MenuItem
+                    key={index}
+                    onClick={() => handleMenuItemClick(item.link)}
+                  >
+                    {item.title}
+                  </MenuItem>
+                ))}
               </MenuList>
             </Menu>
           </Box>
@@ -70,6 +89,6 @@ function Header() {
       </AppBar>
     </>
   );
-}
+};
 
 export default Header;

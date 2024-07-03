@@ -4,12 +4,18 @@ const { Student, Doctor, Pharmacist } = require("./startMongoose");
 const jwt = require("jsonwebtoken");
 
 // Candidate Login API
-router.post("/student", async (req, res) => {
-  const { email, password } = req.body;
+router.post("/", async (req, res) => {
+  const { userId, password } = req.body;
 
   try {
-    // Find user by email and password
-    const user = await Student.findOne({ email, password });
+    let user;
+    if (userId.startsWith("B"))
+      user = await Student.findOne({ userId, password });
+    else if (userId.startsWith("D"))
+      user = await Doctor.findOne({ userId, password });
+    else if (userId.startsWith("P"))
+      user = await Pharmacist.findOne({ userId, password });
+
     if (!user) {
       res.status(400).send("Login Failure");
       return;
@@ -17,52 +23,7 @@ router.post("/student", async (req, res) => {
 
     // Generate JWT token
     const payload = {
-      email: email,
-    };
-    const jwtToken = jwt.sign(payload, "Nithin");
-    res.status(201).send({ jwtToken });
-  } catch (error) {
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-// Employer Login API
-router.post("/doctor", async (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    // Find user by username and password
-    const user = await Doctor.findOne({ email, password });
-    if (!user) {
-      res.status(400).send("Login Failure");
-      return;
-    }
-
-    // Generate JWT token
-    const payload = {
-      email: email,
-    };
-    const jwtToken = jwt.sign(payload, "Nithin");
-    res.status(201).send({ jwtToken });
-  } catch (error) {
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-router.post("/pharmacist", async (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    // Find user by username and password
-    const user = await Pharmacist.findOne({ email, password });
-    if (!user) {
-      res.status(400).send("Login Failure");
-      return;
-    }
-
-    // Generate JWT token
-    const payload = {
-      email: email,
+      userId,
     };
     const jwtToken = jwt.sign(payload, "Nithin");
     res.status(201).send({ jwtToken });

@@ -2,63 +2,35 @@ const express = require("express");
 const router = express.Router();
 const { Student, Doctor, Pharmacist } = require("./startMongoose");
 
-router.post("/student", async (req, res) => {
-  const { username, password, email } = req.body;
-  console.log(username);
+router.post("/", async (req, res) => {
+  const { userId, name, email, password } = req.body;
+  console.log(req.body);
 
   try {
     // Check if user already exists
-    const existingUser = await Student.findOne({ username, email });
+    let existingUser;
+    if (userId.startsWith("B"))
+      existingUser = await Student.findOne({ userId, password });
+    else if (userId.startsWith("D"))
+      existingUser = await Doctor.findOne({ userId, password });
+    else if (userId.startsWith("P"))
+      existingUser = await Pharmacist.findOne({ userId, password });
+
     if (existingUser) {
       res.status(400).send("User already exists");
       return;
     }
     // Create new user
-    const newUser = new Student({ username, password, email });
-    await newUser.save();
-
-    res.status(200).send("Registration Successful");
-  } catch (error) {
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-router.post("/doctor", async (req, res) => {
-  const { username, password, email } = req.body;
-
-  try {
-    // Check if user already exists
-    const existingUser = await Doctor.findOne({ username, email });
-    if (existingUser) {
-      res.status(400).send("User already exists");
-      return;
+    if (userId.startsWith("B")) {
+      const newUser = new Student({ userId, name, email, password });
+      await newUser.save();
+    } else if (userId.startsWith("D")) {
+      const newUser = new Doctor({ userId, name, email, password });
+      await newUser.save();
+    } else if (userId.startsWith("P")) {
+      const newUser = new Pharmacist({ userId, name, email, password });
+      await newUser.save();
     }
-
-    // Create new user
-    const newUser = new Doctor({ username, password, email });
-    await newUser.save();
-
-    res.status(200).send("Registration Successful");
-  } catch (error) {
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-router.post("/pharmacist", async (req, res) => {
-  const { username, password, email } = req.body;
-
-  try {
-    // Check if user already exists
-    const existingUser = await Pharmacist.findOne({ username, email });
-    if (existingUser) {
-      res.status(400).send("User already exists");
-      return;
-    }
-
-    // Create new user
-    const newUser = new Pharmacist({ username, password, email });
-    await newUser.save();
-
     res.status(200).send("Registration Successful");
   } catch (error) {
     res.status(500).send("Internal Server Error");

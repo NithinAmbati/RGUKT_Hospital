@@ -1,8 +1,10 @@
-post http://localhost:8000/signup/student/
+post http://localhost:8000/appointments
 Content-Type: application/json
 
 {
-  "username": "John",
-  "password": "Doe",
-  "email": "john.doe@example.com"
+  "userId": "B191112",
+  "appointmentDate": "2020-01-01",
+  "reason": "fever",
+  "sufferingFrom": "2024-01-01",
+  "status": "pending"
 }

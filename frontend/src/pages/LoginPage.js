@@ -1,10 +1,9 @@
 import React from "react";
-import { Button } from "@mui/material";
 import LoginForm from "../components/LoginForm";
 
 function LoginPage() {
   return (
-    <div>
+    <div className="h-[100vh] flex justify-center items-center">
       <LoginForm />
     </div>
   );

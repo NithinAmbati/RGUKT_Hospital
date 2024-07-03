@@ -3,6 +3,7 @@ const {
   Doctor,
   Pharmacist,
   Medicines,
+  Appointments,
 } = require("./mongoDBConnection");
 
 module.exports = {
@@ -10,4 +11,5 @@ module.exports = {
   Doctor,
   Pharmacist,
   Medicines,
+  Appointments,
 };

@@ -3,8 +3,10 @@ import Header from "../../components/Header";
 import { DoctorsHeaderContent } from "../../store/data";
 import Cookies from "js-cookie";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const DoctorsHome = () => {
+  const navigate = useNavigate();
   const [appointmentsList, setAppointmentsList] = useState([]);
 
   const getAppointmentsList = async () => {
@@ -37,7 +39,14 @@ const DoctorsHome = () => {
             appointmentsList.map((appointment) => (
               <li key={appointment._id}>
                 {appointment.userId} - {appointment.reason}
-                <Button variant="contained">{appointment.status}</Button>
+                <Button
+                  variant="contained"
+                  onClick={() =>
+                    navigate(`/doctor/doctor_check/${appointment._id}`)
+                  }
+                >
+                  {appointment.status}
+                </Button>
               </li>
             ))
           ) : (

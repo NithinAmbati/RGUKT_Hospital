@@ -13,6 +13,7 @@ import {
   MenuList,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Header = ({ headerContent }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -27,8 +28,13 @@ const Header = ({ headerContent }) => {
   };
 
   const handleMenuItemClick = (link) => {
-    navigate(link);
-    closeMenu();
+    if (link === "/logout") {
+      Cookies.remove("jwtToken");
+      navigate("/");
+    } else {
+      navigate(link);
+      closeMenu();
+    }
   };
 
   return (

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
 const { Appointments } = require("./startMongoose");
 
 router.get("/", async (req, res) => {
@@ -12,9 +13,18 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
+  const authorization = req.headers["authorization"];
+  if (!authorization) {
+    return res.status(400).send("Authorization Error");
+  }
+
+  const jwtToken = authorization.split(" ")[1];
+  if (!jwtToken) return res.status(400).send("Authentication Error");
+
   try {
-    const { userId, reason, appointmentDate, description, sufferingFrom } =
-      req.body;
+    const payload = await jwt.verify(jwtToken, "Nithin");
+    const { userId } = payload;
+    const { reason, appointmentDate, description, sufferingFrom } = req.body;
     const newAppointment = new Appointments({
       userId,
       appointmentDate,
@@ -23,6 +33,7 @@ router.post("/", async (req, res) => {
       sufferingFrom,
       status: "pending",
     });
+
     await newAppointment.save();
     res.status(201).send("Appointment successful");
   } catch (error) {

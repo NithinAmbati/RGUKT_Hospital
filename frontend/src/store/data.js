@@ -12,6 +12,10 @@ const MainPageHeaderContent = [
     link: "/staff",
   },
   {
+    title: "Medical History",
+    link: "/medical-history",
+  },
+  {
     title: "Login",
     link: "/login",
   },
@@ -19,23 +23,24 @@ const MainPageHeaderContent = [
     title: "SignUp",
     link: "/signup",
   },
-  {
-    title: "Medical History",
-    link: "/medical-history",
-  },
 ];
 
-const DoctorsHeaderContent = [{ title: "Home", link: "/doctor" }];
+const DoctorsHeaderContent = [
+  { title: "Home", link: "/doctor" },
+  { title: "Logout", link: "/logout" },
+];
 
 const StudentHeaderContent = [
   { title: "Home", link: "/student" },
   { title: "Medical History", link: "/student/medical-history" },
+  { title: "Logout", link: "/logout" },
 ];
 
 const PharmacistsHeaderContent = [
   { title: "Home", link: "/pharmacist" },
   { title: "Medication List", link: "/pharmacist/medication-list" },
   { title: "Add Medicine", link: "/pharmacist/add-medicine" },
+  { title: "Logout", link: "/logout" },
 ];
 
 export {

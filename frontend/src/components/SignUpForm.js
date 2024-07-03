@@ -35,7 +35,7 @@ function SignUpForm() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1>Sign Up Page</h1>
+      <h1 className="heading">Sign Up Page</h1>
       <form className="signup-form-container" onSubmit={submitBtn}>
         <label>UserId :</label>
         <input
@@ -45,7 +45,7 @@ function SignUpForm() {
           value={userId}
           onChange={(event) => setUserId(event.target.value)}
         />
-        <label>Name:</label>
+        <label>Full Name:</label>
         <input
           type="text"
           name="Name"
@@ -71,13 +71,15 @@ function SignUpForm() {
         />
         <div>
           <input
+            className="check-box"
             type="checkbox"
             name="terms"
             checked={showPassword}
             onChange={(event) => setShowPassword(!showPassword)}
           />
-          showPassword
-          <a href="/">forgot password</a>
+          show password
+          <br></br>
+          <a className="forget-password" href="/signup"> Forgot password</a>
         </div>
 
         <Button variant="contained" type="submit">

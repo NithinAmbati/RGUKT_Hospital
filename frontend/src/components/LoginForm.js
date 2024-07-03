@@ -39,7 +39,7 @@ function LoginForm() {
 
   return (
     <div className="flex flex-col">
-      <h1>Login Page</h1>
+      <h1 className="heading">Login Page</h1>
       <form className="login-form-container" onSubmit={submitBtn}>
         <label>UserId :</label>
         <input
@@ -49,6 +49,7 @@ function LoginForm() {
           value={userId}
           onChange={(event) => setUserId(event.target.value)}
         />
+
         <label>Password:</label>
         <input
           type={showPassword ? "text" : "password"}
@@ -57,14 +58,17 @@ function LoginForm() {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
+        
         <div>
           <input
+            className="check-box"
             type="checkbox"
             checked={showPassword}
             onChange={() => setShowPassword(!showPassword)}
           />
-          Show Password
+          show password
         </div>
+        <br></br>
         <Button variant="contained" type="submit">
           Submit
         </Button>

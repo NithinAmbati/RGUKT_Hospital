@@ -32,15 +32,21 @@ const DoctorsHome = () => {
   return (
     <div>
       <Header headerContent={DoctorsHeaderContent} />
-      <div className="min-h-[100vh]">
-        <h1>Appointments</h1>
-        <ul>
+      <div className="min-h-screen bg-gray-100 p-6">
+        <h1 className="text-3xl font-bold mb-6 text-center">Appointments</h1>
+        <ul className="space-y-4 max-w-[600px] m-auto">
           {appointmentsList.length > 0 ? (
             appointmentsList.map((appointment) => (
-              <li key={appointment._id}>
-                {appointment.userId} - {appointment.reason}
+              <li
+                key={appointment._id}
+                className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between"
+              >
+                <span>
+                  {appointment.userId} - {appointment.reason}
+                </span>
                 <Button
                   variant="contained"
+                  className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
                   onClick={() =>
                     navigate(`/doctor/doctor_check/${appointment._id}`)
                   }
@@ -50,7 +56,7 @@ const DoctorsHome = () => {
               </li>
             ))
           ) : (
-            <h1>NO appointemtns</h1>
+            <h1 className="text-center text-gray-700">No appointments</h1>
           )}
         </ul>
       </div>

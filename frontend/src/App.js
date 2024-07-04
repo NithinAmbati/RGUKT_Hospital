@@ -25,15 +25,15 @@ function App() {
           element={<StudentMedicalHistory />}
         />
         <Route
-          path="/doctor/doctor_check/:applicationId"
+          path="/doctor/doctor_check/:appointmentId"
           element={<DoctorCheckUpPage />}
         />
         <Route
-          path="/doctor/doctor_check/:applicationId/past-history/:userId"
+          path="/doctor/doctor_check/:appointmentId/past-history/:userId"
           element={<PatientPastHistory />}
         />
         <Route
-          path="/doctor/doctor_check/:appllicationId/treatment"
+          path="/doctor/doctor_check/:appointmentId/treatment"
           element={<Treatment />}
         />
         <Route path="*" element={<h1>Page Not Found</h1>} />

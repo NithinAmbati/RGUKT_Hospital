@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button } from "@mui/material";
 import Cookie from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import "./LoginForm.css";
 
 function LoginForm() {
   const [userId, setUserId] = useState("");
@@ -38,38 +37,55 @@ function LoginForm() {
   };
 
   return (
-    <div className="flex flex-col">
-      <h1 className="heading">Login Page</h1>
-      <form className="login-form-container" onSubmit={submitBtn}>
-        <label>UserId :</label>
+    <div className="flex flex-col items-center justify-center min-h-screen py-6 min-w-[400px]">
+      <h1 className="text-3xl font-bold mb-8">Login Page</h1>
+      <form
+        className="bg-white p-6 rounded-lg shadow-md w-full max-w-md"
+        onSubmit={submitBtn}
+      >
+        <label className="block text-gray-700 mb-2">UserId :</label>
         <input
           type="text"
           name="username"
           placeholder="username"
           value={userId}
           onChange={(event) => setUserId(event.target.value)}
+          className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg"
         />
 
-        <label>Password:</label>
+        <label className="block text-gray-700 mb-2">Password:</label>
         <input
           type={showPassword ? "text" : "password"}
           name="password"
           placeholder="password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
+          className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg"
         />
-        
-        <div>
-          <input
-            className="check-box"
-            type="checkbox"
-            checked={showPassword}
-            onChange={() => setShowPassword(!showPassword)}
-          />
-          show password
+
+        <div className="flex justify-between  items-center mb-4">
+          <div className="flex items-center mb-4 ">
+            <input
+              className="mr-2 leading-tight"
+              type="checkbox"
+              checked={showPassword}
+              onChange={() => setShowPassword(!showPassword)}
+            />
+            <span className="text-gray-700">Show password</span>
+          </div>
+          <a
+            className="text-blue-500 hover:text-blue-700 mb-4 block text-xs underline"
+            href="/signup"
+          >
+            Forgot password
+          </a>
         </div>
-        <br></br>
-        <Button variant="contained" type="submit">
+
+        <Button
+          variant="contained"
+          type="submit"
+          className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+        >
           Submit
         </Button>
       </form>

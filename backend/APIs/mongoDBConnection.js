@@ -54,6 +54,13 @@ const useSchema5 = new mongoose.Schema({
   status: { type: String, required: true },
   treatedBy: { type: String, required: false },
   medicineIssuedBy: { type: String, required: false },
+  temperature: { type: String, required: false },
+  weight: { type: String, required: false },
+  height: { type: String, required: false },
+  pulseRate: { type: String, required: false },
+  bloodPressure: { type: String, required: false },
+  noOfDaysOfMedicines: { type: String, required: false },
+  reviewAfter: { type: String, required: false },
 });
 
 const Student = mongoose.model("students", userSchema1);

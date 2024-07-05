@@ -48,6 +48,8 @@ const Header = ({ headerContent }) => {
             variant="h6"
             color="inherit"
             sx={{ flexGrow: 1, fontWeight: "bold", fontSize: "25px" }}
+            className="cursor-pointer"
+            onClick={() => navigate("/")}
           >
             RGUKT Hospital
           </Typography>

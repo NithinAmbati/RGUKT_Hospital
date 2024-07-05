@@ -10,7 +10,7 @@ const DoctorsHome = () => {
   const [appointmentsList, setAppointmentsList] = useState([]);
 
   const getAppointmentsList = async () => {
-    const url = "http://localhost:8000/appointments";
+    const url = "http://localhost:8000/appointments?status=pending";
     const options = {
       method: "GET",
       headers: {

@@ -28,8 +28,13 @@ function SignUpForm() {
     if (response.ok) {
       alert("Registration successful");
     } else {
-      console.error("Failed to register");
+      alert("User Already Exists");
     }
+    setUserId("");
+    setName("");
+    setPassword("");
+    setEmail("");
+    setShowPassword(false);
   };
 
   return (

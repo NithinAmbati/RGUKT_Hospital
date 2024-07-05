@@ -7,6 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
+import TextField from "@mui/material/TextField";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -35,7 +36,7 @@ const medicines = [
 function getStyles(name, selectedMedicines, theme) {
   return {
     fontWeight:
-      selectedMedicines.indexOf(name) === -1
+      selectedMedicines.some((med) => med.name === name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
@@ -50,9 +51,19 @@ const SelectMedicines = ({ onChange }) => {
       target: { value },
     } = event;
     const newSelectedMedicines =
-      typeof value === "string" ? value.split(",") : value;
+      typeof value === "string"
+        ? value.split(",")
+        : value.map((name) => ({ name, quantity: 1 }));
     setSelectedMedicines(newSelectedMedicines);
     onChange(newSelectedMedicines);
+  };
+
+  const handleQuantityChange = (name, quantity) => {
+    const updatedMedicines = selectedMedicines.map((med) =>
+      med.name === name ? { ...med, quantity } : med
+    );
+    setSelectedMedicines(updatedMedicines);
+    onChange(updatedMedicines);
   };
 
   return (
@@ -63,15 +74,15 @@ const SelectMedicines = ({ onChange }) => {
           labelId="multiple-medicines-label"
           id="multiple-medicines"
           multiple
-          value={selectedMedicines}
+          value={selectedMedicines.map((med) => med.name)}
           onChange={handleChange}
           input={
             <OutlinedInput id="select-multiple-medicines" label="Medicines" />
           }
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
+              {selectedMedicines.map(({ name, quantity }) => (
+                <Chip key={name} label={`${name} (${quantity})`} />
               ))}
             </Box>
           )}
@@ -88,6 +99,24 @@ const SelectMedicines = ({ onChange }) => {
           ))}
         </Select>
       </FormControl>
+      <Box sx={{ mt: 2 }}>
+        {selectedMedicines.map(({ name, quantity }) => (
+          <div
+            key={name}
+            style={{ display: "flex", alignItems: "center", gap: 8 }}
+          >
+            <TextField
+              label={name}
+              type="number"
+              value={quantity}
+              onChange={(e) => handleQuantityChange(name, e.target.value)}
+              InputLabelProps={{ shrink: true }}
+              InputProps={{ inputProps: { min: 1 } }}
+              sx={{ width: "100px", marginBottom: "10px" }}
+            />
+          </div>
+        ))}
+      </Box>
     </div>
   );
 };

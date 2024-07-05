@@ -5,7 +5,8 @@ const { Appointments } = require("./startMongoose");
 
 router.get("/", async (req, res) => {
   try {
-    const appointments = await Appointments.find({ status: "pending" });
+    const { status } = req.query;
+    const appointments = await Appointments.find({ status });
     res.status(200).send(appointments);
   } catch (error) {
     res.status(500).send("Internal Server Error");
@@ -41,8 +42,9 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:appointmentId", async (req, res) => {
+router.put("/:appointmentId/doctor", async (req, res) => {
   const { appointmentId } = req.params;
+  console.log(req.body);
   const {
     temperature,
     bloodPressure,
@@ -62,16 +64,31 @@ router.put("/:appointmentId", async (req, res) => {
         pulseRate,
         weight,
         height,
-        medicines,
+        medicinesWritten: medicines,
         noOfDaysOfMedicines,
         reviewAfter,
-        status: "treated",
+        status: "giveMedicine",
       },
     });
 
     res.status(200).send("Success");
   } catch (error) {
-    console.error("Error updating appointment:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+router.get("/:appointmentId/pharmacist", async (req, res) => {
+  const { appointmentId } = req.params;
+  const { medicinesGiven } = req.body;
+  try {
+    await Appointments.findByIdAndUpdate(appointmentId, {
+      $set: {
+        medicinesGiven,
+        status: "treated",
+      },
+    });
+    res.status(200).send("Success");
+  } catch (error) {
     res.status(500).send("Internal Server Error");
   }
 });

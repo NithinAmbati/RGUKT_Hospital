@@ -4,7 +4,6 @@ const { Student, Doctor, Pharmacist } = require("./startMongoose");
 
 router.post("/", async (req, res) => {
   const { userId, name, email, password } = req.body;
-  console.log(req.body);
 
   try {
     // Check if user already exists
@@ -15,6 +14,8 @@ router.post("/", async (req, res) => {
       existingUser = await Doctor.findOne({ userId, password });
     else if (userId.startsWith("P"))
       existingUser = await Pharmacist.findOne({ userId, password });
+
+    console.log(existingUser);
 
     if (existingUser) {
       res.status(400).send("User already exists");

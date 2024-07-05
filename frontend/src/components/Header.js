@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   Button,
@@ -11,15 +11,30 @@ import {
   MenuItem,
   Menu,
   MenuList,
+  Modal,
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+};
 
 const Header = ({ headerContent }) => {
   const location = useLocation();
   const path = location.pathname;
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const openMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -29,13 +44,16 @@ const Header = ({ headerContent }) => {
     setAnchorEl(null);
   };
 
+  const logout = () => {
+    Cookies.remove("jwtToken");
+    navigate("/");
+  };
+
   const handleMenuItemClick = (link) => {
     if (link === "/logout") {
-      Cookies.remove("jwtToken");
-      navigate("/");
+      handleOpen();
     } else {
       navigate(link);
-      closeMenu();
     }
   };
 
@@ -116,6 +134,33 @@ const Header = ({ headerContent }) => {
           </Box>
         </Toolbar>
       </AppBar>
+      <div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+              sx={{ marginBottom: "20px" }}
+            >
+              Do you want to Logout?
+            </Typography>
+            <div className="flex justify-around">
+              <Button onClick={handleClose} variant="contained" color="error">
+                No
+              </Button>
+              <Button onClick={logout} variant="contained" color="success">
+                Yes
+              </Button>
+            </div>
+          </Box>
+        </Modal>
+      </div>
     </>
   );
 };

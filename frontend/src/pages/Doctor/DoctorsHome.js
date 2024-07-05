@@ -4,6 +4,7 @@ import { DoctorsHeaderContent } from "../../store/data";
 import Cookies from "js-cookie";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
 
 const DoctorsHome = () => {
   const navigate = useNavigate();
@@ -35,6 +36,16 @@ const DoctorsHome = () => {
       <Header headerContent={DoctorsHeaderContent} />
       <div className="min-h-screen bg-gray-100 p-6">
         <h1 className="text-3xl font-bold mb-6 text-center">Appointments</h1>
+        <section className="mb-6">
+          <div className="flex items-center bg-white p-3 rounded-lg shadow-md max-w-md mx-auto">
+            <input
+              type="search"
+              placeholder="Search by userId"
+              className="flex-grow p-2 border-none outline-none"
+            />
+            <SearchTwoToneIcon className="text-gray-500" />
+          </div>
+        </section>
         <ul className="space-y-4 max-w-[600px] m-auto">
           {appointmentsList.length > 0 ? (
             appointmentsList.map((appointment) => (

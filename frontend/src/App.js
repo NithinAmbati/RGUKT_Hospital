@@ -14,6 +14,8 @@ import AddMedicines from "./pages/Pharmacist/AddMedicines";
 import Emergency from "./pages/Emergency";
 import MedicalHistory from "./pages/MedicalHistory";
 import Staff from "./pages/Staff";
+import DoctorMedicalHistory from "./pages/Doctor/DoctorMedicalHistory";
+import PharmacistMedicalHistory from "./pages/Pharmacist/PharmacistMedicalHistory";
 
 function App() {
   return (
@@ -28,6 +30,14 @@ function App() {
         <Route
           path="/student/medical-history"
           element={<StudentMedicalHistory />}
+        />
+        <Route
+          path="/doctor/medical-history"
+          element={<DoctorMedicalHistory />}
+        />
+        <Route
+          path="/pharmacist/medical-history"
+          element={<PharmacistMedicalHistory />}
         />
         <Route
           path="/doctor/doctor_check/:appointmentId"

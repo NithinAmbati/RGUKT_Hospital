@@ -27,6 +27,7 @@ const MainPageHeaderContent = [
 
 const DoctorsHeaderContent = [
   { title: "Home", link: "/doctor" },
+  { title: "Medical History", link: "/doctor/medical-history" },
   { title: "Logout", link: "/logout" },
 ];
 
@@ -38,7 +39,7 @@ const StudentHeaderContent = [
 
 const PharmacistsHeaderContent = [
   { title: "Home", link: "/pharmacist" },
-  { title: "Medication List", link: "/pharmacist/medication-list" },
+  { title: "Medical History", link: "/pharmacist/medical-history" },
   { title: "Add Medicine", link: "/pharmacist/add-medicines" },
   { title: "Logout", link: "/logout" },
 ];

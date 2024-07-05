@@ -12,10 +12,12 @@ import {
   Menu,
   MenuList,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 const Header = ({ headerContent }) => {
+  const location = useLocation();
+  const path = location.pathname;
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
 
@@ -42,7 +44,11 @@ const Header = ({ headerContent }) => {
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
-          <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
+          <Typography
+            variant="h6"
+            color="inherit"
+            sx={{ flexGrow: 1, fontWeight: "bold", fontSize: "25px" }}
+          >
             RGUKT Hospital
           </Typography>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -51,6 +57,21 @@ const Header = ({ headerContent }) => {
                 key={index}
                 color="inherit"
                 onClick={() => handleMenuItemClick(item.link)}
+                sx={{
+                  fontWeight: "bold",
+                  position: "relative",
+                  margin: "10px",
+                  "&::after": {
+                    content: '""',
+                    position: "absolute",
+                    width: "100%",
+                    height: path === item.link ? "3px" : "0",
+                    backgroundColor: "currentColor",
+                    bottom: 0,
+                    left: 0,
+                    transition: "height 0.3s",
+                  },
+                }}
               >
                 {item.title}
               </Button>

@@ -11,6 +11,9 @@ import PatientPastHistory from "./pages/Doctor/PatientPastHistory";
 import Treatment from "./pages/Doctor/Treatment";
 import { PharmacistsIssueMedicines } from "./pages/Pharmacist/PharmacistsIssueMedicines";
 import AddMedicines from "./pages/Pharmacist/AddMedicines";
+import Emergency from "./pages/Emergency";
+import MedicalHistory from "./pages/MedicalHistory";
+import Staff from "./pages/Staff";
 
 function App() {
   return (
@@ -43,6 +46,9 @@ function App() {
           element={<PharmacistsIssueMedicines />}
         />
         <Route path="/pharmacist/add-medicines" element={<AddMedicines />} />
+        <Route path="/emergency" element={<Emergency />} />
+        <Route path="/medical-history" element={<MedicalHistory />} />
+        <Route path="/staff" element={<Staff />} />
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>
     </BrowserRouter>

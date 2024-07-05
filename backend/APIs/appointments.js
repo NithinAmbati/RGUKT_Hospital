@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const { Appointments } = require("./startMongoose");
+const { Appointments, Medicines } = require("./startMongoose");
 
 router.get("/", async (req, res) => {
   try {
@@ -44,7 +44,6 @@ router.post("/", async (req, res) => {
 
 router.put("/:appointmentId/doctor", async (req, res) => {
   const { appointmentId } = req.params;
-  console.log(req.body);
   const {
     temperature,
     bloodPressure,
@@ -79,14 +78,53 @@ router.put("/:appointmentId/doctor", async (req, res) => {
 
 router.get("/:appointmentId/pharmacist", async (req, res) => {
   const { appointmentId } = req.params;
-  const { medicinesGiven } = req.body;
   try {
+    const data = await Appointments.findById(appointmentId);
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+router.put("/:appointmentId/pharmacist", async (req, res) => {
+  const authorization = req.headers["authorization"];
+  if (!authorization) {
+    return res.status(400).send("Authorization Error");
+  }
+  const jwtToken = authorization.split(" ")[1];
+  if (!jwtToken) return res.status(400).send("Authentication Error");
+
+  try {
+    const payload = jwt.verify(jwtToken, "Nithin");
+    const { userId } = payload;
+    const { appointmentId } = req.params;
+    const { medicinesGiven } = req.body;
+
+    // Find the medicines and log the output
+    const data = await Medicines.find();
+    if (data.length === 0) {
+      return res.status(404).send("Medicines not found");
+    }
+
+    const { medicines } = data[0];
+
+    for (const medGiven of medicinesGiven) {
+      const medItem = medicines.find((item) => item.name === medGiven.name);
+      if (medItem) {
+        medItem.quantity -= medGiven.medicineQuantity;
+      }
+    }
+
+    await Medicines.findByIdAndUpdate(data[0]._id, { $set: { medicines } });
+
     await Appointments.findByIdAndUpdate(appointmentId, {
       $set: {
         medicinesGiven,
+        medicineIssuedBy: userId,
         status: "treated",
       },
     });
+
     res.status(200).send("Success");
   } catch (error) {
     res.status(500).send("Internal Server Error");

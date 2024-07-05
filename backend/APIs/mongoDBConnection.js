@@ -38,10 +38,13 @@ const useSchema3 = new mongoose.Schema({
   qualifications: { type: String, required: false },
 });
 
+const medicineSchema = new mongoose.Schema({
+  name: String,
+  quantity: Number,
+});
+
 const useSchema4 = new mongoose.Schema({
-  medcineName: { type: String, required: true },
-  quantity: { type: Number, required: true },
-  price: { type: Number, required: true },
+  medicines: { type: [medicineSchema], required: true },
 });
 
 const useSchema5 = new mongoose.Schema({
@@ -59,8 +62,8 @@ const useSchema5 = new mongoose.Schema({
   bloodPressure: { type: String, required: false },
   noOfDaysOfMedicines: { type: String, required: false },
   reviewAfter: { type: String, required: false },
-  medicinesWritten: { type: Array, required: false },
-  medicinesGiven: { type: Array, required: false },
+  medicinesWritten: { type: [medicineSchema], required: false },
+  medicinesGiven: { type: [medicineSchema], required: false },
   medicineIssuedBy: { type: String, required: false },
 });
 

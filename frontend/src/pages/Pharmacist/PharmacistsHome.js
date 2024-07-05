@@ -3,8 +3,10 @@ import Header from "../../components/Header";
 import { PharmacistsHeaderContent } from "../../store/data";
 import Cookies from "js-cookie";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function PharmacistsHome() {
+  const navigate = useNavigate();
   const [patientsList, setPatientsList] = useState([]);
 
   useEffect(() => {
@@ -26,24 +28,6 @@ function PharmacistsHome() {
     };
     getPatientsList();
   }, []);
-
-  const giveMedicine = async () => {
-    // const url = `http://localhost:8000/appointments/${patient._id}`;
-    // const options = {
-    //   method: "PUT",
-    //   headers: {
-    //     "content-type": "application/json",
-    //     Authorization: `Bearer ${Cookies.get("jwtToken")}`,
-    //   },
-    //   body: JSON.stringify({ status: "medicineGiven" }),
-    // };
-    // const response = await fetch(url, options);
-    // if (response.ok) {
-    //   const data = await response.json();
-    // } else {
-    //   console.error("Error giving medicine");
-    // }
-  };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -67,7 +51,7 @@ function PharmacistsHome() {
               <div className="mb-2">
                 <p className="font-semibold">Medicines:</p>
                 <ul className="list-disc list-inside">
-                  {patient.medicines.map((medicine, index) => (
+                  {patient.medicinesWritten.map((medicine, index) => (
                     <li key={index}>
                       {medicine.name} - {medicine.quantity}
                     </li>
@@ -81,7 +65,9 @@ function PharmacistsHome() {
                 variant="contained"
                 color="success"
                 sx={{ marginTop: "10px" }}
-                onClick={giveMedicine}
+                onClick={() =>
+                  navigate(`/pharmacist/issue-medicines/${patient._id}`)
+                }
               >
                 {patient.status}
               </Button>

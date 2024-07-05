@@ -9,6 +9,8 @@ import StudentMedicalHistory from "./pages/Student/StudentMedicalHistory";
 import DoctorCheckUpPage from "./pages/Doctor/DoctorCheckUpPage";
 import PatientPastHistory from "./pages/Doctor/PatientPastHistory";
 import Treatment from "./pages/Doctor/Treatment";
+import { PharmacistsIssueMedicines } from "./pages/Pharmacist/PharmacistsIssueMedicines";
+import AddMedicines from "./pages/Pharmacist/AddMedicines";
 
 function App() {
   return (
@@ -36,6 +38,11 @@ function App() {
           path="/doctor/doctor_check/:appointmentId/treatment"
           element={<Treatment />}
         />
+        <Route
+          path="/pharmacist/issue-medicines/:appointmentId"
+          element={<PharmacistsIssueMedicines />}
+        />
+        <Route path="/pharmacist/add-medicines" element={<AddMedicines />} />
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>
     </BrowserRouter>

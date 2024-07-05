@@ -39,7 +39,7 @@ const StudentHeaderContent = [
 const PharmacistsHeaderContent = [
   { title: "Home", link: "/pharmacist" },
   { title: "Medication List", link: "/pharmacist/medication-list" },
-  { title: "Add Medicine", link: "/pharmacist/add-medicine" },
+  { title: "Add Medicine", link: "/pharmacist/add-medicines" },
   { title: "Logout", link: "/logout" },
 ];
 

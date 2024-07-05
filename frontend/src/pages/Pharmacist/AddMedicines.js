@@ -11,17 +11,19 @@ const AddMedicines = () => {
 
   const handleMedicines = (event) => {
     const { id, value } = event.target;
-    setNewMedicines((prevState) => ({
-      ...prevState,
-      [id]: parseInt(value) || 0, // default to 0 if the value is not a number
-    }));
+    if (value && id) {
+      setNewMedicines((prevState) => ({
+        ...prevState,
+        [id]: parseInt(value) || 0,
+      }));
+    }
   };
 
   const handleAdditionalMedicines = (index, field, value) => {
     const updatedMedicines = [...additionalMedicines];
     updatedMedicines[index] = {
       ...updatedMedicines[index],
-      [field]: field === "quantity" ? parseInt(value) || 0 : value, // default to 0 if the value is not a number for quantity
+      [field]: field === "quantity" ? parseInt(value) || 0 : value,
     };
     setAdditionalMedicines(updatedMedicines);
   };

@@ -9,7 +9,8 @@ const StudentMedicalHistory = () => {
 
   useEffect(() => {
     const getMedicalHistoryList = async () => {
-      const url = "http://localhost:8000/medical-history/patient";
+      const url =
+        "https://rgukt-hospital-apis.vercel.app/medical-history/patient";
       const options = {
         method: "GET",
         headers: {

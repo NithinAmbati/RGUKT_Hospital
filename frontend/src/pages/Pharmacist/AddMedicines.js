@@ -77,64 +77,72 @@ const AddMedicines = () => {
   return (
     <>
       <Header headerContent={PharmacistsHeaderContent} />
-      <h1 className="text-2xl font-bold mb-6">Add Medicines Page</h1>
-      <form
-        onSubmit={submitBtn}
-        className="mt-4 bg-white p-6 rounded-lg shadow-md"
-      >
-        {medicinesList.map((medicine, index) => (
-          <div key={index} className="mb-4">
-            <label className="block text-gray-700 mb-1">{medicine.name}</label>
-            <TextField
-              id={medicine.name}
-              label="Quantity"
-              type="number"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onChange={handleMedicines}
-              className="w-full"
-            />
-          </div>
-        ))}
-        {additionalMedicines.map((medicine, index) => (
-          <div key={index} className="mb-4">
-            <TextField
-              label="Medicine Name"
-              value={medicine.name}
-              onChange={(e) =>
-                handleAdditionalMedicines(index, "name", e.target.value)
-              }
-              className="w-full mb-2"
-            />
-            <TextField
-              label="Quantity"
-              type="number"
-              value={medicine.quantity}
-              onChange={(e) =>
-                handleAdditionalMedicines(index, "quantity", e.target.value)
-              }
-              className="w-full"
-            />
-          </div>
-        ))}
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={addNewMedicineField}
-          className="w-full mt-4"
+      <main className="py-10">
+        <h1 className="text-2xl font-bold my-6 text-center">
+          Add Medicines Page
+        </h1>
+        <form
+          onSubmit={submitBtn}
+          className="mt-4 bg-white p-6 rounded-lg shadow-md w-[90%] max-w-[600px] m-auto"
         >
-          Add New Medicine
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          type="submit"
-          className="w-full mt-4"
-        >
-          Complete
-        </Button>
-      </form>
+          {medicinesList.map((medicine, index) => (
+            <div key={index} className="mb-4">
+              <label className="block text-gray-700 mb-1">
+                {medicine.name}
+              </label>
+              <TextField
+                id={medicine.name}
+                label="Quantity"
+                type="number"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={handleMedicines}
+                className="w-full"
+              />
+            </div>
+          ))}
+          {additionalMedicines.map((medicine, index) => (
+            <div key={index} className="mb-4 flex flex-col md:flex-row gap-4">
+              <TextField
+                label="Medicine Name"
+                value={medicine.name}
+                onChange={(e) =>
+                  handleAdditionalMedicines(index, "name", e.target.value)
+                }
+                className="w-full mb-2"
+              />
+              <TextField
+                label="Quantity"
+                type="number"
+                value={medicine.quantity}
+                onChange={(e) =>
+                  handleAdditionalMedicines(index, "quantity", e.target.value)
+                }
+                className="w-full"
+              />
+            </div>
+          ))}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={addNewMedicineField}
+            className="w-full mt-4"
+            sx={{ marginTop: "10px" }}
+          >
+            Add New Medicine
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            type="submit"
+            className="w-full"
+            sx={{ marginTop: "10px" }}
+          >
+            Complete
+          </Button>
+        </form>
+      </main>
     </>
   );
 };

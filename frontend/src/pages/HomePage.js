@@ -4,10 +4,10 @@ import { MainPageHeaderContent } from "../store/data";
 
 function HomePage() {
   return (
-    <div>
+    <>
       <Header headerContent={MainPageHeaderContent} />
       <h1>Home Page</h1>
-    </div>
+    </>
   );
 }
 

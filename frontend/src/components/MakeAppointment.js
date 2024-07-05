@@ -18,7 +18,7 @@ const MakeAppointment = () => {
 
   const submitBtn = async (event) => {
     event.preventDefault();
-    const url = "http://localhost:8000/appointments";
+    const url = "https://rgukt-hospital-apis.vercel.app/appointments";
     const appointment = {
       reason,
       description,

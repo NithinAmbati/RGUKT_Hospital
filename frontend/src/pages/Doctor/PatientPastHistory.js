@@ -11,7 +11,7 @@ function PatientPastHistory() {
 
   useEffect(() => {
     const getMedicalHistory = async () => {
-      const url = `https://rgukt-hospital-apis.vercel.app/medical-history/patient/${userId}`;
+      const url = `http://localhost:8000/medical-history/patient/${userId}`;
       const options = {
         method: "GET",
         headers: {

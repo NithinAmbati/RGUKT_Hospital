@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Student, Doctor, Pharmacist } = require("./startMongoose");
+const { Doctor, Pharmacist } = require("./startMongoose");
 const jwt = require("jsonwebtoken");
 
 // Candidate Login API
@@ -9,12 +9,14 @@ router.post("/", async (req, res) => {
 
   try {
     let user;
-    if (userId.startsWith("B"))
-      user = await Student.findOne({ userId, password });
-    else if (userId.startsWith("D"))
+    if (userId.startsWith("D"))
       user = await Doctor.findOne({ userId, password });
     else if (userId.startsWith("P"))
       user = await Pharmacist.findOne({ userId, password });
+    else {
+      res.status(400).send("Invalid user type");
+      return;
+    }
 
     if (!user) {
       res.status(400).send("Login Failure");

@@ -38,7 +38,7 @@ const AddMedicines = () => {
       ([name, quantity]) => ({ name, quantity })
     );
 
-    const url = "https://rgukt-hospital-apis.vercel.app/medicines";
+    const url = "http://localhost:8000/medicines";
     const options = {
       method: "PUT",
       headers: {
@@ -59,7 +59,7 @@ const AddMedicines = () => {
 
   useEffect(() => {
     const getMedicines = async () => {
-      const url = "https://rgukt-hospital-apis.vercel.app/medicines";
+      const url = "http://localhost:8000/medicines";
       const options = {
         method: "GET",
         headers: {

@@ -33,7 +33,7 @@ function Treatment() {
       noOfDaysOfMedicines,
       reviewAfter,
     };
-    const url = `https://rgukt-hospital-apis.vercel.app/appointments/${appointmentId}/doctor`;
+    const url = `http://localhost:8000/appointments/${appointmentId}/doctor`;
     const options = {
       method: "PUT",
       headers: {

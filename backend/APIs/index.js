@@ -3,7 +3,7 @@ const router = express.Router();
 
 const loginRouter = require("./login");
 const signUpRouter = require("./signUp");
-const appointmentsRouter = require("./appointments");
+const appointmentsRouter = require("./treatments");
 const medicalHistoryRouter = require("./medicalHistory");
 const medicinesRouter = require("./medicines");
 
@@ -11,7 +11,7 @@ const medicinesRouter = require("./medicines");
 
 router.use("/login", loginRouter);
 router.use("/signup", signUpRouter);
-router.use("/appointments", appointmentsRouter);
+router.use("/treatments", appointmentsRouter);
 router.use("/medical-history", medicalHistoryRouter);
 router.use("/medicines", medicinesRouter);
 

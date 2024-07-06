@@ -16,7 +16,7 @@ function SignUpForm() {
       email,
       password,
     };
-    const url = "https://rgukt-hospital-apis.vercel.app/signup";
+    const url = "http://localhost:8000/signup";
     const options = {
       method: "POST",
       headers: {

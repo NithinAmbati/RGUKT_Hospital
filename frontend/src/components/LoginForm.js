@@ -15,7 +15,7 @@ function LoginForm() {
       userId,
       password,
     };
-    const url = "https://rgukt-hospital-apis.vercel.app/login";
+    const url = "http://localhost:8000/login";
     const options = {
       method: "POST",
       headers: {
@@ -28,8 +28,7 @@ function LoginForm() {
       const data = await response.json();
       const jwtToken = data.jwtToken;
       Cookie.set("jwtToken", jwtToken, { expires: 1 });
-      if (userId.startsWith("B")) navigate("/student");
-      else if (userId.startsWith("D")) navigate("/doctor");
+      if (userId.startsWith("D")) navigate("/doctor");
       else if (userId.startsWith("P")) navigate("/pharmacist");
     } else {
       alert("wrong");

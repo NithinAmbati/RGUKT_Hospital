@@ -13,7 +13,7 @@ export const PharmacistsIssueMedicines = () => {
 
   useEffect(() => {
     const getPatientPrescription = async () => {
-      const url = `https://rgukt-hospital-apis.vercel.app/appointments/${appointmentId}/pharmacist`;
+      const url = `http://localhost:8000/appointments/${appointmentId}/pharmacist`;
       const options = {
         method: "GET",
         headers: {
@@ -29,7 +29,7 @@ export const PharmacistsIssueMedicines = () => {
     };
 
     const getMedicines = async () => {
-      const url = "https://rgukt-hospital-apis.vercel.app/medicines";
+      const url = "http://localhost:8000/medicines";
       const options = {
         method: "GET",
         headers: {
@@ -67,7 +67,7 @@ export const PharmacistsIssueMedicines = () => {
       ([name, medicineQuantity]) => ({ name, medicineQuantity })
     );
 
-    const url = `https://rgukt-hospital-apis.vercel.app/appointments/${appointmentId}/pharmacist`;
+    const url = `http://localhost:8000/appointments/${appointmentId}/pharmacist`;
     const options = {
       method: "PUT",
       headers: {

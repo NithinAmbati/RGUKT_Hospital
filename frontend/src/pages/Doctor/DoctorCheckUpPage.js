@@ -13,7 +13,7 @@ const DoctorCheckUpPage = () => {
 
   useEffect(() => {
     const getAppointmentDetails = async () => {
-      const url = `https://rgukt-hospital-apis.vercel.app/appointments/${appointmentId}`;
+      const url = `http://localhost:8000/appointments/${appointmentId}`;
       const options = {
         method: "GET",
         headers: {

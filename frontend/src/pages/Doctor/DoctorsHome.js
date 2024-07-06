@@ -1,79 +1,154 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Header from "../../components/Header";
 import { DoctorsHeaderContent } from "../../store/data";
+import { TextField, Button } from "@mui/material";
+import SelectMedicines from "../../components/SelectMedicines";
 import Cookies from "js-cookie";
-import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
 
-const DoctorsHome = () => {
-  const navigate = useNavigate();
-  const [appointmentsList, setAppointmentsList] = useState([]);
+function DoctorsHome() {
+  const [studentId, setStudentId] = useState("");
+  const [reason, setReason] = useState("");
+  const [description, setDescription] = useState("");
+  const [temperature, setTemperature] = useState("");
+  const [bloodPressure, setBloodPressure] = useState("");
+  const [pulseRate, setPulseRate] = useState("");
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
+  const [medicines, setMedicines] = useState([]);
 
-  const getAppointmentsList = async () => {
-    const url =
-      "https://rgukt-hospital-apis.vercel.app/appointments?status=pending";
+  const handleMedicineChange = (selectedMedicines) => {
+    setMedicines(selectedMedicines);
+  };
+
+  const submitBtn = async (event) => {
+    event.preventDefault();
+    const treatmentDetails = {
+      studentId,
+      reason,
+      treatmentDate: new Date(),
+      description,
+      temperature,
+      bloodPressure,
+      pulseRate,
+      weight,
+      height,
+      medicinesWritten: medicines,
+    };
+    const url = `http://localhost:8000/treatments`;
     const options = {
-      method: "GET",
+      method: "POST",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${Cookies.get("jwtToken")}`,
-        contentType: "application/json",
       },
+      body: JSON.stringify(treatmentDetails),
     };
     const response = await fetch(url, options);
     if (response.ok) {
-      const data = await response.json();
-      setAppointmentsList(data);
+      alert("Treatment details updated successfully");
+    } else {
+      alert("Failed to update treatment details");
     }
   };
 
-  useEffect(() => {
-    getAppointmentsList();
-  }, []);
-
   return (
-    <div>
+    <>
       <Header headerContent={DoctorsHeaderContent} />
-      <div className="min-h-screen bg-gray-100 p-6">
-        <h1 className="text-3xl font-bold mb-6 text-center">Appointments</h1>
-        <section className="mb-6">
-          <div className="flex items-center bg-white p-3 rounded-lg shadow-md max-w-md mx-auto">
-            <input
-              type="search"
-              placeholder="Search by userId"
-              className="flex-grow p-2 border-none outline-none"
+      <div className="min-h-screen bg-gray-100 p-6 flex items-center justify-center">
+        <form
+          className="max-w-2xl w-full bg-white p-8 rounded-lg shadow-md space-y-6"
+          onSubmit={submitBtn}
+        >
+          <h1 className="text-3xl font-bold text-center mb-4">
+            Student Details
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <TextField
+              id="outlined-multiline-flexible"
+              label="Student ID"
+              multiline
+              maxRows={4}
+              fullWidth
+              value={studentId}
+              onChange={(e) => setStudentId(e.target.value)}
             />
-            <SearchTwoToneIcon className="text-gray-500" />
+            <TextField
+              id="outlined-multiline-flexible"
+              label="Reason"
+              multiline
+              maxRows={4}
+              fullWidth
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+            />
           </div>
-        </section>
-        <ul className="space-y-4 max-w-[600px] m-auto">
-          {appointmentsList.length > 0 ? (
-            appointmentsList.map((appointment) => (
-              <li
-                key={appointment._id}
-                className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between"
-              >
-                <span>
-                  {appointment.userId} - {appointment.reason}
-                </span>
-                <Button
-                  variant="contained"
-                  className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
-                  onClick={() =>
-                    navigate(`/doctor/doctor_check/${appointment._id}`)
-                  }
-                >
-                  {appointment.status}
-                </Button>
-              </li>
-            ))
-          ) : (
-            <h1 className="text-center text-gray-700">No appointments</h1>
-          )}
-        </ul>
+          <div className="flex flex-col gap-2">
+            <label>Description</label>
+            <textarea
+              rows="4"
+              cols="30"
+              className="border-2"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            ></textarea>
+          </div>
+          <h1 className="text-3xl font-bold text-center mb-4">Examination</h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <TextField
+              id="outlined-multiline-flexible"
+              label="Temperature"
+              multiline
+              maxRows={4}
+              fullWidth
+              value={temperature}
+              onChange={(e) => setTemperature(e.target.value)}
+            />
+            <TextField
+              id="outlined-multiline-flexible"
+              label="Blood Pressure"
+              multiline
+              maxRows={4}
+              fullWidth
+              value={bloodPressure}
+              onChange={(e) => setBloodPressure(e.target.value)}
+            />
+            <TextField
+              id="outlined-multiline-flexible"
+              label="Pulse Rate"
+              multiline
+              maxRows={4}
+              fullWidth
+              value={pulseRate}
+              onChange={(e) => setPulseRate(e.target.value)}
+            />
+            <TextField
+              id="outlined-multiline-flexible"
+              label="Height"
+              multiline
+              maxRows={4}
+              fullWidth
+              value={height}
+              onChange={(e) => setHeight(e.target.value)}
+            />
+            <TextField
+              id="outlined-multiline-flexible"
+              label="Weight"
+              multiline
+              maxRows={4}
+              fullWidth
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+            />
+          </div>
+          <h1 className="text-3xl font-bold text-center mb-4">Treatment</h1>
+          <SelectMedicines onChange={handleMedicineChange} />
+          <Button variant="contained" color="primary" type="submit">
+            Submit
+          </Button>
+        </form>
       </div>
-    </div>
+    </>
   );
-};
+}
 
 export default DoctorsHome;

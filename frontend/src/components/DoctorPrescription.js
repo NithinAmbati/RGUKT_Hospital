@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import Cookies from "js-cookie";
 import React from "react";
 
-const MakeAppointment = () => {
+const DoctorPrescription = () => {
   const [reason, setReason] = useState("");
   const [description, setDescription] = useState("");
   const [sufferingFrom, setSufferingFrom] = useState("");
@@ -18,7 +18,7 @@ const MakeAppointment = () => {
 
   const submitBtn = async (event) => {
     event.preventDefault();
-    const url = "https://rgukt-hospital-apis.vercel.app/appointments";
+    const url = "http://localhost:8000/appointments";
     const appointment = {
       reason,
       description,
@@ -51,7 +51,12 @@ const MakeAppointment = () => {
       className="flex flex-col max-w-md space-y-4 shadow-md p-6 mx-auto mt-8 bg-white rounded-lg"
       onSubmit={submitBtn}
     >
-      <h1 className="text-2xl font-bold text-center">Make Appointment</h1>
+      <h1 className="text-2xl font-bold text-center">Prescription</h1>
+      <label>Student ID: </label>
+      <input
+        type="text"
+        className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+      />
       <label className="block text-sm font-medium text-gray-700">
         Reason:{" "}
       </label>
@@ -71,16 +76,7 @@ const MakeAppointment = () => {
         onChange={(e) => setDescription(e.target.value)}
         className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
       />
-      <label className="block text-sm font-medium text-gray-700">
-        Suffering From:
-      </label>
-      <input
-        type="date"
-        name="date"
-        value={sufferingFrom}
-        onChange={(e) => setSufferingFrom(e.target.value)}
-        className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-      />
+
       <Button
         type="submit"
         variant="contained"
@@ -93,4 +89,4 @@ const MakeAppointment = () => {
   );
 };
 
-export default MakeAppointment;
+export default DoctorPrescription;

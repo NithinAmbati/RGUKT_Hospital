@@ -13,8 +13,7 @@ function PharmacistsHome() {
 
   useEffect(() => {
     const getPatientsList = async () => {
-      const url =
-        "https://rgukt-hospital-apis.vercel.app/appointments?status=giveMedicine";
+      const url = "http://localhost:8000/appointments?status=giveMedicine";
       const options = {
         method: "GET",
         headers: {

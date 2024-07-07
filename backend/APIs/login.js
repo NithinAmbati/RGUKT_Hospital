@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Doctor, Pharmacist } = require("./startMongoose");
+const { Doctor, Pharmacist, Admin } = require("./startMongoose");
 const jwt = require("jsonwebtoken");
 
 // Candidate Login API
@@ -13,6 +13,8 @@ router.post("/", async (req, res) => {
       user = await Doctor.findOne({ userId, password });
     else if (userId.startsWith("P"))
       user = await Pharmacist.findOne({ userId, password });
+    else if (userId.startsWith("A"))
+      user = await Admin.findOne({ userId, password });
     else {
       res.status(400).send("Invalid user type");
       return;

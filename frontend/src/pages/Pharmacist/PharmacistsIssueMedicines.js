@@ -13,7 +13,7 @@ export const PharmacistsIssueMedicines = () => {
 
   useEffect(() => {
     const getPatientPrescription = async () => {
-      const url = `http://localhost:8000/appointments/${appointmentId}/pharmacist`;
+      const url = `http://localhost:8000/treatments/`;
       const options = {
         method: "GET",
         headers: {
@@ -28,24 +28,24 @@ export const PharmacistsIssueMedicines = () => {
       }
     };
 
-    const getMedicines = async () => {
-      const url = "http://localhost:8000/medicines";
-      const options = {
-        method: "GET",
-        headers: {
-          "content-type": "application/json",
-          authorization: "Bearer " + Cookies.get("jwtToken"),
-        },
-      };
-      const response = await fetch(url, options);
-      if (response.ok) {
-        const data = await response.json();
-        setMedicinesList(data[0].medicines);
-      }
-    };
+    // const getMedicines = async () => {
+    //   const url = "http://localhost:8000/medicines";
+    //   const options = {
+    //     method: "GET",
+    //     headers: {
+    //       "content-type": "application/json",
+    //       authorization: "Bearer " + Cookies.get("jwtToken"),
+    //     },
+    //   };
+    //   const response = await fetch(url, options);
+    //   if (response.ok) {
+    //     const data = await response.json();
+    //     setMedicinesList(data[0].medicines);
+    //   }
+    // };
 
     getPatientPrescription();
-    getMedicines();
+    //getMedicines();
   }, [appointmentId]);
 
   const getAvailableCount = (medicineName) => {

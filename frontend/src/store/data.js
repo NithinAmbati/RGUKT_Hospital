@@ -37,8 +37,15 @@ const PharmacistsHeaderContent = [
   { title: "Logout", link: "/logout" },
 ];
 
+const AdminHeaderContent = [
+  { title: "Home", link: "/admin" },
+  { title: "Add Students", link: "/admin/add-students" },
+  { title: "Logout", link: "/logout" },
+];
+
 export {
   DoctorsHeaderContent,
   PharmacistsHeaderContent,
   MainPageHeaderContent,
+  AdminHeaderContent,
 };

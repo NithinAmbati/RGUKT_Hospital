@@ -6,7 +6,7 @@ const Staff = () => {
   return (
     <>
       <Header headerContent={MainPageHeaderContent} />
-      <main className="text-5xl text-center pt-10">Staff</main>
+      <div>Staff</div>
     </>
   );
 };

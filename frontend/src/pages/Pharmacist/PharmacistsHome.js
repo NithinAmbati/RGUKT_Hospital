@@ -13,7 +13,7 @@ function PharmacistsHome() {
 
   useEffect(() => {
     const getPatientsList = async () => {
-      const url = "http://localhost:8000/appointments?status=giveMedicine";
+      const url = "http://localhost:8000/treatments?status=pending";
       const options = {
         method: "GET",
         headers: {
@@ -31,9 +31,11 @@ function PharmacistsHome() {
     getPatientsList();
   }, []);
 
-  const filteredpatientsList = patientsList.filter((item) =>
-    item.studentId.toLowerCase().inclues(searchInput.toLowerCase())
+  const filteredPatientsList = patientsList.filter((item) =>
+    item.studentId.toLowerCase().includes(searchInput.toLowerCase())
   );
+
+  console.log(filteredPatientsList);
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -52,34 +54,32 @@ function PharmacistsHome() {
           </div>
         </section>
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredpatientsList.map((patient) => (
-            <li key={patient._id} className="bg-white p-4 rounded-lg shadow-md">
+          {filteredPatientsList.map((item) => (
+            <li key={item._id} className="bg-white p-4 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold mb-2">
-                User ID: {patient.userId}
+                Student ID: {item.studentId}
               </h2>
-              <p className="text-gray-600 mb-2">Reason: {patient.reason}</p>
+              <p className="text-gray-600 mb-2">Reason: {item.reason}</p>
               <div className="mb-2">
                 <p className="font-semibold">Medicines:</p>
                 <ul className="list-disc list-inside">
-                  {patient.medicinesWritten.map((medicine, index) => (
+                  {item.medicinesWritten.map((medicine, index) => (
                     <li key={index}>
                       {medicine.name} - {medicine.quantity}
                     </li>
                   ))}
                 </ul>
               </div>
-              <p className="text-gray-600">
-                No of days for medicine: {patient.noOfDaysOfMedicines}
-              </p>
+
               <Button
                 variant="contained"
                 color="success"
                 sx={{ marginTop: "10px" }}
                 onClick={() =>
-                  navigate(`/pharmacist/issue-medicines/${patient._id}`)
+                  navigate(`/pharmacist/issue-medicines/${item._id}`)
                 }
               >
-                {patient.status}
+                {item.status}
               </Button>
             </li>
           ))}

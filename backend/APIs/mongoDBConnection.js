@@ -10,11 +10,12 @@ mongoose
 
 // Define User schemas
 const userSchema1 = new mongoose.Schema({
-  studentID: { type: String, required: true },
+  studentId: { type: String, required: true },
   name: { type: String, required: true },
   DOB: { type: Date, required: true },
   gender: { type: String, required: true },
-  longTernDiseases: { type: Array, required: false },
+  bloodGroup: { type: String, required: false },
+  longTermDiseases: { type: String, required: false },
 });
 
 const userSchema2 = new mongoose.Schema({
@@ -36,7 +37,10 @@ const useSchema3 = new mongoose.Schema({
 });
 
 const useSchema4 = new mongoose.Schema({
-  medicines: { type: Array, required: true },
+  name: { type: String, required: true },
+  quantity: { type: Number, required: true },
+  expiryDate: { type: Date, required: true },
+  importDate: { type: Date, required: true },
 });
 
 const useSchema5 = new mongoose.Schema({
@@ -56,10 +60,19 @@ const useSchema5 = new mongoose.Schema({
   status: { type: String, required: true },
 });
 
-const Student = mongoose.model("students", userSchema1);
+const userSchema6 = new mongoose.Schema({
+  userId: { type: String, required: true },
+  name: { type: String, required: true },
+  password: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  contactNumber: { type: String, required: false },
+});
+
+const Students = mongoose.model("students", userSchema1);
 const Doctor = mongoose.model("doctors", userSchema2);
 const Pharmacist = mongoose.model("pharmacists", useSchema3);
 const Medicines = mongoose.model("medicines", useSchema4);
 const Treatments = mongoose.model("treatments", useSchema5);
+const Admin = mongoose.model("admin", userSchema6);
 
-module.exports = { Student, Doctor, Pharmacist, Medicines, Treatments };
+module.exports = { Students, Doctor, Pharmacist, Medicines, Treatments, Admin };

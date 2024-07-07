@@ -30,6 +30,7 @@ function LoginForm() {
       Cookie.set("jwtToken", jwtToken, { expires: 1 });
       if (userId.startsWith("D")) navigate("/doctor");
       else if (userId.startsWith("P")) navigate("/pharmacist");
+      else if (userId.startsWith("A")) navigate("/admin");
     } else {
       alert("wrong");
     }

@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Header from "../../components/Header";
 import { DoctorsHeaderContent } from "../../store/data";
-import Cookies from "js-cookie";
-import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
 
-const DoctorsHome = () => {
+const PatientsDetails = () => {
   return (
     <div>
       <Header headerContent={DoctorsHeaderContent} />
       <div className="min-h-screen bg-gray-100 p-6">
-        <h1 className="text-3xl font-bold mb-6 text-center">Medical History</h1>
+        <h1 className="text-3xl font-bold mb-6 text-center">Patient Details</h1>
         <section className="mb-6">
           <div className="flex items-center bg-white p-3 rounded-lg shadow-md max-w-md mx-auto">
             <input
@@ -27,4 +24,4 @@ const DoctorsHome = () => {
   );
 };
 
-export default DoctorsHome;
+export default PatientsDetails;

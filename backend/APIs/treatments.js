@@ -64,7 +64,6 @@ router.put("/", async (req, res) => {
   try {
     const payload = jwt.verify(jwtToken, "Nithin");
     const { userId } = payload;
-    const { appointmentId } = req.params;
     const { medicinesGiven } = req.body;
 
     // Find the medicines and log the output

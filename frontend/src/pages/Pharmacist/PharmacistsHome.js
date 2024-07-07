@@ -31,6 +31,10 @@ function PharmacistsHome() {
     getPatientsList();
   }, []);
 
+  const filteredpatientsList = patientsList.filter((item) =>
+    item.studentId.toLowerCase().inclues(searchInput.toLowerCase())
+  );
+
   return (
     <div className="min-h-screen bg-gray-100">
       <Header headerContent={PharmacistsHeaderContent} />
@@ -42,13 +46,13 @@ function PharmacistsHome() {
               type="search"
               placeholder="Search by userId"
               className="flex-grow p-2 border-none outline-none"
-              onChange={(event) => searchInput(event.target.value)}
+              onChange={(event) => setSearchInput(event.target.value)}
             />
             <SearchTwoToneIcon className="text-gray-500" />
           </div>
         </section>
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {patientsList.map((patient) => (
+          {filteredpatientsList.map((patient) => (
             <li key={patient._id} className="bg-white p-4 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold mb-2">
                 User ID: {patient.userId}

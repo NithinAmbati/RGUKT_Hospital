@@ -4,16 +4,12 @@ import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import PharmacistsHome from "./pages/Pharmacist/PharmacistsHome";
 import DoctorsHome from "./pages/Doctor/DoctorsHome";
-import DoctorCheckUpPage from "./pages/Doctor/DoctorCheckUpPage";
-import PatientPastHistory from "./pages/Doctor/PatientPastHistory";
-import Treatment from "./pages/Doctor/Treatment";
 import { PharmacistsIssueMedicines } from "./pages/Pharmacist/PharmacistsIssueMedicines";
 import AddMedicines from "./pages/Pharmacist/AddMedicines";
 import Emergency from "./pages/Emergency";
 import MedicalHistory from "./pages/MedicalHistory";
 import Staff from "./pages/Staff";
-import DoctorMedicalHistory from "./pages/Doctor/DoctorMedicalHistory";
-import PharmacistMedicalHistory from "./pages/Pharmacist/PharmacistMedicalHistory";
+import PatientDetails from "./pages/Doctor/PatientDetails";
 
 function App() {
   return (
@@ -23,27 +19,9 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/doctor" element={<DoctorsHome />} />
+
+        <Route path="/doctor/patient-details" element={<PatientDetails />} />
         <Route path="/pharmacist" element={<PharmacistsHome />} />
-        <Route
-          path="/doctor/medical-history"
-          element={<DoctorMedicalHistory />}
-        />
-        <Route
-          path="/pharmacist/medical-history"
-          element={<PharmacistMedicalHistory />}
-        />
-        <Route
-          path="/doctor/doctor_check/:appointmentId"
-          element={<DoctorCheckUpPage />}
-        />
-        <Route
-          path="/doctor/doctor_check/:appointmentId/past-history/:userId"
-          element={<PatientPastHistory />}
-        />
-        <Route
-          path="/doctor/doctor_check/:appointmentId/treatment"
-          element={<Treatment />}
-        />
         <Route
           path="/pharmacist/issue-medicines/:appointmentId"
           element={<PharmacistsIssueMedicines />}

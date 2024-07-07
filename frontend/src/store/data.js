@@ -27,13 +27,12 @@ const MainPageHeaderContent = [
 
 const DoctorsHeaderContent = [
   { title: "Home", link: "/doctor" },
-  { title: "Medical History", link: "/doctor/medical-history" },
+  { title: "Patient Details", link: "/doctor/patient-details" },
   { title: "Logout", link: "/logout" },
 ];
 
 const PharmacistsHeaderContent = [
   { title: "Home", link: "/pharmacist" },
-  { title: "Medical History", link: "/pharmacist/medical-history" },
   { title: "Add Medicine", link: "/pharmacist/add-medicines" },
   { title: "Logout", link: "/logout" },
 ];

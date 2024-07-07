@@ -1,4 +1,4 @@
-post http://localhost:8000/appointments
+get http://localhost:8000/medical-history
 Content-Type: application/json
 
 {

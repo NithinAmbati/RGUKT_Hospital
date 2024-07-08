@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import { DoctorsHeaderContent } from "../../store/data";
 import { TextField, Button } from "@mui/material";
@@ -15,6 +15,7 @@ function DoctorsHome() {
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
   const [medicines, setMedicines] = useState([]);
+  const [availableMedicines, setAvailableMedicines] = useState([]);
 
   const handleMedicineChange = (selectedMedicines) => {
     setMedicines(selectedMedicines);
@@ -34,7 +35,7 @@ function DoctorsHome() {
       height,
       medicinesWritten: medicines,
     };
-    const url = `http://localhost:8000/treatments`;
+    const url = "http://localhost:8000/treatments";
     const options = {
       method: "POST",
       headers: {
@@ -45,16 +46,47 @@ function DoctorsHome() {
     };
     const response = await fetch(url, options);
     if (response.ok) {
+      setStudentId("");
+      setReason("");
+      setDescription("");
+      setTemperature("");
+      setBloodPressure("");
+      setPulseRate("");
+      setWeight("");
+      setHeight("");
+      setMedicines([]);
+
       alert("Treatment details updated successfully");
     } else {
       alert("Failed to update treatment details");
     }
   };
 
+  useEffect(() => {
+    const getAvailbleMedicines = async () => {
+      const url = "http://localhost:8000/medicines";
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("jwtToken")}`,
+        },
+      };
+      const response = await fetch(url, options);
+      if (response.ok) {
+        const data = await response.json();
+        setAvailableMedicines(data);
+      } else {
+        console.error("Failed to get medicines");
+      }
+    };
+    getAvailbleMedicines();
+  }, []);
+
   return (
     <>
       <Header headerContent={DoctorsHeaderContent} />
-      <div className="min-h-screen bg-gray-100 p-6 flex items-center justify-center">
+      <main className="min-h-screen bg-gray-100 p-6 flex items-center justify-center">
         <form
           className="max-w-2xl w-full bg-white p-8 rounded-lg shadow-md space-y-6"
           onSubmit={submitBtn}
@@ -141,12 +173,16 @@ function DoctorsHome() {
             />
           </div>
           <h1 className="text-3xl font-bold text-center mb-4">Treatment</h1>
-          <SelectMedicines onChange={handleMedicineChange} />
+          <SelectMedicines
+            selectedMedicines={medicines}
+            onChange={handleMedicineChange}
+            medicines={availableMedicines}
+          />
           <Button variant="contained" color="primary" type="submit">
             Submit
           </Button>
         </form>
-      </div>
+      </main>
     </>
   );
 }

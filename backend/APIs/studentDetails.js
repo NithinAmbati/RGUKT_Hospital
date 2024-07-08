@@ -5,11 +5,18 @@ const { Students, Treatments } = require("./startMongoose");
 
 router.get("/", async (req, res) => {
   try {
-    const { userId } = req.query;
-    const studentDetails = await Students.find({ studentId: userId });
-    const medicalDetails = await Treatments.find({ studentId: userId });
-    res.status(200).send({ studentDetails, medicalDetails });
+    const { studentId } = req.query;
+
+    const studentInfo = await Students.findOne({
+      studentId: { $regex: studentId, $options: "i" },
+    });
+
+    const medicalInfo = await Treatments.find({
+      studentId: { $regex: studentId, $options: "i" },
+    });
+    res.status(200).send({ studentInfo, medicalInfo });
   } catch (error) {
+    console.error("Error:", error);
     res.status(500).send("Internal Server Error");
   }
 });

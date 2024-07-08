@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import * as XLSX from "xlsx";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const AddMedicinesThroughExcel = () => {
   const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -16,6 +18,8 @@ const AddMedicinesThroughExcel = () => {
       return;
     }
 
+    setLoading(true);
+
     const reader = new FileReader();
     reader.onload = async (e) => {
       const data = new Uint8Array(e.target.result);
@@ -25,6 +29,8 @@ const AddMedicinesThroughExcel = () => {
       const sheet = workbook.Sheets[sheetName];
       let newMedicines = XLSX.utils.sheet_to_json(sheet);
 
+      console.log(newMedicines);
+
       // Function to convert Excel date serial number to JavaScript Date object
       const excelDateToJSDate = (serial) => {
         const excelEpoch = new Date(Date.UTC(1899, 11, 30));
@@ -32,17 +38,16 @@ const AddMedicinesThroughExcel = () => {
       };
 
       newMedicines = newMedicines.map((med) => {
-        if (typeof med.DOB === "number") {
-          med.expiryDate = excelDateToJSDate(med.DOB);
+        if (typeof med.expiryDate === "number") {
+          med.expiryDate = excelDateToJSDate(med.expiryDate);
         }
+        med.name = med.name.toLowerCase();
         med.importDate = new Date();
         return med;
       });
 
-      console.log(newMedicines);
-
       try {
-        const url = "http://localhost:8000/student-details";
+        const url = "http://localhost:8000/medicines";
         const options = {
           method: "POST",
           headers: {
@@ -52,13 +57,15 @@ const AddMedicinesThroughExcel = () => {
         };
         const response = await fetch(url, options);
         if (response.ok) {
+          setFile(null);
           alert("Data uploaded successfully");
-          console.log("File uploaded successfully:");
         } else {
           alert("Error uploading data");
         }
       } catch (error) {
-        console.error("Error uploading file:", error);
+        alert("Error uploading Data");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -87,8 +94,16 @@ const AddMedicinesThroughExcel = () => {
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
+            disabled={loading}
           >
-            Upload
+            {loading ? (
+              <div className="flex items-center justify-center">
+                <CircularProgress size={20} thickness={4} />
+                <span className="ml-2">Uploading...</span>
+              </div>
+            ) : (
+              "Upload"
+            )}
           </button>
         </div>
       </form>

@@ -20,19 +20,6 @@ const MenuProps = {
   },
 };
 
-const medicines = [
-  "Paracetamol",
-  "Ibuprofen",
-  "Aspirin",
-  "Amoxicillin",
-  "Metformin",
-  "Atorvastatin",
-  "Omeprazole",
-  "Simvastatin",
-  "Losartan",
-  "Amlodipine",
-];
-
 function getStyles(name, selectedMedicines, theme) {
   return {
     fontWeight:
@@ -42,9 +29,8 @@ function getStyles(name, selectedMedicines, theme) {
   };
 }
 
-const SelectMedicines = ({ onChange }) => {
+const SelectMedicines = ({ medicines, selectedMedicines, onChange }) => {
   const theme = useTheme();
-  const [selectedMedicines, setSelectedMedicines] = React.useState([]);
 
   const handleChange = (event) => {
     const {
@@ -54,7 +40,6 @@ const SelectMedicines = ({ onChange }) => {
       typeof value === "string"
         ? value.split(",")
         : value.map((name) => ({ name, quantity: 1 }));
-    setSelectedMedicines(newSelectedMedicines);
     onChange(newSelectedMedicines);
   };
 
@@ -62,7 +47,6 @@ const SelectMedicines = ({ onChange }) => {
     const updatedMedicines = selectedMedicines.map((med) =>
       med.name === name ? { ...med, quantity } : med
     );
-    setSelectedMedicines(updatedMedicines);
     onChange(updatedMedicines);
   };
 
@@ -90,11 +74,11 @@ const SelectMedicines = ({ onChange }) => {
         >
           {medicines.map((medicine) => (
             <MenuItem
-              key={medicine}
-              value={medicine}
-              style={getStyles(medicine, selectedMedicines, theme)}
+              key={medicine.name}
+              value={medicine.name}
+              style={getStyles(medicine.name, selectedMedicines, theme)}
             >
-              {medicine}
+              {medicine.name}-{medicine.quantity}
             </MenuItem>
           ))}
         </Select>

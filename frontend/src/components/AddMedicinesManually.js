@@ -24,6 +24,21 @@ const AddMedicines = () => {
   const submitBtn = async (event) => {
     event.preventDefault();
 
+    const filteredMedicines = additionalMedicines.filter(
+      (med) => med.name.trim() !== ""
+    );
+
+    // Map to add importDate to each filtered medicine
+    const newMedicines = filteredMedicines.map((med) => {
+      return {
+        ...med,
+        name: med.name.toLowerCase(),
+        importDate: new Date(),
+      };
+    });
+
+    console.log(newMedicines);
+
     const url = "http://localhost:8000/medicines";
     const options = {
       method: "POST",
@@ -32,7 +47,7 @@ const AddMedicines = () => {
         Authorization: "Bearer " + Cookies.get("jwtToken"),
       },
       body: JSON.stringify({
-        newMedicines: additionalMedicines,
+        newMedicines,
       }),
     };
     try {

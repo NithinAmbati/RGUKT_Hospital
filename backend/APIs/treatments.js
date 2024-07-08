@@ -100,7 +100,7 @@ router.put("/", async (req, res) => {
 //get Treatments from Database
 router.get("/", async (req, res) => {
   try {
-    const treatments = await Treatments.find();
+    const treatments = await Treatments.find({ status: req.query.status });
     res.status(200).send(treatments);
   } catch (error) {
     res.status(500).send("Internal Server Error");

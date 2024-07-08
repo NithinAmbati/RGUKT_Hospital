@@ -4,7 +4,6 @@ import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import PharmacistsHome from "./pages/Pharmacist/PharmacistsHome";
 import DoctorsHome from "./pages/Doctor/DoctorsHome";
-import { PharmacistsIssueMedicines } from "./pages/Pharmacist/PharmacistsIssueMedicines";
 import AddMedicines from "./pages/Pharmacist/AddMedicines";
 import Emergency from "./pages/Emergency";
 import MedicalHistory from "./pages/MedicalHistory";
@@ -29,10 +28,6 @@ function App() {
         <Route path="/doctor/patient-details" element={<PatientDetails />} />
 
         <Route path="/pharmacist" element={<PharmacistsHome />} />
-        <Route
-          path="/pharmacist/issue-medicines/:appointmentId"
-          element={<PharmacistsIssueMedicines />}
-        />
         <Route path="/pharmacist/add-medicines" element={<AddMedicines />} />
 
         <Route path="/admin" element={<AdminHome />} />

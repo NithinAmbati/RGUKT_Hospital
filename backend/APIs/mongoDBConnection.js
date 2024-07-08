@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
-
 const MONGO_URI = "mongodb://localhost:27017/RGUKT_Hospital";
 //"mongodb+srv://nithinambati2:yLbT7wHeE14Surh1@cluster0.9qpuxmc.mongodb.net/RGUKT_Hospital?retryWrites=true&w=majority";
 
 mongoose
   .connect(MONGO_URI, {})
-  .then(() => console.log("MongoDB connected..."))
+  .then(() => {
+    console.log("MongoDB connected...");
+  })
   .catch((err) => console.log("Error connecting to DB:", err));
 
 // Define User schemas

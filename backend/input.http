@@ -8,3 +8,8 @@ Content-Type: application/json
   "sufferingFrom": "2024-01-01",
   "status": "pending"
 }
+
+
+###
+
+get http://localhost:8000/medicines

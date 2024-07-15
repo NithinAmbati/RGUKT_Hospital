@@ -178,6 +178,7 @@ function DoctorsHome() {
             onChange={handleMedicineChange}
             medicines={availableMedicines}
           />
+
           <Button variant="contained" color="primary" type="submit">
             Submit
           </Button>

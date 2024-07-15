@@ -1,45 +1,17 @@
 import React from "react";
-import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-function getStyles(name, selectedMedicines, theme) {
-  return {
-    fontWeight:
-      selectedMedicines.some((med) => med.name === name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
+import Autocomplete from "@mui/material/Autocomplete";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
 
 const SelectMedicines = ({ medicines, selectedMedicines, onChange }) => {
-  const theme = useTheme();
-
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    const newSelectedMedicines =
-      typeof value === "string"
-        ? value.split(",")
-        : value.map((name) => ({ name, quantity: 1 }));
+  const handleChange = (event, value) => {
+    const newSelectedMedicines = value.map((name) => ({
+      name,
+      quantity: 1,
+    }));
     onChange(newSelectedMedicines);
   };
 
@@ -53,35 +25,35 @@ const SelectMedicines = ({ medicines, selectedMedicines, onChange }) => {
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="multiple-medicines-label">Medicines</InputLabel>
-        <Select
-          labelId="multiple-medicines-label"
-          id="multiple-medicines"
+        <InputLabel id="multiple-medicines-label"></InputLabel>
+        <Autocomplete
           multiple
+          id="multiple-medicines"
+          options={medicines.map((medicine) => medicine.name)}
           value={selectedMedicines.map((med) => med.name)}
           onChange={handleChange}
-          input={
-            <OutlinedInput id="select-multiple-medicines" label="Medicines" />
-          }
-          renderValue={(selected) => (
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-              {selectedMedicines.map(({ name, quantity }) => (
-                <Chip key={name} label={`${name} (${quantity})`} />
-              ))}
-            </Box>
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Medicines"
+              onFocus={() => (params.InputProps.placeholder = "")}
+            />
           )}
-          MenuProps={MenuProps}
-        >
-          {medicines.map((medicine) => (
-            <MenuItem
-              key={medicine.name}
-              value={medicine.name}
-              style={getStyles(medicine.name, selectedMedicines, theme)}
-            >
-              {medicine.name}-{medicine.quantity}
-            </MenuItem>
-          ))}
-        </Select>
+          renderTags={(value, getTagProps) =>
+            value.map((option, index) => (
+              <Chip
+                key={option}
+                label={`${option} (${
+                  selectedMedicines.find((med) => med.name === option)
+                    ?.quantity || 1
+                })`}
+                {...getTagProps({ index })}
+              />
+            ))
+          }
+          getOptionLabel={(option) => option}
+          style={{ width: 300 }}
+        />
       </FormControl>
       <Box sx={{ mt: 2 }}>
         {selectedMedicines.map(({ name, quantity }) => (

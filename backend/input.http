@@ -13,3 +13,7 @@ Content-Type: application/json
 ###
 
 get http://localhost:8000/medicines
+
+###
+
+get http://localhost:8000/admin

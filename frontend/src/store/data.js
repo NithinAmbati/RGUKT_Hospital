@@ -4,10 +4,6 @@ const MainPageHeaderContent = [
     link: "/",
   },
   {
-    title: "emergency",
-    link: "/emergency",
-  },
-  {
     title: "Staff",
     link: "/staff",
   },

@@ -1,13 +1,8 @@
 
-post http://localhost:8000/nursing
+put http://localhost:8000/nursing/6696940de73eb2182db99233
 Content-Type: application/json
 
 {
-  "studentId": "B191112",
-  "pulseRate": "adsf",
-  "bloodPressure": "adfasdf",
-  "spo2": "asdf",
-  "temperature": "dfdf",
-  "weight": "asf",
-  "ecg": "adf"
+  "ecg": "adf",
+  "spo2": "Nithin"
 }

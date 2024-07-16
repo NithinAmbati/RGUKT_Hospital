@@ -14,7 +14,7 @@ const NursingHome = () => {
   return (
     <>
       <Header headerContent={[]} />
-      <main>
+      <main style = {{padding:'20px'}}>
         <form>
           <TextField
             id="outlined-multiline-flexible"
@@ -25,7 +25,7 @@ const NursingHome = () => {
             value={studentId}
             onChange={(e) => setStudentId(e.target.value)}
           />
-          <h1 className="text-3xl font-bold text-center mb-4">Vitals</h1>
+          <h1 className="text-3xl font-bold text-center m-4">Vitals</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <TextField
               id="outlined-multiline-flexible"
@@ -81,10 +81,11 @@ const NursingHome = () => {
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
             />
-          </div>
-          <Button type="submit" variant="contained" color="primary">
+            <Button type="submit" variant="contained" color="primary" >
             Submit
-          </Button>
+            </Button>
+          </div>
+          
         </form>
       </main>
     </>

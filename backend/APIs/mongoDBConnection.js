@@ -16,25 +16,26 @@ const userSchema1 = new mongoose.Schema({
   DOB: { type: Date, required: true },
   gender: { type: String, required: true },
   bloodGroup: { type: String, required: false },
+  contactNumber: { type: String, required: true },
+  parentName: { type: String, required: false },
+  parentContactNumber: { type: String, required: false },
   longTermDiseases: { type: String, required: false },
 });
 
 const userSchema2 = new mongoose.Schema({
   userId: { type: String, required: true },
-  name: { type: String, required: true },
   password: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
+  username: { type: String, required: true },
+  email: { type: String, required: false },
   contactNumber: { type: String, required: false },
-  qualifications: { type: String, required: false },
 });
 
 const useSchema3 = new mongoose.Schema({
   userId: { type: String, required: true },
-  name: { type: String, required: true },
   password: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
+  username: { type: String, required: true },
+  email: { type: String, required: false },
   contactNumber: { type: String, required: false },
-  qualifications: { type: String, required: false },
 });
 
 const useSchema4 = new mongoose.Schema({
@@ -46,18 +47,22 @@ const useSchema4 = new mongoose.Schema({
 
 const useSchema5 = new mongoose.Schema({
   studentId: { type: String, required: true },
-  treatedBy: { type: String, required: true },
+  treatedBy: { type: String, required: false },
   medicineIssuedBy: { type: String, required: false },
+  nursingStationBy: { type: String, required: false },
   treatmentDate: { type: Date, required: true },
-  reason: { type: String, required: true },
+  reason: { type: String, required: false },
   description: { type: String, required: false },
   temperature: { type: String, required: false },
   bloodPressure: { type: String, required: false },
   pulseRate: { type: String, required: false },
   weight: { type: String, required: false },
-  height: { type: String, required: false },
-  medicinesWritten: { type: Array, required: true },
-  medicinesGiven: { type: Array, required: true },
+  ecg: { type: String, required: false },
+  spo2: { type: String, required: false },
+  labTest: { type: String, required: false },
+  drugallergy: { type: String, required: false },
+  advice: { type: String, required: false },
+  medicinesWritten: { type: Array, required: false },
   status: { type: String, required: true },
 });
 

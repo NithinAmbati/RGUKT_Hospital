@@ -1,12 +1,13 @@
 import React from "react";
 import Header from "../components/Header";
 import { MainPageHeaderContent } from "../store/data";
+import HomeBody from "../components/HomeBody";
 
 function HomePage() {
   return (
     <>
       <Header headerContent={MainPageHeaderContent} />
-      <main className="text-5xl text-center pt-10">Home Page</main>
+      <HomeBody />
     </>
   );
 }

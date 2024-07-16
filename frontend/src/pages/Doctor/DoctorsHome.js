@@ -114,26 +114,16 @@ function DoctorsHome() {
               onChange={(e) => setReason(e.target.value)}
             />
           </div>
-          <div className="flex flex-col gap-2">
-            <label>Description</label>
-            <textarea
-              rows="4"
-              cols="30"
-              className="border-2"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            ></textarea>
-          </div>
-          <h1 className="text-3xl font-bold text-center mb-4">Examination</h1>
+          <h1 className="text-3xl font-bold text-center mb-4">Vitals</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <TextField
               id="outlined-multiline-flexible"
-              label="Temperature"
+              label="Pulse Rate"
               multiline
               maxRows={4}
               fullWidth
-              value={temperature}
-              onChange={(e) => setTemperature(e.target.value)}
+              value={pulseRate}
+              onChange={(e) => setPulseRate(e.target.value)}
             />
             <TextField
               id="outlined-multiline-flexible"
@@ -146,21 +136,21 @@ function DoctorsHome() {
             />
             <TextField
               id="outlined-multiline-flexible"
-              label="Pulse Rate"
+              label="SPO2"
               multiline
               maxRows={4}
               fullWidth
-              value={pulseRate}
-              onChange={(e) => setPulseRate(e.target.value)}
+              value={bloodPressure}
+              onChange={(e) => setBloodPressure(e.target.value)}
             />
             <TextField
               id="outlined-multiline-flexible"
-              label="Height"
+              label="Temperature"
               multiline
               maxRows={4}
               fullWidth
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
+              value={temperature}
+              onChange={(e) => setTemperature(e.target.value)}
             />
             <TextField
               id="outlined-multiline-flexible"
@@ -172,6 +162,38 @@ function DoctorsHome() {
               onChange={(e) => setWeight(e.target.value)}
             />
           </div>
+          <div className="flex flex-col gap-2">
+            <label>HOPI</label>
+            <textarea
+              rows="4"
+              cols="30"
+              className="border-2"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            ></textarea>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label>Drugallergy</label>
+            <textarea
+              rows="4"
+              cols="30"
+              className="border-2"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            ></textarea>
+          </div>
+
+          <TextField
+            id="outlined-multiline-flexible"
+            label="Advice"
+            multiline
+            maxRows={4}
+            fullWidth
+            value={studentId}
+            onChange={(e) => setStudentId(e.target.value)}
+          />
+
           <h1 className="text-3xl font-bold text-center mb-4">Treatment</h1>
           <SelectMedicines
             selectedMedicines={medicines}

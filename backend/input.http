@@ -1,19 +1,13 @@
-get http://localhost:8000/medical-history
+
+post http://localhost:8000/nursing
 Content-Type: application/json
 
 {
-  "userId": "B191112",
-  "appointmentDate": "2020-01-01",
-  "reason": "fever",
-  "sufferingFrom": "2024-01-01",
-  "status": "pending"
+  "studentId": "B191112",
+  "pulseRate": "adsf",
+  "bloodPressure": "adfasdf",
+  "spo2": "asdf",
+  "temperature": "dfdf",
+  "weight": "asf",
+  "ecg": "adf"
 }
-
-
-###
-
-get http://localhost:8000/medicines
-
-###
-
-get http://localhost:8000/admin

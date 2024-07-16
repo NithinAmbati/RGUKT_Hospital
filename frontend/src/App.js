@@ -11,6 +11,7 @@ import Staff from "./pages/Staff";
 import PatientDetails from "./pages/Doctor/PatientDetails";
 import AdminHome from "./pages/Admin/AdminHome";
 import AddStudents from "./pages/Admin/AddStudents";
+import NursingHome from "./pages/NursingStation/NursingHome";
 
 function App() {
   return (
@@ -32,6 +33,8 @@ function App() {
 
         <Route path="/admin" element={<AdminHome />} />
         <Route path="/admin/add-students" element={<AddStudents />} />
+
+        <Route path="/nursing" element={<NursingHome />} />
 
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>

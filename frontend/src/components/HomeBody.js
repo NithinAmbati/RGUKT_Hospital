@@ -35,7 +35,7 @@ const HomeBody = () => {
       <div className="flex flex-row ">
         {/* Left Container */}
         <Container>
-          <Paper elevation={3} style={{ padding: "16px", marginTop: "4rem" }}>
+          <Paper elevation={3} style={{ padding: "16px", marginTop: "4.5rem" }}>
             <marquee>Duty Doctors News</marquee>
             <List>
               {news.map((item, index) => (
@@ -58,7 +58,7 @@ const HomeBody = () => {
           <h1 style={{ fontWeight: "bold", marginBottom: "1rem" }}>
             About RGUKT Hospital
           </h1>
-          <Carousel showThumbs={false} autoPlay infiniteLoop>
+          <Carousel showThumbs={false} autoPlay infiniteLoop showStatus={false}>
             <div>
               <img
                 src="https://www.rgukt.ac.in/assets/images/rgukt/hospital.jpg"
@@ -78,7 +78,7 @@ const HomeBody = () => {
               />
             </div>
           </Carousel>
-          <p>
+          <Typography className="justified-text">
             The multifarious medical needs of the Campus population consisting
             of Students, Staff members and their families are met by the
             Institute Hospital. The Hospital is headed by the Head (Hospital
@@ -90,11 +90,11 @@ const HomeBody = () => {
             (Hospital Services) as the Member Secretary of the Committee. This
             Committee formulates various policies for providing medical
             facilities to the Campus population.
-          </p>
+            </Typography>
         </Container>
 
         {/* Right Container */}
-        <Container maxWidth="sm" style={{ marginTop: "4rem" }}>
+        <Container maxWidth="sm" style={{ marginTop: "4.5rem" }}>
           <Paper elevation={2} style={{ padding: "1rem" }}>
             <Typography variant="h6" gutterBottom>
               Important Numbers

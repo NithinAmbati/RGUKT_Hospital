@@ -5,7 +5,6 @@ import SignUpPage from "./pages/SignUpPage";
 import PharmacistsHome from "./pages/Pharmacist/PharmacistsHome";
 import DoctorsHome from "./pages/Doctor/DoctorsHome";
 import AddMedicines from "./pages/Pharmacist/AddMedicines";
-import Emergency from "./pages/Emergency";
 import MedicalHistory from "./pages/MedicalHistory";
 import Staff from "./pages/Staff";
 import PatientDetails from "./pages/Doctor/PatientDetails";
@@ -18,7 +17,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/emergency" element={<Emergency />} />
         <Route path="/medical-history" element={<MedicalHistory />} />
         <Route path="/staff" element={<Staff />} />
 

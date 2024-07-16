@@ -62,6 +62,11 @@ const Header = ({ headerContent }) => {
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
+        <img 
+            src="https://www.rgukt.in/images/Logonew.png" 
+            alt="Logo" 
+            style={{ height: '60px', borderRadius: '50%', marginRight: '16px' }}
+        />
           <Typography
             variant="h6"
             color="inherit"
@@ -69,7 +74,7 @@ const Header = ({ headerContent }) => {
             className="cursor-pointer"
             onClick={() => navigate("/")}
           >
-            RGUKT Hospital
+            RGUKT HEALTH CENTRE
           </Typography>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             {headerContent.map((item, index) => (

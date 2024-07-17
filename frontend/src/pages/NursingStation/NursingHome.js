@@ -3,6 +3,7 @@ import Header from "../../components/Header";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { NursingHeaderContent } from "../../store/data";
+import Cookies from "js-cookie";
 
 const NursingHome = () => {
   const [temperature, setTemperature] = useState("");
@@ -15,7 +16,7 @@ const NursingHome = () => {
 
   const submitBtn = async (event) => {
     event.preventDefault();
-    
+
     const Vitals = {
       studentId,
       temperature,
@@ -24,47 +25,42 @@ const NursingHome = () => {
       weight,
       spo2,
       ecg,
-    }
+      treatmentDate: new Date(),
+    };
 
     // API call to save vitals
+    console.log(Vitals);
     const url = "http://localhost:8000/treatments";
     const options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${Cookies.get("jwtToken")}`,
       },
       body: JSON.stringify(Vitals),
-    }
-     
+    };
+
     const response = await fetch(url, options);
 
-    if(response.ok){
-    alert("Vitals saved successfully!");
-    setTemperature("");
-    setBloodPressure("");
-    setPulseRate("");
-    setWeight("");
-    setSpo2("");
-    setStudentId("");
-    setECG("");
-
-    const data = await response.json();
-    console.log(data);
-    }
-    else{
+    if (response.ok) {
+      alert("Vitals saved successfully!");
+      setTemperature("");
+      setBloodPressure("");
+      setPulseRate("");
+      setWeight("");
+      setSpo2("");
+      setStudentId("");
+      setECG("");
+    } else {
       alert("Failed to save vitals. Please try again.");
     }
-    
   };
 
   return (
     <>
-      <Header headerContent={[]} />
-      <main style = {{padding:'20px'}}>
-        <form onSubmit={submitBtn}>
       <Header headerContent={NursingHeaderContent} />
       <main>
-        <form>
+        <form onSubmit={submitBtn}>
           <TextField
             id="outlined-multiline-flexible"
             label="Student ID"
@@ -130,11 +126,10 @@ const NursingHome = () => {
               value={ecg}
               onChange={(e) => setECG(e.target.value)}
             />
-            <Button type="submit" variant="contained" color="primary" >
-            Submit
+            <Button type="submit" variant="contained" color="primary">
+              Submit
             </Button>
           </div>
-          
         </form>
       </main>
     </>

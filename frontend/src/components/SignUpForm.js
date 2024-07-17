@@ -12,7 +12,7 @@ function SignUpForm() {
     event.preventDefault();
     const userDetails = {
       userId,
-      name,
+      username: name,
       email,
       password,
     };

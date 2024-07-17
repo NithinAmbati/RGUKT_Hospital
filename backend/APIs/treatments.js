@@ -2,20 +2,12 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const { Treatments, Medicines } = require("./startMongoose");
+const verifyToken = require("../Middleware/VerifyToken");
 
 // Treatment POST API
-router.post("/", async (req, res) => {
-  const authorization = req.headers["authorization"];
-  if (!authorization) {
-    return res.status(400).send("Authorization Error");
-  }
-
-  const jwtToken = authorization.split(" ")[1];
-  if (!jwtToken) return res.status(400).send("Authentication Error");
-
+router.post("/", verifyToken, async (req, res) => {
   try {
-    const payload = jwt.verify(jwtToken, "Nithin");
-    const { userId } = payload;
+    const { userId } = req;
     const {
       studentId,
       reason,

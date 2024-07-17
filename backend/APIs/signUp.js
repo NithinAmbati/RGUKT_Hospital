@@ -32,6 +32,9 @@ router.post("/", async (req, res) => {
     } else if (userId.startsWith("P")) {
       const newUser = new Pharmacist({ userId, username, email, password });
       await newUser.save();
+    } else if (userId.startsWith("N")) {
+      const newUser = new Nurse({ userId, username, email, password });
+      await newUser.save();
     }
     res.status(200).send("Registration Successful");
   } catch (error) {

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Doctor, Pharmacist, Admin } = require("./startMongoose");
+const { Doctor, Pharmacist, Admin, Nurse } = require("./startMongoose");
 const jwt = require("jsonwebtoken");
 
 const generateJwtToken = (userId) => {
@@ -23,6 +23,8 @@ router.post("/", async (req, res) => {
       user = await Pharmacist.findOne({ userId, password });
     else if (userId.startsWith("A"))
       user = await Admin.findOne({ userId, password });
+    else if (userId.startsWith("N"))
+      user = await Nurse.findOne({ userId, password });
     else {
       res.status(400).send("Invalid user type");
       return;

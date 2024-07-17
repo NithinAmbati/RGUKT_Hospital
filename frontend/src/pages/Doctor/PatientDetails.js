@@ -3,6 +3,7 @@ import Header from "../../components/Header";
 import { DoctorsHeaderContent } from "../../store/data";
 import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
 import { Button } from "@mui/material";
+import Cookies from "js-cookie";
 
 const calculateAge = (birthDate) => {
   const birth = new Date(birthDate);
@@ -27,7 +28,8 @@ const PatientsDetails = () => {
     const options = {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        "content-type": "application/json",
+        authorization: "Bearer " + Cookies.get("jwtToken"),
       },
     };
     const response = await fetch(url, options);

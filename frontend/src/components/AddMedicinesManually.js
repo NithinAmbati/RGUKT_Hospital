@@ -44,7 +44,7 @@ const AddMedicines = () => {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        Authorization: "Bearer " + Cookies.get("jwtToken"),
+        authorization: "Bearer " + Cookies.get("jwtToken"),
       },
       body: JSON.stringify({
         newMedicines,

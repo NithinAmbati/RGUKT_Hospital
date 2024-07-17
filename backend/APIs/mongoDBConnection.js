@@ -74,11 +74,28 @@ const userSchema6 = new mongoose.Schema({
   contactNumber: { type: String, required: false },
 });
 
+const userSchema7 = new mongoose.Schema({
+  userId: { type: String, required: true },
+  password: { type: String, required: true },
+  username: { type: String, required: true },
+  email: { type: String, required: false },
+  contactNumber: { type: String, required: false },
+});
+
 const Students = mongoose.model("students", userSchema1);
 const Doctor = mongoose.model("doctors", userSchema2);
 const Pharmacist = mongoose.model("pharmacists", useSchema3);
 const Medicines = mongoose.model("medicines", useSchema4);
 const Treatments = mongoose.model("treatments", useSchema5);
+const Nurse = mongoose.model("nurse", userSchema7);
 const Admin = mongoose.model("admin", userSchema6);
 
-module.exports = { Students, Doctor, Pharmacist, Medicines, Treatments, Admin };
+module.exports = {
+  Students,
+  Doctor,
+  Pharmacist,
+  Medicines,
+  Nurse,
+  Treatments,
+  Admin,
+};

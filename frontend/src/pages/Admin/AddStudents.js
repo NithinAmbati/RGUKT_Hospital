@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as XLSX from "xlsx";
 import Header from "../../components/Header";
 import { AdminHeaderContent } from "../../store/data";
+import Cookies from "js-cookie";
 
 const ExcelUploader = () => {
   const [file, setFile] = useState(null);
@@ -48,7 +49,8 @@ const ExcelUploader = () => {
         const options = {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "content-type": "application/json",
+            authorization: "Bearer " + Cookies.get("jwtToken"),
           },
           body: JSON.stringify({ studentsData }),
         };

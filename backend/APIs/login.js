@@ -3,6 +3,14 @@ const router = express.Router();
 const { Doctor, Pharmacist, Admin } = require("./startMongoose");
 const jwt = require("jsonwebtoken");
 
+const generateJwtToken = (userId) => {
+  const payload = {
+    userId,
+  };
+  const jwtToken = jwt.sign(payload, "Nithin");
+  return jwtToken;
+};
+
 // Candidate Login API
 router.post("/", async (req, res) => {
   const { userId, password } = req.body;
@@ -26,10 +34,7 @@ router.post("/", async (req, res) => {
     }
 
     // Generate JWT token
-    const payload = {
-      userId,
-    };
-    const jwtToken = jwt.sign(payload, "Nithin");
+    const jwtToken = generateJwtToken(userId);
     res.status(201).send({ jwtToken });
   } catch (error) {
     res.status(500).send("Internal Server Error");

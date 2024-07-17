@@ -40,7 +40,7 @@ function DoctorsHome() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("jwtToken")}`,
+        authorization: `Bearer ${Cookies.get("jwtToken")}`,
       },
       body: JSON.stringify(treatmentDetails),
     };
@@ -69,7 +69,7 @@ function DoctorsHome() {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("jwtToken")}`,
+          authorization: `Bearer ${Cookies.get("jwtToken")}`,
         },
       };
       const response = await fetch(url, options);

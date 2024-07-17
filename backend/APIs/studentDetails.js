@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const { Students, Treatments } = require("./startMongoose");
+const verifyToken = require("../Middleware/VerifyToken");
 
-router.get("/", async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
   try {
     const { studentId } = req.query;
 
@@ -21,7 +22,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   try {
     const { studentsData } = req.body;
     await Students.insertMany(studentsData);

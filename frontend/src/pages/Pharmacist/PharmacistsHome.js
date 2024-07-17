@@ -16,7 +16,7 @@ function PharmacistsHome() {
         method: "GET",
         headers: {
           "content-type": "application/json",
-          Authorization: `Bearer ${Cookies.get("jwtToken")}`,
+          authorization: `Bearer ${Cookies.get("jwtToken")}`,
         },
       };
       try {
@@ -40,7 +40,7 @@ function PharmacistsHome() {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("jwtToken")}`,
+        authorization: `Bearer ${Cookies.get("jwtToken")}`,
       },
       body: JSON.stringify({
         medicinesWritten,

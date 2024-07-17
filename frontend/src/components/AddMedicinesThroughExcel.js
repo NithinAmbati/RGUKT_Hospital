@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as XLSX from "xlsx";
 import CircularProgress from "@mui/material/CircularProgress";
+import Cookies from "js-cookie";
 
 const AddMedicinesThroughExcel = () => {
   const [file, setFile] = useState(null);
@@ -51,7 +52,8 @@ const AddMedicinesThroughExcel = () => {
         const options = {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "content-type": "application/json",
+            authorization: "Bearer " + Cookies.get("jwtToken"),
           },
           body: JSON.stringify({ newMedicines }),
         };

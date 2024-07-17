@@ -38,17 +38,8 @@ router.post("/", verifyToken, async (req, res) => {
   }
 });
 
-router.put("/doctor-update/:treatmentId", async (req, res) => {
-  // const authorization = req.headers["authorization"];
-  // if (!authorization) {
-  //   return res.status(400).send("Authorization Error");
-  // }
-  // const jwtToken = authorization.split(" ")[1];
-  // if (!jwtToken) return res.status(400).send("Authentication Error");
-  // const payload = jwt.verify(jwtToken, "Nithin");
-  // const { userId } = payload;
+router.put("/doctor-update/:treatmentId", verifyToken, async (req, res) => {
   try {
-    //console.log(req.body);
     const {
       reason,
       description,
@@ -77,7 +68,7 @@ router.put("/doctor-update/:treatmentId", async (req, res) => {
   }
 });
 
-router.put("/nursing-update/:treatmentId", async (req, res) => {
+router.put("/nursing-update/:treatmentId", verifyToken, async (req, res) => {
   try {
     const { spo2, ecg } = req.body;
     const { treatmentId } = req.params;
@@ -92,7 +83,7 @@ router.put("/nursing-update/:treatmentId", async (req, res) => {
   }
 });
 // Treatment update by medicines given by Pharmacist
-router.put("/pharmacist-update/:treatmentId", async (req, res) => {
+router.put("/pharmacist-update/:treatmentId", verifyToken, async (req, res) => {
   const authorization = req.headers["authorization"];
   if (!authorization) {
     return res.status(400).send("Authorization Error");
@@ -137,7 +128,7 @@ router.put("/pharmacist-update/:treatmentId", async (req, res) => {
 });
 
 //get Treatments from Database
-router.get("/", async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
   try {
     const treatments = await Treatments.find({ status: req.query.status });
     res.status(200).send(treatments);

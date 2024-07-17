@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const { Medicines, Treatments } = require("./mongoDBConnection");
+const verifyToken = require("../Middleware/VerifyToken");
 
-router.get("/", async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
   try {
     const data = await Medicines.aggregate([
       {
@@ -31,7 +32,8 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
+  console.log("HI");
   try {
     const { newMedicines } = req.body;
     await Medicines.insertMany(newMedicines);
@@ -41,7 +43,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
+router.put("/", verifyToken, async (req, res) => {
   const authorization = req.headers["authorization"];
   if (!authorization) {
     return res.status(400).send("Authorization Error");

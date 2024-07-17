@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Doctor, Pharmacist } = require("./startMongoose");
+const { Doctor, Pharmacist, Nurse } = require("./startMongoose");
 
 router.post("/", async (req, res) => {
   const { userId, username, email, password } = req.body;
@@ -9,10 +9,11 @@ router.post("/", async (req, res) => {
   try {
     // Check if user already exists
     let existingUser;
-    if (userId.startsWith("D"))
-      existingUser = await Doctor.findOne({ userId, password });
+    if (userId.startsWith("D")) existingUser = await Doctor.findOne({ userId });
     else if (userId.startsWith("P"))
-      existingUser = await Pharmacist.findOne({ userId, password });
+      existingUser = await Pharmacist.findOne({ userId });
+    else if (userId.startsWith("N"))
+      existingUser = await Nurse.findOne({ userId });
     else {
       res.status(400).send("Invalid user type");
       return;

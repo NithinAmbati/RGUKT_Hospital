@@ -10,12 +10,57 @@ const NursingHome = () => {
   const [weight, setWeight] = useState("");
   const [spo2, setSpo2] = useState("");
   const [studentId, setStudentId] = useState("");
+  const [ecg, setECG] = useState("");
+
+  const submitBtn = async (event) => {
+    event.preventDefault();
+    
+    const Vitals = {
+      studentId,
+      temperature,
+      bloodPressure,
+      pulseRate,
+      weight,
+      spo2,
+      ecg,
+    }
+
+    // API call to save vitals
+    const url = "http://localhost:8000/treatments";
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(Vitals),
+    }
+     
+    const response = await fetch(url, options);
+
+    if(response.ok){
+    alert("Vitals saved successfully!");
+    setTemperature("");
+    setBloodPressure("");
+    setPulseRate("");
+    setWeight("");
+    setSpo2("");
+    setStudentId("");
+    setECG("");
+
+    const data = await response.json();
+    console.log(data);
+    }
+    else{
+      alert("Failed to save vitals. Please try again.");
+    }
+    
+  };
 
   return (
     <>
       <Header headerContent={[]} />
       <main style = {{padding:'20px'}}>
-        <form>
+        <form onSubmit={submitBtn}>
           <TextField
             id="outlined-multiline-flexible"
             label="Student ID"
@@ -51,8 +96,8 @@ const NursingHome = () => {
               multiline
               maxRows={4}
               fullWidth
-              value={bloodPressure}
-              onChange={(e) => setBloodPressure(e.target.value)}
+              value={spo2}
+              onChange={(e) => setSpo2(e.target.value)}
             />
             <TextField
               id="outlined-multiline-flexible"
@@ -78,8 +123,8 @@ const NursingHome = () => {
               multiline
               maxRows={4}
               fullWidth
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
+              value={ecg}
+              onChange={(e) => setECG(e.target.value)}
             />
             <Button type="submit" variant="contained" color="primary" >
             Submit

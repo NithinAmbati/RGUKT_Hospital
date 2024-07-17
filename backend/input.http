@@ -6,3 +6,19 @@ Content-Type: application/json
   "ecg": "adf",
   "spo2": "Nithin"
 }
+
+
+###
+
+
+put http://localhost:8000/treatments/doctor-update/6696940de73eb2182db99233
+Content-Type: application/json
+
+{
+  "reason": "Fever",
+      "description": "dfdf",
+      "labTest": "adfadf",
+      "drugallergy": "asfd",
+      "advice": "fadf",
+      "medicinesWritten": "sndfsd"
+}

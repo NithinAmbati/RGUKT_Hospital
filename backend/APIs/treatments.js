@@ -40,12 +40,14 @@ router.post("/", verifyToken, async (req, res) => {
 
 router.put("/doctor-update/:treatmentId", verifyToken, async (req, res) => {
   try {
+    console.log(req.body);
     const {
       reason,
       description,
       labTest,
       drugallergy,
       advice,
+      hopi,
       medicinesWritten,
     } = req.body;
     const { treatmentId } = req.params;
@@ -58,6 +60,7 @@ router.put("/doctor-update/:treatmentId", verifyToken, async (req, res) => {
           labTest,
           drugallergy,
           advice,
+          hopi,
           medicinesWritten,
           status: "IssueMedicine",
         },
@@ -65,6 +68,7 @@ router.put("/doctor-update/:treatmentId", verifyToken, async (req, res) => {
     );
     res.status(200).send("Updated successfully");
   } catch (error) {
+    console.log(error.message);
     res.status(400).send(error.message);
   }
 });
@@ -85,16 +89,8 @@ router.put("/nursing-update/:treatmentId", verifyToken, async (req, res) => {
 });
 // Treatment update by medicines given by Pharmacist
 router.put("/pharmacist-update/:treatmentId", verifyToken, async (req, res) => {
-  const authorization = req.headers["authorization"];
-  if (!authorization) {
-    return res.status(400).send("Authorization Error");
-  }
-  const jwtToken = authorization.split(" ")[1];
-  if (!jwtToken) return res.status(400).send("Authentication Error");
-
   try {
-    const payload = jwt.verify(jwtToken, "Nithin");
-    const { userId } = payload;
+    const { userId } = req;
     const { medicinesGiven } = req.body;
 
     // Find the medicines and log the output
@@ -129,10 +125,20 @@ router.put("/pharmacist-update/:treatmentId", verifyToken, async (req, res) => {
 });
 
 //get Treatments from Database
-router.get("/", verifyToken, async (req, res) => {
+router.get("/doctor", verifyToken, async (req, res) => {
   try {
     const { status, studentId } = req.query;
     const treatments = await Treatments.find({ status, studentId });
+    res.status(200).send(treatments);
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+router.get("/nursing", verifyToken, async (req, res) => {
+  try {
+    const { status } = req.query;
+    const treatments = await Treatments.find({ status });
     res.status(200).send(treatments);
   } catch (error) {
     res.status(500).send("Internal Server Error");

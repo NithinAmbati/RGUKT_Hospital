@@ -23,7 +23,7 @@ const MainPageHeaderContent = [
 
 const DoctorsHeaderContent = [
   { title: "Home", link: "/doctor" },
-  { title: "Patient Details", link: "/doctor/patient-details" },
+  { title: "Profile", link: "/doctor/profile" },
   { title: "Logout", link: "/logout" },
 ];
 

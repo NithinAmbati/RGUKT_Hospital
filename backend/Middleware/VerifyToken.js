@@ -7,8 +7,8 @@ const verifyToken = async (req, res, next) => {
   }
 
   const jwtToken = authorization.split(" ")[1];
-  if (!jwtToken) return res.status(400).send("Authentication Error");
 
+  if (!jwtToken) return res.status(400).send("Authentication Error");
   try {
     const payload = jwt.verify(jwtToken, "Nithin"); // Verify the token
     const { userId } = payload;

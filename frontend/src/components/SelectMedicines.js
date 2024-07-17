@@ -6,7 +6,8 @@ import Autocomplete from "@mui/material/Autocomplete";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 
-const SelectMedicines = ({ medicines, selectedMedicines, onChange }) => {
+const SelectMedicines = (props) => {
+  const { medicines, selectedMedicines, onChange } = props;
   const handleChange = (event, value) => {
     const newSelectedMedicines = value.map((name) => ({
       name,

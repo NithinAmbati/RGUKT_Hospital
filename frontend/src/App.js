@@ -7,7 +7,6 @@ import DoctorsHome from "./pages/Doctor/DoctorsHome";
 import AddMedicines from "./pages/Pharmacist/AddMedicines";
 import MedicalHistory from "./pages/MedicalHistory";
 import Staff from "./pages/Staff";
-import PatientDetails from "./pages/Doctor/PatientDetails";
 import AdminHome from "./pages/Admin/AdminHome";
 import AddStudents from "./pages/Admin/AddStudents";
 import NursingHome from "./pages/NursingStation/NursingHome";
@@ -25,7 +24,6 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
 
         <Route path="/doctor" element={<DoctorsHome />} />
-        <Route path="/doctor/patient-details" element={<PatientDetails />} />
 
         <Route path="/pharmacist" element={<PharmacistsHome />} />
         <Route path="/pharmacist/add-medicines" element={<AddMedicines />} />

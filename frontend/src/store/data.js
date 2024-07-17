@@ -33,6 +33,12 @@ const PharmacistsHeaderContent = [
   { title: "Logout", link: "/logout" },
 ];
 
+const NursingHeaderContent = [
+  { title: "Home", link: "/nursing" },
+  { title: "Patient Details", link: "/nursing/patient-details" },
+  { title: "Logout", link: "/logout" },
+];
+
 const AdminHeaderContent = [
   { title: "Home", link: "/admin" },
   { title: "Add Students", link: "/admin/add-students" },
@@ -44,4 +50,5 @@ export {
   PharmacistsHeaderContent,
   MainPageHeaderContent,
   AdminHeaderContent,
+  NursingHeaderContent,
 };

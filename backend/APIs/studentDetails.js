@@ -1,27 +1,23 @@
 const express = require("express");
 const router = express.Router();
-const jwt = require("jsonwebtoken");
-const { Students, Treatments } = require("./startMongoose");
+const { Students } = require("./startMongoose");
 const verifyToken = require("../Middleware/VerifyToken");
 
+// Student-Details API
 router.get("/", verifyToken, async (req, res) => {
   try {
     const { studentId } = req.query;
-
     const studentInfo = await Students.findOne({
       studentId: { $regex: studentId, $options: "i" },
     });
-
-    const medicalInfo = await Treatments.find({
-      studentId: { $regex: studentId, $options: "i" },
-    });
-    res.status(200).send({ studentInfo, medicalInfo });
+    res.status(200).send(studentInfo);
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
   }
 });
 
+// Student-Upload API
 router.post("/", verifyToken, async (req, res) => {
   try {
     const { studentsData } = req.body;

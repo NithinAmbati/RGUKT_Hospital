@@ -59,6 +59,7 @@ router.put("/doctor-update/:treatmentId", verifyToken, async (req, res) => {
           drugallergy,
           advice,
           medicinesWritten,
+          status: "IssueMedicine",
         },
       }
     );
@@ -130,7 +131,8 @@ router.put("/pharmacist-update/:treatmentId", verifyToken, async (req, res) => {
 //get Treatments from Database
 router.get("/", verifyToken, async (req, res) => {
   try {
-    const treatments = await Treatments.find({ status: req.query.status });
+    const { status, studentId } = req.query;
+    const treatments = await Treatments.find({ status, studentId });
     res.status(200).send(treatments);
   } catch (error) {
     res.status(500).send("Internal Server Error");

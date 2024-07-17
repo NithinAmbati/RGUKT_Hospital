@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../../components/Header";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
+import { NursingHeaderContent } from "../../store/data";
 
 const NursingHome = () => {
   const [temperature, setTemperature] = useState("");
@@ -13,7 +14,7 @@ const NursingHome = () => {
 
   return (
     <>
-      <Header headerContent={[]} />
+      <Header headerContent={NursingHeaderContent} />
       <main>
         <form>
           <TextField

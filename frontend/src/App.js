@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Dashboard from "./pages/Admin/Dashboard";
+
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
@@ -7,8 +9,8 @@ import DoctorsHome from "./pages/Doctor/DoctorsHome";
 import AddMedicines from "./pages/Pharmacist/AddMedicines";
 import MedicalHistory from "./pages/MedicalHistory";
 import Staff from "./pages/Staff";
-import AdminHome from "./pages/Admin/AdminHome";
-import AddStudents from "./pages/Admin/AddStudents";
+import AdminHome from "./pages/Admin/Dashboard";
+import AddStudents from "./pages/Admin/StudentManagement.js";
 import NursingHome from "./pages/NursingStation/NursingHome";
 import NursingSecondPage from "./pages/NursingStation/NursingSecondPage";
 
@@ -16,6 +18,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/admin" element={<Dashboard />} />
+
         <Route path="/" element={<HomePage />} />
         <Route path="/medical-history" element={<MedicalHistory />} />
         <Route path="/staff" element={<Staff />} />

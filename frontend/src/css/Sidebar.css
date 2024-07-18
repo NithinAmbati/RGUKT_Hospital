@@ -1,0 +1,29 @@
+/* Sidebar.css */
+
+/* Sidebar */
+.drawer {
+  width: 240px;
+  flex-shrink: 0;
+}
+
+.drawerPaper {
+  width: 240px;
+  height: calc(100% - 64px); /* AppBar height is typically 64px */
+  top: 64px; /* Position below the AppBar */
+  box-sizing: border-box;
+}
+
+.MuiListItem-button {
+  padding-left: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .drawer {
+    width: 200px;
+  }
+
+  .drawerPaper {
+    width: 200px;
+  }
+}

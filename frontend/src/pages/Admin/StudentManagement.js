@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import { AdminHeaderContent } from "../../store/data";
 import Cookies from "js-cookie";
 
-const ExcelUploader = () => {
+const StudentManagement = () => {
   const [file, setFile] = useState(null);
 
   const handleFileChange = (e) => {
@@ -103,4 +103,4 @@ const ExcelUploader = () => {
   );
 };
 
-export default ExcelUploader;
+export default StudentManagement;

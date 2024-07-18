@@ -12,4 +12,6 @@ const studentSchema = new mongoose.Schema({
   longTermDiseases: { type: String, required: false },
 });
 
-module.exports = studentSchema;
+const Students = mongoose.model("students", studentSchema);
+
+module.exports = Students;

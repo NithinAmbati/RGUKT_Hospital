@@ -13,7 +13,7 @@ const NursingSecondPage = () => {
   // To display the entire pending treatments to update the treatment
   useEffect(() => {
     const fetchPendingList = async () => {
-      const url = "http://localhost:8000/treatments/nursing?status=pending";
+      const url = "http://localhost:8000/treatments/nursing";
       const options = {
         method: "GET",
         headers: {
@@ -35,11 +35,21 @@ const NursingSecondPage = () => {
   }, []);
 
   //To store the searched treatment
-  const filterData = () => {
-    const filteredPendingList = pendingList.filter((item) =>
-      item.studentId.includes(searchInput)
-    );
-    setPendingList(filteredPendingList);
+  const filterData = async () => {
+    const url = `http://localhost:8000/treatments/nursing?studentId=${searchInput}`;
+    const options = {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        authorization: "Bearer " + Cookies.get("jwtToken"),
+      },
+    };
+    const response = await fetch(url, options);
+    if (response.ok) {
+      const filteredPendingList = await response.json();
+      console.log(filteredPendingList);
+      setPendingList(filteredPendingList);
+    }
   };
 
   // Update Form Functionality

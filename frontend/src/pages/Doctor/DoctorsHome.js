@@ -60,7 +60,7 @@ const DoctorsHome = () => {
   const searchBtn = async () => {
     setLoading(true);
     const pendingTreatmentUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput}&status=pending`;
-    const treatedTreatmentsUrl = `http://localhost:8000/treatments?studentId=${searchInput}&status=treated`;
+    const treatedTreatmentsUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput}&status=treated`;
     const studentDetailsUrl = `http://localhost:8000/student-details?studentId=${searchInput}`;
 
     const options = {
@@ -80,6 +80,7 @@ const DoctorsHome = () => {
     const response2 = await fetch(treatedTreatmentsUrl, options);
     if (response2.ok) {
       const treatedTreatmentData = await response2.json();
+      console.log(treatedTreatmentData);
       setTreatedTreatments(treatedTreatmentData);
     }
     const response3 = await fetch(studentDetailsUrl, options);
@@ -91,7 +92,6 @@ const DoctorsHome = () => {
 
   const submitBtn = async (e) => {
     e.preventDefault();
-    console.log(pendingTreatment);
     const url = `http://localhost:8000/treatments/doctor-update/${pendingTreatment._id}`;
     const options = {
       method: "PUT",

@@ -7,7 +7,8 @@ const verifyToken = require("../Middleware/VerifyToken");
 router.get("/", verifyToken, async (req, res) => {
   try {
     const { studentId } = req.query;
-    const studentInfo = await Students.findOne({
+    console.log(studentId);
+    const studentInfo = await Students.find({
       studentId: { $regex: studentId, $options: "i" },
     });
     res.status(200).send(studentInfo);

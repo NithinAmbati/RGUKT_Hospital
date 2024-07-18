@@ -29,8 +29,9 @@ const treatmentUpdateByDoctor = async (req, res) => {
     );
     res.status(200).send("Updated successfully");
   } catch (error) {
-    console.log(error.message);
-    res.status(400).send(error.message);
+    console.error("Error:", error);
+    const errorMessage = await response.text();
+    console.log(errorMessage);
   }
 };
 

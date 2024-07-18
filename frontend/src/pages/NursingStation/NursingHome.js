@@ -4,6 +4,7 @@ import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { NursingHeaderContent } from "../../store/data";
 import Cookies from "js-cookie";
+import { Navigate } from "react-router-dom";
 
 const NursingHome = () => {
   const [temperature, setTemperature] = useState("");
@@ -52,9 +53,15 @@ const NursingHome = () => {
       setStudentId("");
       setECG("");
     } else {
-      alert("Failed to save vitals. Please try again.");
+      const msg = await response.text();
+      alert(msg);
     }
   };
+
+  const jwtToken = Cookies.get("jwtToken");
+  if (!jwtToken) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <>

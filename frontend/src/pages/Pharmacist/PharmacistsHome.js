@@ -4,6 +4,7 @@ import { PharmacistsHeaderContent } from "../../store/data";
 import Cookies from "js-cookie";
 import { Button } from "@mui/material";
 import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
+import { Navigate } from "react-router-dom";
 
 function PharmacistsHome() {
   const [patientsList, setPatientsList] = useState([]);
@@ -19,20 +20,16 @@ function PharmacistsHome() {
           authorization: `Bearer ${Cookies.get("jwtToken")}`,
         },
       };
-      try {
-        const response = await fetch(url, options);
-        if (response.ok) {
-          const data = await response.json();
-          setPatientsList(data);
-        } else {
-          throw new Error("Failed to fetch patients list");
-        }
-      } catch (error) {
-        console.error("Error fetching patients list:", error);
+      const response = await fetch(url, options);
+      if (response.ok) {
+        const data = await response.json();
+        setPatientsList(data);
+      } else {
+        throw new Error("Failed to fetch patients list");
       }
     };
     fetchPatientsList();
-  }, []);
+  }, [searchInput]);
 
   const submitBtn = (medicinesWritten, treatmentId) => async () => {
     const url = "http://localhost:8000/medicines";
@@ -53,7 +50,8 @@ function PharmacistsHome() {
         console.log("Medicines Issued successfully");
         alert("Medicines Issued successfully");
       } else {
-        console.log("Failed");
+        const msg = await response.text();
+        alert(msg);
       }
     } catch (error) {
       console.error("Error issuing medicines:", error);
@@ -63,6 +61,11 @@ function PharmacistsHome() {
   const filteredPatientsList = patientsList.filter((item) =>
     item.studentId.toLowerCase().includes(searchInput.toLowerCase())
   );
+
+  const jwtToken = Cookies.get("jwtToken");
+  if (!jwtToken) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -106,7 +109,6 @@ function PharmacistsHome() {
                   </div>
                 </div>
                 <div className="flex justify-between">
-                  <Button color="success">{item.status}</Button>
                   <Button
                     color="secondary"
                     variant="contained"

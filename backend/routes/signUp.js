@@ -4,7 +4,6 @@ const { Doctor, Pharmacist, Nurse } = require("../models");
 
 router.post("/", async (req, res) => {
   const { userId, username, email, password } = req.body;
-  console.log(req.body);
 
   try {
     // Check if user already exists
@@ -23,8 +22,6 @@ router.post("/", async (req, res) => {
       res.status(400).send("User already exists");
       return;
     }
-
-    console.log(existingUser);
     // Create new user
     if (userId.startsWith("D")) {
       const newUser = new Doctor({ userId, username, email, password });
@@ -39,7 +36,8 @@ router.post("/", async (req, res) => {
     res.status(200).send("Registration Successful");
   } catch (error) {
     console.log(error.message);
-    res.status(500).send("Internal Server Error");
+    const errorMessage = await response.text();
+    console.log(errorMessage);
   }
 });
 

@@ -14,7 +14,8 @@ router.get("/", verifyToken, async (req, res) => {
     res.status(200).send(studentInfo);
   } catch (error) {
     console.error("Error:", error);
-    res.status(500).send("Internal Server Error");
+    const errorMessage = await response.text();
+    console.log(errorMessage);
   }
 });
 
@@ -25,7 +26,9 @@ router.post("/", verifyToken, async (req, res) => {
     await Students.insertMany(studentsData);
     res.status(200).send("File uploaded and data stored successfully!");
   } catch (error) {
-    res.status(500).send("Internal server error");
+    console.error("Error:", error);
+    const errorMessage = await response.text();
+    console.log(errorMessage);
   }
 });
 

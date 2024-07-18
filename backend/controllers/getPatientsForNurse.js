@@ -17,8 +17,9 @@ const getPatientsForNurse = async (req, res) => {
       res.status(200).send(treatments);
     }
   } catch (error) {
-    console.error(error.message); // Log the actual error for debugging
-    res.status(500).send(error.message);
+    console.error("Error:", error);
+    const errorMessage = await response.text();
+    console.log(errorMessage);
   }
 };
 

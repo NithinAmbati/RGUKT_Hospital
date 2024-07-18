@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import { NursingHeaderContent } from "../../store/data";
 import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
 import { Button } from "@mui/material";
+import { Navigate } from "react-router-dom";
 
 // This component will be used to update the treatment of the student by nurse after Doctor treatment
 const NursingSecondPage = () => {
@@ -49,6 +50,9 @@ const NursingSecondPage = () => {
       const filteredPendingList = await response.json();
       console.log(filteredPendingList);
       setPendingList(filteredPendingList);
+    } else {
+      const msg = await response.text();
+      alert(msg);
     }
   };
 
@@ -89,6 +93,11 @@ const NursingSecondPage = () => {
       console.log("Failed to update treatment");
     }
   };
+
+  const jwtToken = Cookies.get("jwtToken");
+  if (!jwtToken) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <>

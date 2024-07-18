@@ -33,8 +33,9 @@ const treatmentUpdateByPharmacist = async (req, res) => {
 
     res.status(200).send("Updated Successfully");
   } catch (error) {
-    console.log(error.message);
-    res.status(500).send(error.message);
+    console.error("Error:", error);
+    const errorMessage = await response.text();
+    console.log(errorMessage);
   }
 };
 

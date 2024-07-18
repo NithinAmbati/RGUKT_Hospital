@@ -28,7 +28,8 @@ function SignUpForm() {
     if (response.ok) {
       alert("Registration successful");
     } else {
-      alert("User Already Exists");
+      const msg = await response.text();
+      console.log(msg);
     }
     setUserId("");
     setName("");

@@ -33,7 +33,8 @@ function LoginForm() {
       else if (userId.startsWith("A")) navigate("/admin");
       else if (userId.startsWith("N")) navigate("/nursing");
     } else {
-      alert("wrong");
+      const msg = await response.text();
+      alert(msg);
     }
   };
 

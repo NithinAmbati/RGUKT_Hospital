@@ -28,7 +28,9 @@ router.get("/", verifyToken, async (req, res) => {
     ]);
     res.send(data);
   } catch (err) {
-    res.status(400).send("Invalid Token");
+    console.error("Error:", error);
+    const errorMessage = await response.text();
+    console.log(errorMessage);
   }
 });
 
@@ -39,7 +41,9 @@ router.post("/", verifyToken, async (req, res) => {
     await Medicines.insertMany(newMedicines);
     res.status(200).send("Succesful");
   } catch (err) {
-    res.status(400).send("Invalid Token");
+    console.error("Error:", error);
+    const errorMessage = await response.text();
+    console.log(errorMessage);
   }
 });
 
@@ -89,8 +93,9 @@ router.put("/", verifyToken, async (req, res) => {
     );
     res.status(200).send("Successful");
   } catch (error) {
-    console.log(error.message);
-    res.status(500).send(error.message);
+    console.error("Error:", error);
+    const errorMessage = await response.text();
+    console.log(errorMessage);
   }
 });
 

@@ -8,6 +8,7 @@ import SelectMedicines from "../../components/SelectMedicines";
 import { Spin } from "antd";
 
 import "./DoctorsHome.css"; // Import the CSS file for styling
+import { Navigate } from "react-router-dom";
 
 const calculateAge = (birthDate) => {
   const birth = new Date(birthDate);
@@ -76,17 +77,26 @@ const DoctorsHome = () => {
       console.log(pendingTreatmentData);
       if (pendingTreatmentData.length > 0) setShowData(true);
       setPendingTreatment(pendingTreatmentData[0]);
+    } else {
+      const msg = await response1.text();
+      alert(msg);
     }
     const response2 = await fetch(treatedTreatmentsUrl, options);
     if (response2.ok) {
       const treatedTreatmentData = await response2.json();
       console.log(treatedTreatmentData);
       setTreatedTreatments(treatedTreatmentData);
+    } else {
+      const msg = await response2.text();
+      alert(msg);
     }
     const response3 = await fetch(studentDetailsUrl, options);
     if (response3.ok) {
       const studentDetailsData = await response3.json();
       setStudentDetails(studentDetailsData);
+    } else {
+      const msg = await response3.text();
+      alert(msg);
     }
   };
 
@@ -116,6 +126,11 @@ const DoctorsHome = () => {
   const handleChange = (field, value) => {
     setPendingTreatment({ ...pendingTreatment, [field]: value });
   };
+
+  const jwtToken = Cookies.get("jwtToken");
+  if (!jwtToken) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <div>

@@ -3,6 +3,7 @@ import * as XLSX from "xlsx";
 import Header from "../../components/Header";
 import { AdminHeaderContent } from "../../store/data";
 import Cookies from "js-cookie";
+import { Navigate } from "react-router-dom";
 
 const ExcelUploader = () => {
   const [file, setFile] = useState(null);
@@ -44,30 +45,32 @@ const ExcelUploader = () => {
 
       console.log(studentsData);
 
-      try {
-        const url = "http://localhost:8000/student-details";
-        const options = {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-            authorization: "Bearer " + Cookies.get("jwtToken"),
-          },
-          body: JSON.stringify({ studentsData }),
-        };
-        const response = await fetch(url, options);
-        if (response.ok) {
-          alert("Data uploaded successfully");
-          console.log("File uploaded successfully:");
-        } else {
-          alert("Error uploading data");
-        }
-      } catch (error) {
-        console.error("Error uploading file:", error);
+      const url = "http://localhost:8000/student-details";
+      const options = {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: "Bearer " + Cookies.get("jwtToken"),
+        },
+        body: JSON.stringify({ studentsData }),
+      };
+      const response = await fetch(url, options);
+      if (response.ok) {
+        alert("Data uploaded successfully");
+        console.log("File uploaded successfully:");
+      } else {
+        const msg = await response.text();
+        alert(msg);
       }
     };
 
     reader.readAsArrayBuffer(file);
   };
+
+  const jwtToken = Cookies.get("jwtToken");
+  if (!jwtToken) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <>

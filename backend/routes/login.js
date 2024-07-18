@@ -39,7 +39,9 @@ router.post("/", async (req, res) => {
     const jwtToken = generateJwtToken(userId);
     res.status(201).send({ jwtToken });
   } catch (error) {
-    res.status(500).send("Internal Server Error");
+    console.error("Error:", error);
+    const errorMessage = await response.text();
+    console.log(errorMessage);
   }
 });
 

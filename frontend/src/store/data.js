@@ -30,18 +30,21 @@ const DoctorsHeaderContent = [
 const PharmacistsHeaderContent = [
   { title: "Home", link: "/pharmacist" },
   { title: "Add Medicine", link: "/pharmacist/add-medicines" },
+  { title: "Profile", link: "/pharmacist/profile" },
   { title: "Logout", link: "/logout" },
 ];
 
 const NursingHeaderContent = [
   { title: "Home", link: "/nursing" },
   { title: "Patient Details", link: "/nursing/patient-details" },
+  { title: "Profile", link: "/nursing/profile" },
   { title: "Logout", link: "/logout" },
 ];
 
 const AdminHeaderContent = [
   { title: "Home", link: "/admin" },
   { title: "Add Students", link: "/admin/add-students" },
+  { title: "Profile", link: "/admin/profile" },
   { title: "Logout", link: "/logout" },
 ];
 

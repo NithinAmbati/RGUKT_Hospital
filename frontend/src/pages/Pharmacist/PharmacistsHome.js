@@ -29,7 +29,7 @@ function PharmacistsHome() {
       }
     };
     fetchPatientsList();
-  }, []);
+  }, [searchInput]);
 
   const submitBtn = (medicinesWritten, treatmentId) => async () => {
     const url = "http://localhost:8000/medicines";

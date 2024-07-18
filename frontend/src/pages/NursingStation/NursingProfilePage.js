@@ -3,12 +3,12 @@ import Header from "../../components/Header";
 import { PharmacistsHeaderContent } from "../../store/data";
 import Cookies from "js-cookie";
 
-const PharmacistProfilePage = () => {
+const NursingProfilePage = () => {
   const [profileData, setProfileData] = useState("");
 
   useEffect(() => {
     const getProfileData = async () => {
-      const url = "http://localhost:8000/profile/pharmacist";
+      const url = "http://localhost:8000/profile/nurse";
       const options = {
         method: "GET",
         headers: {
@@ -19,7 +19,6 @@ const PharmacistProfilePage = () => {
       const response = await fetch(url, options);
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         setProfileData(data);
       } else {
         const msg = await response.text();
@@ -33,7 +32,7 @@ const PharmacistProfilePage = () => {
     <>
       <Header headerContent={PharmacistsHeaderContent} />
       <main>
-        <h1>Pharmacist Profile Page</h1>
+        <h1>Nurse Profile Page</h1>
         <h1>UserId: {profileData.userId}</h1>
         <h1>Name: {profileData.name}</h1>
         <h1>Email: {profileData.email}</h1>
@@ -42,4 +41,4 @@ const PharmacistProfilePage = () => {
   );
 };
 
-export default PharmacistProfilePage;
+export default NursingProfilePage;

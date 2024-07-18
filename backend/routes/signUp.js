@@ -36,8 +36,7 @@ router.post("/", async (req, res) => {
     res.status(200).send("Registration Successful");
   } catch (error) {
     console.log(error.message);
-    const errorMessage = await response.text();
-    console.log(errorMessage);
+    res.status(500).send(error.message);
   }
 });
 

@@ -39,9 +39,8 @@ router.post("/", async (req, res) => {
     const jwtToken = generateJwtToken(userId);
     res.status(201).send({ jwtToken });
   } catch (error) {
-    console.error("Error:", error);
-    const errorMessage = await response.text();
-    console.log(errorMessage);
+    console.log(error.message);
+    res.status(500).send(error.message);
   }
 });
 

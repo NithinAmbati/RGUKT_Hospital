@@ -1,0 +1,53 @@
+/* PatientManagement.css */
+
+.patient-management {
+  padding: 16px;
+  background-color: #f9f9f9;
+}
+
+.patient-management h2 {
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.patient-section {
+  margin-bottom: 24px;
+}
+
+.patient-section h3 {
+  color: #2196f3;
+  margin-bottom: 8px;
+}
+
+/* Table Styles */
+.patient-table,
+.admission-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+
+.patient-table th,
+.admission-table th,
+.patient-table td,
+.admission-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.patient-table th,
+.admission-table th {
+  background-color: #f2f2f2;
+  color: #333;
+  text-align: left;
+}
+
+.patient-table tr:nth-child(even),
+.admission-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.patient-table tr:hover,
+.admission-table tr:hover {
+  background-color: #ddd;
+}

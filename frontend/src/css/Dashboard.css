@@ -23,13 +23,13 @@ body {
   flex-grow: 1;
   padding: 16px;
   background-color: #f4f4f4;
-  margin-left: 240px; /* Adjust based on sidebar width */
+  margin-left: 240px;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .dashboard-main {
     padding: 8px;
-    margin-left: 200px; /* Adjust based on sidebar width */
+    margin-left: 200px;
   }
 }

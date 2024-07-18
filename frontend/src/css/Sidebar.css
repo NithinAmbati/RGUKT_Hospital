@@ -1,29 +1,54 @@
 /* Sidebar.css */
 
-/* Sidebar */
-.drawer {
-  width: 240px;
-  flex-shrink: 0;
-}
-
-.drawerPaper {
-  width: 240px;
-  height: calc(100% - 64px); /* AppBar height is typically 64px */
-  top: 64px; /* Position below the AppBar */
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
-.MuiListItem-button {
-  padding-left: 16px;
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: Arial, sans-serif;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  background-color: #333;
+  color: #fff;
+  position: fixed;
+  top: 64px; /* Adjust based on header height */
+  height: calc(100% - 64px); /* Adjust based on header height */
+  overflow-y: auto;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #fff; /* Add bottom border to each li */
+}
+
+.sidebar li:hover {
+  background-color: #444;
+}
+
+.sidebar li i {
+  margin-right: 8px;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .drawer {
-    width: 200px;
-  }
-
-  .drawerPaper {
+  .sidebar {
     width: 200px;
   }
 }

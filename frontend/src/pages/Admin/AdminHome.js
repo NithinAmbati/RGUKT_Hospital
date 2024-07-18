@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Box, CssBaseline, Toolbar, Container } from "@mui/material";
-
 import Header from "../../components/Header";
 import { AdminHeaderContent } from "../../store/data";
 import Sidebar from "./Sidebar";
@@ -37,14 +35,12 @@ const AdminHome = () => {
   return (
     <>
       <Header headerContent={AdminHeaderContent} />
-      <Box className="dashboard-container">
-        <CssBaseline />
+      <div className="dashboard-container">
         <Sidebar setSelectedSection={setSelectedSection} />
-        <Box component="main" className="dashboard-main">
-          <Toolbar />
-          <Container>{renderContent()}</Container>
-        </Box>
-      </Box>
+        <div className="dashboard-main">
+          <div>{renderContent()}</div>
+        </div>
+      </div>
     </>
   );
 };

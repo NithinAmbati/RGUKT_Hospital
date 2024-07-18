@@ -6,7 +6,8 @@ const getPatientForDoctors = async (req, res) => {
     const treatments = await Treatments.find({ status, studentId });
     res.status(200).send(treatments);
   } catch (error) {
-    res.status(500).send("Internal Server Error");
+    console.error(error.message);
+    res.status(500).send(error.message);
   }
 };
 

@@ -9,8 +9,9 @@ const treatmentUpdateByNurse = async (req, res) => {
       { $set: { spo2, ecg } },
       { new: true }
     );
-    res.status(200).send("Successfully Updated");
+    res.status(200).send("Updated Successfully");
   } catch (error) {
+    console.log(error.message);
     res.status(500).send(error.message);
   }
 };

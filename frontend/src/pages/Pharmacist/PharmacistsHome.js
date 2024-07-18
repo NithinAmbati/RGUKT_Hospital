@@ -11,7 +11,7 @@ function PharmacistsHome() {
 
   useEffect(() => {
     const fetchPatientsList = async () => {
-      const url = "http://localhost:8000/treatments?status=pending";
+      const url = `http://localhost:8000/treatments/pharmacist?studentId=${searchInput}`;
       const options = {
         method: "GET",
         headers: {

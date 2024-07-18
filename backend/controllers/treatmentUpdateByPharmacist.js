@@ -31,9 +31,10 @@ const treatmentUpdateByPharmacist = async (req, res) => {
       },
     });
 
-    res.status(200).send("Success");
+    res.status(200).send("Updated Successfully");
   } catch (error) {
-    res.status(500).send("Internal Server Error");
+    console.log(error.message);
+    res.status(500).send(error.message);
   }
 };
 

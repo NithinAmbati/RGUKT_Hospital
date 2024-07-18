@@ -94,10 +94,10 @@ router.put("/", verifyToken, async (req, res) => {
   }
 });
 
-// const deleteMedicines = async () => {
-//   await Medicines.deleteMany({ quantity: 0 });
-// };
+const deleteMedicines = async () => {
+  await Medicines.deleteMany({ quantity: 0 });
+};
 
-// deleteMedicines();
+deleteMedicines();
 
 module.exports = router;

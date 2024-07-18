@@ -13,9 +13,8 @@ router.get("/", verifyToken, async (req, res) => {
     });
     res.status(200).send(studentInfo);
   } catch (error) {
-    console.error("Error:", error);
-    const errorMessage = await response.text();
-    console.log(errorMessage);
+    console.log(error.message);
+    res.status(500).send(error.message);
   }
 });
 
@@ -26,9 +25,8 @@ router.post("/", verifyToken, async (req, res) => {
     await Students.insertMany(studentsData);
     res.status(200).send("File uploaded and data stored successfully!");
   } catch (error) {
-    console.error("Error:", error);
-    const errorMessage = await response.text();
-    console.log(errorMessage);
+    console.log(error.message);
+    res.status(500).send(error.message);
   }
 });
 

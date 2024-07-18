@@ -14,6 +14,7 @@ import NursingHome from "./pages/NursingStation/NursingHome";
 import NursingSecondPage from "./pages/NursingStation/NursingSecondPage";
 import DoctorProfilePage from "./pages/Doctor/DoctorProfilePage";
 import PharmacistProfilePage from "./pages/Pharmacist/PharmacistProfilePage";
+import NursingProfilePage from "./pages/NursingStation/NursingProfilePage.js";
 function App() {
   return (
     <BrowserRouter>
@@ -40,6 +41,7 @@ function App() {
           path="/nursing/patient-details"
           element={<NursingSecondPage />}
         />
+        <Route path="/nursing/profile" element={<NursingProfilePage />} />
 
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>

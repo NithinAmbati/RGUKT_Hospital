@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Doctor, Pharmacist, Admin, Nurse } = require("./startMongoose");
+const { Doctor, Pharmacist, Admin, Nurse } = require("../models");
 const jwt = require("jsonwebtoken");
 
 const generateJwtToken = (userId) => {

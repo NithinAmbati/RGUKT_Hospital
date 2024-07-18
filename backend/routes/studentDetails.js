@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Students } = require("./startMongoose");
+const { Students } = require("../models");
 const verifyToken = require("../Middleware/VerifyToken");
 
 // Student-Details API

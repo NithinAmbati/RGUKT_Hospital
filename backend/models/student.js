@@ -1,0 +1,15 @@
+const mongoose = require("mongoose");
+
+const studentSchema = new mongoose.Schema({
+  studentId: { type: String, required: true },
+  name: { type: String, required: true },
+  DOB: { type: Date, required: true },
+  gender: { type: String, required: true },
+  bloodGroup: { type: String, required: false },
+  contactNumber: { type: String, required: true },
+  parentName: { type: String, required: false },
+  parentContactNumber: { type: String, required: false },
+  longTermDiseases: { type: String, required: false },
+});
+
+module.exports = studentSchema;

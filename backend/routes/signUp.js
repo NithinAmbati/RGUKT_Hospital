@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Doctor, Pharmacist, Nurse } = require("./startMongoose");
+const { Doctor, Pharmacist, Nurse } = require("../models");
 
 router.post("/", async (req, res) => {
   const { userId, username, email, password } = req.body;

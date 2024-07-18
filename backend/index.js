@@ -1,6 +1,9 @@
 const express = require("express");
 const cors = require("cors");
-const routes = require("./APIs");
+const routes = require("./routes");
+const connectMongoDb = require("./connection");
+
+connectMongoDb("mongodb://localhost:27017/RGUKT_Hospital");
 
 const app = express();
 app.use(express.json());

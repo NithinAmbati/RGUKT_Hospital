@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const { Medicines, Treatments } = require("./mongoDBConnection");
+const { Medicines, Treatments } = require("../models");
 const verifyToken = require("../Middleware/VerifyToken");
 
 router.get("/", verifyToken, async (req, res) => {
@@ -94,10 +94,10 @@ router.put("/", verifyToken, async (req, res) => {
   }
 });
 
-const deleteMedicines = async () => {
-  await Medicines.deleteMany({ quantity: 0 });
-};
+// const deleteMedicines = async () => {
+//   await Medicines.deleteMany({ quantity: 0 });
+// };
 
-deleteMedicines();
+// deleteMedicines();
 
 module.exports = router;

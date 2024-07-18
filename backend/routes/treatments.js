@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const { Treatments, Medicines } = require("./startMongoose");
+const { Treatments, Medicines } = require("../models");
 const verifyToken = require("../Middleware/VerifyToken");
 
 // Treatment POST API

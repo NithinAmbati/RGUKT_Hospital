@@ -11,14 +11,14 @@ const getUserData = (Model) => async (req, res) => {
   }
 };
 
-const getPharmacistData = getUserData(Pharmacist);
-const getDoctorData = getUserData(Doctor);
-const getAdminData = getUserData(Admin);
-const getNurseData = getUserData(Nurse);
+const getPharmacistProfile = getUserData(Pharmacist);
+const getDoctorProfile = getUserData(Doctor);
+const getAdminProfile = getUserData(Admin);
+const getNurseProfile = getUserData(Nurse);
 
 module.exports = {
-  getPharmacistData,
-  getDoctorData,
-  getAdminData,
-  getNurseData,
+  getPharmacistProfile,
+  getDoctorProfile,
+  getAdminProfile,
+  getNurseProfile,
 };

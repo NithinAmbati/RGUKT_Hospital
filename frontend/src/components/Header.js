@@ -32,7 +32,7 @@ const Header = ({ headerContent }) => {
   const path = location.pathname;
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -62,11 +62,11 @@ const Header = ({ headerContent }) => {
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
-        <img 
-            src="https://www.rgukt.in/images/Logonew.png" 
-            alt="Logo" 
-            style={{ height: '60px', borderRadius: '50%', marginRight: '16px' }}
-        />
+          <img
+            src="https://www.rgukt.in/images/Logonew.png"
+            alt="Logo"
+            style={{ height: "60px", borderRadius: "50%", marginRight: "16px" }}
+          />
           <Typography
             variant="h6"
             color="inherit"

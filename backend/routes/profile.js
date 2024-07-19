@@ -12,6 +12,12 @@ const {
   updateAdminProfile,
   updateNurseProfile,
 } = require("../controllers/updateUserProfile");
+const {
+  changePharmacistPassword,
+  changeDoctorPassword,
+  changeAdminPassword,
+  changeNursePassword,
+} = require("../controllers/changePassword");
 const router = express.Router();
 
 router.get("/pharmacist", verifyToken, getPharmacistProfile);
@@ -23,5 +29,14 @@ router.put("/pharmacist", verifyToken, updatePharmacistProfile);
 router.put("/doctor", verifyToken, updateDoctorProfile);
 router.put("/admin", verifyToken, updateAdminProfile);
 router.put("/nurse", verifyToken, updateNurseProfile);
+
+router.put(
+  "/pharmacist/change-password",
+  verifyToken,
+  changePharmacistPassword
+);
+router.put("/doctor/change-password", verifyToken, changeDoctorPassword);
+router.put("/admin/change-password", verifyToken, changeAdminPassword);
+router.put("/nurse/change-password", verifyToken, changeNursePassword);
 
 module.exports = router;

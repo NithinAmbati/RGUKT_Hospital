@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button, Box, TextField } from "@mui/material";
+import Cookies from "js-cookie";
 
 const style = {
   position: "absolute",
@@ -28,22 +29,22 @@ const ChangePasswordComponent = () => {
   };
 
   const handleConfirm = async () => {
-    if (oldPassword === newPassword) {
-      alert("Old password is same as new password!");
-      return;
-    }
-
     if (newPassword !== confirmNewPassword) {
       alert("Passwords not matched!");
       return;
     }
 
-    const url = "";
+    if (oldPassword === newPassword) {
+      alert("Old password is same as new password!");
+      return;
+    }
+
+    const url = "http://localhost:8000/profile/doctor/change-password";
     const options = {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+        authorization: `Bearer ${Cookies.get("jwtToken")}`,
       },
       body: JSON.stringify({
         oldPassword,
@@ -51,17 +52,15 @@ const ChangePasswordComponent = () => {
       }),
     };
 
-    const response = fetch(url, options);
+    const response = await fetch(url, options);
     if (response.ok) {
       alert("Password changed successfully!");
       handleClose();
     } else {
       const msg = await response.text();
-      alert("Failed to change password: " + msg);
+      alert(msg);
     }
   };
-
-  console.log(oldPassword);
 
   return (
     <div>

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Doctor, Pharmacist, Nurse } = require("../models");
+const { hashPassword } = require("../controllers/passwordHashing");
 
 router.post("/", async (req, res) => {
   const { userId, username, email, password } = req.body;
@@ -22,15 +23,33 @@ router.post("/", async (req, res) => {
       res.status(400).send("User already exists");
       return;
     }
+
     // Create new user
+    const hashedPassword = hashPassword(password);
+
     if (userId.startsWith("D")) {
-      const newUser = new Doctor({ userId, username, email, password });
+      const newUser = new Doctor({
+        userId,
+        username,
+        email,
+        password: hashedPassword,
+      });
       await newUser.save();
     } else if (userId.startsWith("P")) {
-      const newUser = new Pharmacist({ userId, username, email, password });
+      const newUser = new Pharmacist({
+        userId,
+        username,
+        email,
+        password: hashedPassword,
+      });
       await newUser.save();
     } else if (userId.startsWith("N")) {
-      const newUser = new Nurse({ userId, username, email, password });
+      const newUser = new Nurse({
+        userId,
+        username,
+        email,
+        password: hashedPassword,
+      });
       await newUser.save();
     }
     res.status(200).send("Registration Successful");

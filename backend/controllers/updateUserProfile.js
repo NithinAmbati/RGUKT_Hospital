@@ -3,7 +3,7 @@ const { Pharmacist, Doctor, Admin, Nurse } = require("../models");
 const getUserData = (Model) => async (req, res) => {
   try {
     const { userId } = req;
-    const { name, email, contactNumber } = req.body;
+    const { name, email, contactNumber, profileImageUrl } = req.body;
     const data = await Model.updateOne(
       { userId },
       {
@@ -11,6 +11,7 @@ const getUserData = (Model) => async (req, res) => {
           name,
           email,
           contactNumber,
+          profileImageUrl,
         },
       }
     );

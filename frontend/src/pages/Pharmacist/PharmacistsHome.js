@@ -76,8 +76,9 @@ function PharmacistsHome() {
           <div className="flex items-center bg-white p-3 rounded-lg shadow-md max-w-md mx-auto">
             <input
               type="search"
-              placeholder="Search by userId"
+              placeholder="Search by Student ID"
               className="flex-grow p-2 border-none outline-none"
+              value={searchInput}
               onChange={(event) => setSearchInput(event.target.value)}
             />
             <SearchTwoToneIcon className="text-gray-500" />

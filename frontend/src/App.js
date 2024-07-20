@@ -71,7 +71,12 @@ function App() {
           }
         />
 
-        <Route path="/admin" element={<AdminHome />} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute component={AdminHome} requiredRole="admin" />
+          }
+        />
         <Route
           path="/admin/add-students"
           element={

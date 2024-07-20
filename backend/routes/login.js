@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Doctor, Pharmacist, Admin, Nurse } = require("../models");
 const generateJwtToken = require("../controllers/generateJwtToken");
+const { verifyPassword } = require("../controllers/passwordHashing");
 
 // Candidate Login API
 router.post("/", async (req, res) => {
@@ -10,16 +11,16 @@ router.post("/", async (req, res) => {
   try {
     let user, role;
     if (userId.startsWith("D")) {
-      user = await Doctor.findOne({ userId, password });
+      user = await Doctor.findOne({ userId });
       role = "doctor";
     } else if (userId.startsWith("P")) {
-      user = await Pharmacist.findOne({ userId, password });
+      user = await Pharmacist.findOne({ userId });
       role = "pharmacist";
     } else if (userId.startsWith("A")) {
-      user = await Admin.findOne({ userId, password });
+      user = await Admin.findOne({ userId });
       role = "admin";
     } else if (userId.startsWith("N")) {
-      user = await Nurse.findOne({ userId, password });
+      user = await Nurse.findOne({ userId });
       role = "nurse";
     } else {
       res.status(400).send("Invalid user type");
@@ -31,9 +32,13 @@ router.post("/", async (req, res) => {
       return;
     }
 
-    // Generate JWT token
-    const jwtToken = generateJwtToken(userId, role);
-    res.status(201).send({ jwtToken });
+    const isValidPassword = verifyPassword(password, user.password);
+    if (isValidPassword) {
+      const jwtToken = generateJwtToken(userId, role);
+      return res.status(201).send({ jwtToken });
+    }
+
+    res.status(400).send("Invalid credentials");
   } catch (error) {
     console.log(error.message);
     res.status(500).send(error.message);

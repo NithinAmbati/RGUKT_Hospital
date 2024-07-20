@@ -32,7 +32,7 @@ const Header = ({ headerContent }) => {
   const path = location.pathname;
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -65,12 +65,16 @@ const Header = ({ headerContent }) => {
           <img
             src="https://www.rgukt.in/images/Logonew.png"
             alt="Logo"
+<<<<<<< HEAD
             style={{
               background: "white",
               height: "50px",
               borderRadius: "50%",
               marginRight: "16px",
             }}
+=======
+            style={{ height: "60px", borderRadius: "50%", marginRight: "16px" }}
+>>>>>>> a38210bfaae45a4b71ef35c96646d2e6f770c10e
           />
           <Typography
             variant="h6"

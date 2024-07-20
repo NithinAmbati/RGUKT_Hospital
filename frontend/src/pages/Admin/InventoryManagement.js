@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import formatDate from "../../services/FormatDate";
 
 const InventoryManagement = () => {
   const [inventory, setInventory] = useState([]);
@@ -42,8 +43,12 @@ const InventoryManagement = () => {
               <tr key={index} className="hover:bg-gray-100">
                 <td className="py-2 px-4 border-b">{item.name}</td>
                 <td className="py-2 px-4 border-b">{item.quantity}</td>
-                <td className="py-2 px-4 border-b">{item.expiryDate}</td>
-                <td className="py-2 px-4 border-b">{item.importDate}</td>
+                <td className="py-2 px-4 border-b">
+                  {formatDate(item.expiryDate)}
+                </td>
+                <td className="py-2 px-4 border-b">
+                  {formatDate(item.importDate)}
+                </td>
               </tr>
             ))}
           </tbody>

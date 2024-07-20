@@ -8,6 +8,7 @@ const treatmentUpdateByPharmacist = require("../controllers/treatmentUpdateByPha
 const getPatientForDoctors = require("../controllers/getPatientForDoctor");
 const getPatientsForNurse = require("../controllers/getPatientsForNurse");
 const getPatientsForPharmacist = require("../controllers/getPatientsForPharmacist");
+const getPatientsForAdmin = require("../controllers/getPatientsForAdmin");
 
 router.post("/", verifyToken, createNewTreatment);
 
@@ -26,5 +27,7 @@ router.get("/doctor", verifyToken, getPatientForDoctors);
 router.get("/nursing", verifyToken, getPatientsForNurse);
 
 router.get("/pharmacist", verifyToken, getPatientsForPharmacist);
+
+router.get("/admin", verifyToken, getPatientsForAdmin);
 
 module.exports = router;

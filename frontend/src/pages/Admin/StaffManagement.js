@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Cookies from "js-cookie";
+
 import {
   Typography,
   Button,
@@ -13,35 +15,76 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 
 const StaffManagement = () => {
-  const [staff, setStaff] = useState([
-    {
-      name: "Dr. Alice Johnson",
-      position: "Cardiologist",
-      contact: "alice.johnson@example.com",
-    },
-    {
-      name: "Nurse Bob Smith",
-      position: "Nurse",
-      contact: "bob.smith@example.com",
-    },
-  ]);
+  const [doctors, setDoctors] = useState([]);
+  const [nurses, setNurses] = useState([]);
+  const [pharmacists, setPharmacists] = useState([]);
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      const url = "http://localhost:8000/users/doctors";
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer " + Cookies.get("jwtToken"),
+        },
+      };
+
+      const response = await fetch(url, options);
+      const data = await response.json();
+      setDoctors(data);
+    };
+
+    const fetchNurses = async () => {
+      const url = "http://localhost:8000/users/nurses";
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer " + Cookies.get("jwtToken"),
+        },
+      };
+
+      const response = await fetch(url, options);
+      const data = await response.json();
+      setNurses(data);
+    };
+
+    const fetchPharmacists = async () => {
+      const url = "http://localhost:8000/users/pharmacists";
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer " + Cookies.get("jwtToken"),
+        },
+      };
+
+      const response = await fetch(url, options);
+      const data = await response.json();
+      setPharmacists(data);
+    };
+
+    fetchDoctors();
+    fetchNurses();
+    fetchPharmacists();
+  }, []);
 
   const [newStaff, setNewStaff] = useState({
-    name: "",
-    position: "",
-    contact: "",
+    role: "",
+    userid: "",
+    password: "",
   });
 
+  const [role, setRole] = useState("");
   const [userid, setUserId] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+
   const [showForm, setShowForm] = useState(false);
 
   const handleAddStaff = (e) => {
     e.preventDefault();
-    setUserId("");
-    setPassword("");
-    setRole("");
+
     setShowForm(false);
   };
 
@@ -98,7 +141,7 @@ const StaffManagement = () => {
               <TextField
                 fullWidth
                 label="Password"
-                type="password" // Corrected type
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 margin="normal"
@@ -122,17 +165,17 @@ const StaffManagement = () => {
         <table className="min-w-full bg-white border border-gray-200">
           <thead>
             <tr className="font-semibold">
-              <td className="py-2 px-4 border-b">Name</td>
               <td className="py-2 px-4 border-b">Id</td>
+              <td className="py-2 px-4 border-b">Username</td>
               <td className="py-2 px-4 border-b">Contact</td>
             </tr>
           </thead>
           <tbody>
-            {staff.map((staffMember, index) => (
+            {doctors.map((doctor, index) => (
               <tr key={index} className="hover:bg-gray-100">
-                <td className="py-2 px-4 border-b">{staffMember.name}</td>
-                <td className="py-2 px-4 border-b">{staffMember.position}</td>
-                <td className="py-2 px-4 border-b">{staffMember.contact}</td>
+                <td className="py-2 px-4 border-b">{doctor.userId}</td>
+                <td className="py-2 px-4 border-b">{doctor.username}</td>
+                <td className="py-2 px-4 border-b">{doctor.email}</td>
               </tr>
             ))}
           </tbody>
@@ -144,17 +187,17 @@ const StaffManagement = () => {
         <table className="min-w-full bg-white border border-gray-200">
           <thead>
             <tr className="font-semibold">
-              <td className="py-2 px-4 border-b">Name</td>
               <td className="py-2 px-4 border-b">Id</td>
+              <td className="py-2 px-4 border-b">Username</td>
               <td className="py-2 px-4 border-b">Contact</td>
             </tr>
           </thead>
           <tbody>
-            {staff.map((staffMember, index) => (
+            {nurses.map((nurse, index) => (
               <tr key={index} className="hover:bg-gray-100">
-                <td className="py-2 px-4 border-b">{staffMember.name}</td>
-                <td className="py-2 px-4 border-b">{staffMember.position}</td>
-                <td className="py-2 px-4 border-b">{staffMember.contact}</td>
+                <td className="py-2 px-4 border-b">{nurse.userId}</td>
+                <td className="py-2 px-4 border-b">{nurse.username}</td>
+                <td className="py-2 px-4 border-b">{nurse.email}</td>
               </tr>
             ))}
           </tbody>
@@ -168,17 +211,17 @@ const StaffManagement = () => {
         <table className="min-w-full bg-white border border-gray-200">
           <thead>
             <tr className="font-semibold">
-              <td className="py-2 px-4 border-b">Name</td>
               <td className="py-2 px-4 border-b">Id</td>
+              <td className="py-2 px-4 border-b">Username</td>
               <td className="py-2 px-4 border-b">Contact</td>
             </tr>
           </thead>
           <tbody>
-            {staff.map((staffMember, index) => (
+            {pharmacists.map((pharmacist, index) => (
               <tr key={index} className="hover:bg-gray-100">
-                <td className="py-2 px-4 border-b">{staffMember.name}</td>
-                <td className="py-2 px-4 border-b">{staffMember.position}</td>
-                <td className="py-2 px-4 border-b">{staffMember.contact}</td>
+                <td className="py-2 px-4 border-b">{pharmacist.userId}</td>
+                <td className="py-2 px-4 border-b">{pharmacist.username}</td>
+                <td className="py-2 px-4 border-b">{pharmacist.email}</td>
               </tr>
             ))}
           </tbody>

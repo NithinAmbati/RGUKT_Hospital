@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import * as XLSX from "xlsx";
-import Header from "../../components/Header";
-import { AdminHeaderContent } from "../../store/data";
 import Cookies from "js-cookie";
 import { Navigate } from "react-router-dom";
 
@@ -74,9 +72,10 @@ const StudentManagement = () => {
 
   return (
     <>
-      <Header headerContent={AdminHeaderContent} />
       <main className="mx-auto max-w-screen-lg p-4">
-        <h1 className="text-3xl font-bold text-center">Add Students Here </h1>
+        <h1 className="mb-3 text-2xl font-semibold text-blue-600 text-center">
+          Add Students Here{" "}
+        </h1>
         <form
           onSubmit={handleSubmit}
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"

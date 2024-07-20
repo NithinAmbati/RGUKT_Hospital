@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 import calculateAge from "../../services/calculateAge";
 
+import "./StudentManagement";
+import StudentManagement from "./StudentManagement";
+
 const StudentDetails = () => {
   const [studentData, setStudentData] = useState(null);
   const [searchInput, setSearchInput] = useState("");
@@ -81,6 +84,8 @@ const StudentDetails = () => {
           Student Not Found
         </div>
       ) : null}
+
+      <StudentManagement />
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { Button, TextField } from "@mui/material";
 import ChangePasswordComponent from "./ChangePasswordComponent";
 import axios from "axios";
 
@@ -78,60 +77,62 @@ const ProfileComponent = ({ user }) => {
   return (
     <main className="flex flex-col items-center min-h-screen p-4 bg-gray-100">
       <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg p-6 mb-4">
-        <h1 className="text-2xl font-semibold mb-4">Doctor Profile</h1>
-        <div className="grid gap-4 md:grid-cols-2">
-          <div>
-            <h2 className="text-lg font-medium">
+        <h1 className="text-2xl font-semibold mb-4 text-blue-600">Profile</h1>
+        <div className="grid gap-10 md:grid-cols-2">
+          <div className="flex flex-col m-4">
+            <h2 className="text-lg font-medium mb-2">
               <span className="font-bold">User ID:</span> {profileData.userId}
             </h2>
-            <h2 className="text-lg font-medium">
-              <span className="font-bold">Name:</span>{" "}
+            <h2 className="text-lg font-medium mb-2">
+              <span className="font-bold">Name:</span>
               {editing ? (
-                <TextField
+                <input
                   type="text"
                   value={profileData.username || ""}
                   onChange={(e) =>
                     handleProfileChange("username", e.target.value)
                   }
-                  fullWidth
+                  className="border border-gray-300 p-2 rounded w-full"
                 />
               ) : (
                 <p>{profileData.username}</p>
               )}
             </h2>
-            <h2 className="text-lg font-medium">
-              <span className="font-bold">Email:</span>{" "}
+            <h2 className="text-lg font-medium mb-2">
+              <span className="font-bold">Email:</span>
               {editing ? (
-                <TextField
-                  type="text"
+                <input
+                  type="email"
                   value={profileData.email || ""}
                   onChange={(e) => handleProfileChange("email", e.target.value)}
-                  fullWidth
+                  className="border border-gray-300 p-2 rounded w-full"
                 />
               ) : (
                 <p>{profileData.email}</p>
               )}
             </h2>
-            <h2 className="text-lg font-medium">
-              <span className="font-bold">Mobile:</span>{" "}
+            <h2 className="text-lg font-medium mb-2">
+              <span className="font-bold">Mobile:</span>
               {editing ? (
-                <TextField
+                <input
                   type="text"
                   value={profileData.contactNumber || ""}
                   onChange={(e) =>
                     handleProfileChange("contactNumber", e.target.value)
                   }
-                  fullWidth
+                  className="border border-gray-300 p-2 rounded w-full"
                 />
               ) : (
                 <p>{profileData.contactNumber}</p>
               )}
             </h2>
           </div>
-          <div className="flex flex-col items-start">
-            <h2 className="text-lg font-medium mb-4">
-              <span className="font-bold">Upload Your Image:</span>
-            </h2>
+          <div className="flex flex-col items-center m-4">
+            {editing ? (
+              <h2 className="text-lg font-medium mb-2">
+                <span className="font-bold">Upload Your Image:</span>
+              </h2>
+            ) : null}
             <label className="w-32 h-32 bg-gray-200 flex items-center justify-center rounded-full cursor-pointer overflow-hidden relative">
               {profileImage || profileData.profileImageUrl ? (
                 <img
@@ -157,16 +158,14 @@ const ProfileComponent = ({ user }) => {
             </label>
           </div>
         </div>
-        <Button
-          variant="contained"
-          color="primary"
-          className="mt-4"
+        <button
           onClick={editing ? handleSubmit : () => setEditing(true)}
+          className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
         >
           {editing ? "Save" : "Edit"}
-        </Button>
+        </button>
       </div>
-      <ChangePasswordComponent />
+      {user !== "admin" && <ChangePasswordComponent />}
     </main>
   );
 };

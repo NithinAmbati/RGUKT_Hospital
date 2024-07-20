@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import Header from "../../components/Header";
 import { AdminHeaderContent } from "../../store/data";
 import Sidebar from "./Sidebar";
-import Profile from "./AdminProfile";
+import ProfileComponent from "../../components/ProfileComponent";
 import PatientsHistory from "./PatientManagement";
 import StaffManagement from "./StaffManagement";
 import InventoryManagement from "./InventoryManagement";
 import ReportsAndAnalytics from "./ReportsAndAnalytics";
+import StudentDetails from "./StudentDetails";
 import Settings from "./Settings";
 
 import "../../css/Dashboard.css";
-import StudentDetails from "./StudentDetails";
 
 const AdminHome = () => {
   const [selectedSection, setSelectedSection] = useState("Profile");
@@ -18,7 +18,7 @@ const AdminHome = () => {
   const renderContent = () => {
     switch (selectedSection) {
       case "Profile":
-        return <Profile />;
+        return <ProfileComponent user="admin" />;
       case "PatientsHistory":
         return <PatientsHistory />;
       case "StaffManagement":

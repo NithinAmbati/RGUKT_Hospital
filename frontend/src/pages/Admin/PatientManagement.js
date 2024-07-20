@@ -39,10 +39,6 @@ const PatientsHistory = () => {
 
   return (
     <div className="p-4 bg-gray-100 min-h-screen">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">
-        Patients History
-      </h2>
-
       <div>
         <h3 className="text-xl font-semibold text-blue-600 mb-2">
           Admission Records

@@ -5,14 +5,19 @@ const Sidebar = ({ selectedSection, setSelectedSection }) => {
   const sections = [
     { name: "Profile", icon: "fas fa-user", key: "Profile" },
     {
-      name: "Patients History",
-      icon: "fas fa-user-injured",
-      key: "PatientsHistory",
+      name: "Students Management",
+      icon: "fas fa-user-graduate",
+      key: "StudentDetails",
     },
     {
       name: "Staff Management",
       icon: "fas fa-user-md",
       key: "StaffManagement",
+    },
+    {
+      name: "Patients History",
+      icon: "fas fa-user-injured",
+      key: "PatientsHistory",
     },
     {
       name: "Inventory",
@@ -23,11 +28,6 @@ const Sidebar = ({ selectedSection, setSelectedSection }) => {
       name: "Reports and Analytics",
       icon: "fas fa-chart-line",
       key: "ReportsAndAnalytics",
-    },
-    {
-      name: "Students Details",
-      icon: "fas fa-user-injured",
-      key: "StudentDetails",
     },
     { name: "Settings", icon: "fas fa-cogs", key: "Settings" },
   ];

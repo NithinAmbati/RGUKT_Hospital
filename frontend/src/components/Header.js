@@ -103,7 +103,10 @@ const Header = ({ headerContent }) => {
                   },
                 }}
               >
-                {item.title}
+                {item.title}{" "}
+                {item.title === "Logout" ? (
+                  <i className="ml-2 fas fa-sign-out-alt"></i>
+                ) : null}
               </Button>
             ))}
           </Box>

@@ -7,6 +7,7 @@ const appointmentsRouter = require("./treatments");
 const medicinesRouter = require("./medicines");
 const studentDetailsRouter = require("./studentDetails");
 const profileRouter = require("./profile");
+const userDetailsRouter = require("./userDetails");
 
 // Use the routes from the different files
 
@@ -16,5 +17,6 @@ router.use("/treatments", appointmentsRouter);
 router.use("/medicines", medicinesRouter);
 router.use("/student-details", studentDetailsRouter);
 router.use("/profile", profileRouter);
+router.use("/users", userDetailsRouter);
 
 module.exports = router;

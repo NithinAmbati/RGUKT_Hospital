@@ -1,61 +1,56 @@
 import React from "react";
-import "../../css/PatientManagement.css";
+import { Button } from "@mui/material";
 
-const PatientManagement = () => {
+const PatientsHistory = () => {
   return (
-    <div className="patient-management">
-      <h2>Patient Records</h2>
-      <div className="patient-section">
-        <h3>Patient Profiles</h3>
-        <table className="patient-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Medical History</th>
-              <th>Current Treatment Plans</th>
-              <th>Prescriptions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>John Doe</td>
-              <td>Hypertension, Diabetes</td>
-              <td>Blood pressure control, Insulin therapy</td>
-              <td>Lisinopril, Metformin</td>
-            </tr>
-            <tr>
-              <td>Jane Smith</td>
-              <td>Asthma</td>
-              <td>Inhaled corticosteroids</td>
-              <td>Fluticasone</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div className="p-4 bg-gray-100 min-h-screen">
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">
+        Patients History
+      </h2>
 
-      <div className="patient-section">
-        <h3>Admission Records</h3>
-        <table className="admission-table">
+      <div>
+        <h3 className="text-xl font-semibold text-blue-600 mb-2">
+          Admission Records
+        </h3>
+        <table className="min-w-full bg-white border border-gray-200">
           <thead>
-            <tr>
-              <th>Name</th>
-              <th>Admission Date</th>
-              <th>Discharge Date</th>
-              <th>Reason</th>
+            <tr className="font-semibold">
+              <td className="py-2 px-4 border-b">Name</td>
+              <td className="py-2 px-4 border-b">Admission Date</td>
+              <td className="py-2 px-4 border-b">Reason</td>
+              <td className="py-2 px-4 border-b">History</td>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>John Doe</td>
-              <td>2023-05-10</td>
-              <td>2023-05-15</td>
-              <td>High blood pressure</td>
+            <tr className="hover:bg-gray-100">
+              <td className="py-2 px-4 border-b">John Doe</td>
+              <td className="py-2 px-4 border-b">2023-05-10</td>
+              <td className="py-2 px-4 border-b">High blood pressure</td>
+              <td className="py-2 px-4 border-b">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  sx={{ mt: 1 }}
+                >
+                  View
+                </Button>
+              </td>
             </tr>
-            <tr>
-              <td>Jane Smith</td>
-              <td>2023-06-01</td>
-              <td>2023-06-03</td>
-              <td>Asthma attack</td>
+            <tr className="hover:bg-gray-100">
+              <td className="py-2 px-4 border-b">Jane Smith</td>
+              <td className="py-2 px-4 border-b">2023-06-01</td>
+              <td className="py-2 px-4 border-b">Asthma attack</td>
+              <td className="py-2 px-4 border-b">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  sx={{ mt: 1 }}
+                >
+                  View
+                </Button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -64,4 +59,4 @@ const PatientManagement = () => {
   );
 };
 
-export default PatientManagement;
+export default PatientsHistory;

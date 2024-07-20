@@ -17,9 +17,24 @@ body {
 /* Layout */
 .dashboard-container {
   display: flex;
+  max-height: 100vh;
+}
+
+.dashboard-heading {
+  font-weight: bold;
+  color: black;
+  list-style: none;
+  align-items: center;
+  padding: 16px;
+  background-color: grey;
+}
+
+.dashboard-heading i {
+  margin-right: 8px;
 }
 
 .dashboard-main {
+  overflow-y: scroll;
   flex-grow: 1;
   padding: 16px;
   background-color: #f4f4f4;

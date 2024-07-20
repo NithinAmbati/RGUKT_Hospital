@@ -2,22 +2,28 @@ import React, { useState } from "react";
 import Header from "../../components/Header";
 import { AdminHeaderContent } from "../../store/data";
 import Sidebar from "./Sidebar";
-import PatientManagement from "./PatientManagement";
+import Profile from "./AdminProfile";
+import PatientsHistory from "./PatientManagement";
 import StaffManagement from "./StaffManagement";
+import InventoryManagement from "./InventoryManagement";
 import ReportsAndAnalytics from "./ReportsAndAnalytics";
 import Settings from "./Settings";
 
 import "../../css/Dashboard.css";
 
 const AdminHome = () => {
-  const [selectedSection, setSelectedSection] = useState("Home");
+  const [selectedSection, setSelectedSection] = useState("Profile");
 
   const renderContent = () => {
     switch (selectedSection) {
-      case "PatientManagement":
-        return <PatientManagement />;
+      case "Profile":
+        return <Profile />;
+      case "PatientsHistory":
+        return <PatientsHistory />;
       case "StaffManagement":
         return <StaffManagement />;
+      case "InventoryManagement":
+        return <InventoryManagement />;
       case "ReportsAndAnalytics":
         return <ReportsAndAnalytics />;
       case "Settings":
@@ -38,6 +44,10 @@ const AdminHome = () => {
       <div className="dashboard-container">
         <Sidebar setSelectedSection={setSelectedSection} />
         <div className="dashboard-main">
+          <h1 className="dashboard-heading">
+            <i className="fas fa-tachometer-alt"></i>
+            Dashboard
+          </h1>
           <div>{renderContent()}</div>
         </div>
       </div>

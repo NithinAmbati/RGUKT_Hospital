@@ -1,31 +1,53 @@
 import React from "react";
 import "../../css/Sidebar.css";
 
-const Sidebar = ({ setSelectedSection }) => {
+const Sidebar = ({ selectedSection, setSelectedSection }) => {
+  const sections = [
+    { name: "Profile", icon: "fas fa-user", key: "Profile" },
+    {
+      name: "Patients History",
+      icon: "fas fa-user-injured",
+      key: "PatientsHistory",
+    },
+    {
+      name: "Staff Management",
+      icon: "fas fa-user-md",
+      key: "StaffManagement",
+    },
+    {
+      name: "Inventory Management",
+      icon: "fas fa-boxes",
+      key: "InventoryManagement",
+    },
+    {
+      name: "Billing and Finance",
+      icon: "fas fa-file-invoice-dollar",
+      key: "BillingAndFinance",
+    },
+    {
+      name: "Reports and Analytics",
+      icon: "fas fa-chart-line",
+      key: "ReportsAndAnalytics",
+    },
+    { name: "Settings", icon: "fas fa-cogs", key: "Settings" },
+  ];
+
   return (
-    <div className="sidebar">
-      <ul>
-        <li onClick={() => setSelectedSection("Home")}>
-          <i className="fas fa-tachometer-alt"></i> Dashboard
-        </li>
-        <li onClick={() => setSelectedSection("PatientManagement")}>
-          <i className="fas fa-user-injured"></i> Patient Management
-        </li>
-        <li onClick={() => setSelectedSection("StaffManagement")}>
-          <i className="fas fa-user-md"></i> Staff Management
-        </li>
-        <li onClick={() => setSelectedSection("InventoryManagement")}>
-          <i className="fas fa-boxes"></i> Inventory Management
-        </li>
-        <li onClick={() => setSelectedSection("BillingAndFinance")}>
-          <i className="fas fa-file-invoice-dollar"></i> Billing and Finance
-        </li>
-        <li onClick={() => setSelectedSection("ReportsAndAnalytics")}>
-          <i className="fas fa-chart-line"></i> Reports and Analytics
-        </li>
-        <li onClick={() => setSelectedSection("Settings")}>
-          <i className="fas fa-cogs"></i> Settings
-        </li>
+    <div className="sidebar bg-gray-800 text-white h-full fixed top-16">
+      <ul className="list-none p-0">
+        {sections.map((section) => (
+          <li
+            key={section.key}
+            className={`flex items-center px-4 py-2 cursor-pointer  ${
+              selectedSection === section.key
+                ? "bg-gray-700"
+                : "hover:bg-gray-700"
+            }`}
+            onClick={() => setSelectedSection(section.key)}
+          >
+            <i className={`${section.icon} mr-3`}></i> {section.name}
+          </li>
+        ))}
       </ul>
     </div>
   );

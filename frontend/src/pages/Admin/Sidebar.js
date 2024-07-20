@@ -20,14 +20,14 @@ const Sidebar = ({ selectedSection, setSelectedSection }) => {
       key: "InventoryManagement",
     },
     {
-      name: "Billing and Finance",
-      icon: "fas fa-file-invoice-dollar",
-      key: "BillingAndFinance",
-    },
-    {
       name: "Reports and Analytics",
       icon: "fas fa-chart-line",
       key: "ReportsAndAnalytics",
+    },
+    {
+      name: "Students Details",
+      icon: "fas fa-user-injured",
+      key: "StudentDetails",
     },
     { name: "Settings", icon: "fas fa-cogs", key: "Settings" },
   ];

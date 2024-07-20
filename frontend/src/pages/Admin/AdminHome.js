@@ -10,6 +10,7 @@ import ReportsAndAnalytics from "./ReportsAndAnalytics";
 import Settings from "./Settings";
 
 import "../../css/Dashboard.css";
+import StudentDetails from "./StudentDetails";
 
 const AdminHome = () => {
   const [selectedSection, setSelectedSection] = useState("Profile");
@@ -26,6 +27,8 @@ const AdminHome = () => {
         return <InventoryManagement />;
       case "ReportsAndAnalytics":
         return <ReportsAndAnalytics />;
+      case "StudentDetails":
+        return <StudentDetails />;
       case "Settings":
         return <Settings />;
       default:

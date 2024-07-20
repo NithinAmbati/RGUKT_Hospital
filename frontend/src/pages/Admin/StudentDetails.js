@@ -8,21 +8,25 @@ const StudentDetails = () => {
   const [searchInput, setSearchInput] = useState("");
 
   const submitBtn = async () => {
-    const studentDetailsUrl = `http://localhost:8000/student-details?studentId=${searchInput}`;
-    const options = {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-        authorization: "Bearer " + Cookies.get("jwtToken"),
-      },
-    };
-    const response = await fetch(studentDetailsUrl, options);
-    if (response.ok) {
-      const studentDetailsData = await response.json();
-      setStudentData(studentDetailsData);
+    if (searchInput.length === 7) {
+      const studentDetailsUrl = `http://localhost:8000/student-details?studentId=${searchInput}`;
+      const options = {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          authorization: "Bearer " + Cookies.get("jwtToken"),
+        },
+      };
+      const response = await fetch(studentDetailsUrl, options);
+      if (response.ok) {
+        const studentDetailsData = await response.json();
+        setStudentData(studentDetailsData);
+      } else {
+        const msg = await response.text();
+        alert(msg);
+      }
     } else {
-      const msg = await response.text();
-      alert(msg);
+      alert("Please enter valid Student Id !");
     }
   };
 

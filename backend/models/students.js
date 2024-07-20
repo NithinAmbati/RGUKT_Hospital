@@ -6,7 +6,7 @@ const studentSchema = new mongoose.Schema({
   DOB: { type: Date, required: true },
   gender: { type: String, required: true },
   bloodGroup: { type: String, required: false },
-  contactNumber: { type: String, required: true },
+  contactNumber: { type: String, required: false },
   parentName: { type: String, required: false },
   parentContactNumber: { type: String, required: false },
   longTermDiseases: { type: String, required: false },

@@ -8,7 +8,7 @@ router.get("/", verifyToken, async (req, res) => {
   try {
     const { studentId } = req.query;
     const studentInfo = await Students.findOne({
-      studentId: { $regex: studentId, $options: "i" },
+      studentId: { $eq: studentId },
     });
     res.status(200).send(studentInfo);
   } catch (error) {

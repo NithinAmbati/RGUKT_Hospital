@@ -19,6 +19,6 @@ router.use("/medicines", medicinesRouter);
 router.use("/student-details", studentDetailsRouter);
 router.use("/profile", profileRouter);
 router.use("/users", userDetailsRouter);
-router.use("/admin/charts-data", adminChartsRouter);
+router.use("/admin-charts-data", adminChartsRouter);
 
 module.exports = router;

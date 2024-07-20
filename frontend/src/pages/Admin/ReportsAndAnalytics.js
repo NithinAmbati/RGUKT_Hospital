@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Bar, Line, Pie } from "react-chartjs-2";
+import Cookies from "js-cookie";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -26,99 +27,48 @@ ChartJS.register(
 );
 
 const ReportsAndAnalytics = () => {
-  //   const [ barData, setBarData ] = useState({});
-  //   const [lineData, setLineData ] = useState({});
-  //   const [pieData, setPieData ] = useState({});
+  const [patientsAdmissionsData, setPatientsAdmissionsData] = useState(null);
+  const [medicinesConsumedData, setMedicinesConsumedData] = useState(null);
+  const [medicinesImportedData, setMedicinesImportedData] = useState(null);
 
-  //   useEffect(() => {
-  //     const getReports= async () => {
-  //       const url1 = "http://localhost:8000/patient-admissions";
-  //       const url2 = "http://localhost:8000/medicines-consumed";
-  //       const url3 = "http://localhost:8000/patient-distributions";
-  //       const options = {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${Cookies.get("token")}`,
-  //         },
-  //       };
+  useEffect(() => {
+    const getData = async () => {
+      const chartsFetchingUrl = "http://localhost:8000/admin-charts-data";
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer " + Cookies.get("jwtToken"),
+        },
+      };
+      try {
+        const response = await fetch(chartsFetchingUrl, options);
+        if (response.ok) {
+          const {
+            medicinesImportedChartsData,
+            medicinesConsumedChartsData,
+            patientsChartsData,
+          } = await response.json();
+          setMedicinesConsumedData(medicinesConsumedChartsData);
+          setMedicinesImportedData(medicinesImportedChartsData);
+          setPatientsAdmissionsData(patientsChartsData);
+        } else {
+          console.error("Error fetching data:", await response.text());
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+    getData();
+  }, []);
 
-  //       const response1 = await fetch(url1, options);
-  //       const data1 = await response1.json();
-
-  //       const response2 = await fetch(url2,options);
-  //       const data2 = await response2.json();
-
-  //       const response3 = await fetch(url3, options);
-  //       const data3 = await response3.json();
-
-  //       setBarData({
-  //         labels: data1.labels,
-  //         datasets: [
-  //           {
-  //             label: "Patient Admissions",
-  //             data: data1.patientAdmissions,
-  //             backgroundColor: "rgba(75, 192, 192, 0.6)",
-  //           },
-  //         ],
-  //       });
-
-  //       setLineData({
-  //         labels: data2.labels,
-  //         datasets: [
-  //           {
-  //             label: "Medicines Consumed",
-  //             data: data2.medicinesConsumed,
-  //             fill: false,
-  //             backgroundColor: "rgba(75, 192, 192, 1)",
-  //           },
-  //         ],
-  //       });
-
-  //       setPieData({
-  //         labels: data3.labels,
-  //         datasets: [
-  //           {
-  //             label: "Patient Distributions",
-  //             data: data3.patientDistributions,
-  //             backgroundColor: [
-  //               "rgba(255, 99, 132, 0.6)",
-  //               "rgba(54, 162, 235, 0.6)",
-  //               "rgba(255, 206, 86, 0.6)",
-  //               "rgba(75, 192, 192, 0.6)",
-  //               "rgba(153, 102, 255, 0.6)",
-  //               "rgba(255, 159, 64, 0.6)",
-  //             ],
-  //           },
-  //         ],
-  //       });
-  //   }
-  //   getReports();
-  // },[]);
-
-  const barData = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [
-      {
-        label: "Patient Admissions",
-        data: [65, 59, 80, 81, 56, 55, 40],
-        backgroundColor: "rgba(75, 192, 192, 0.6)",
-      },
-    ],
-  };
-
-  const lineData = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [
-      {
-        label: "Revenue",
-        data: [65, 59, 80, 81, 56, 55, 40],
-        fill: false,
-        backgroundColor: "rgba(75, 192, 192, 0.6)",
-        borderColor: "rgba(75, 192, 192, 1)",
-      },
-    ],
-  };
+  if (
+    !medicinesConsumedData ||
+    !medicinesImportedData ||
+    !patientsAdmissionsData
+  ) {
+    return <div>Loading...</div>;
+  }
 
   const pieData = {
     labels: [
@@ -158,7 +108,7 @@ const ReportsAndAnalytics = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         <div className="flex flex-col">
           <div className="flex-grow bg-white p-4 rounded-lg shadow-md">
-            <Bar data={barData} options={{ responsive: true }} />
+            <Bar data={patientsAdmissionsData} options={{ responsive: true }} />
           </div>
           <h3 className="text-center text-lg font-semibold text-blue-600 mt-3">
             Patient Admissions
@@ -167,10 +117,29 @@ const ReportsAndAnalytics = () => {
 
         <div className="flex flex-col">
           <div className="flex-grow bg-white p-4 rounded-lg shadow-md">
-            <Line data={lineData} options={{ responsive: true }} />
+            <Line
+              data={{
+                labels: medicinesConsumedData.labels, // Assuming both datasets share the same labels
+                datasets: [
+                  {
+                    label: "Medicines Consumed",
+                    data: medicinesConsumedData.datasets[0].data,
+                    borderColor: "orange",
+                    backgroundColor: "orange",
+                  },
+                  {
+                    label: "Medicines Imported",
+                    data: medicinesImportedData.datasets[0].data,
+                    borderColor: "rgba(75, 192, 192, 1)",
+                    backgroundColor: "rgba(75, 192, 192, 0.2)",
+                  },
+                ],
+              }}
+              options={{ responsive: true }}
+            />
           </div>
           <h3 className="text-center text-lg font-semibold text-blue-600 mt-3">
-            Medicines Consumed
+            Medicines Consumed vs Imported
           </h3>
         </div>
 

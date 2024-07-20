@@ -41,12 +41,7 @@ const NursingHeaderContent = [
   { title: "Logout", link: "/logout" },
 ];
 
-const AdminHeaderContent = [
-  { title: "Home", link: "/admin" },
-  { title: "Add Students", link: "/admin/add-students" },
-  { title: "Profile", link: "/admin/profile" },
-  { title: "Logout", link: "/logout" },
-];
+const AdminHeaderContent = [{ title: "Logout", link: "/logout" }];
 
 export {
   DoctorsHeaderContent,

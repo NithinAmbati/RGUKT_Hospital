@@ -18,6 +18,7 @@ router.post("/", verifyToken, addMedicineStock);
 // Reducing medicines from the Database when issued to patients
 router.put("/", verifyToken, updateMedicineQuantity);
 
+// Getting Medicines for Admin to view all medicines in the Database
 router.get("/admin", verifyToken, getMedicinesForAdmin);
 
 //Deleting Medicines which have quantity of 0

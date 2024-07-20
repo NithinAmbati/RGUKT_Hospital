@@ -6,8 +6,7 @@ import { Button, TextField } from "@mui/material";
 import Cookies from "js-cookie";
 import SelectMedicines from "../../components/SelectMedicines";
 import { Spin } from "antd";
-
-import "./DoctorsHome.css"; // Import the CSS file for styling
+import "./DoctorsHome.css";
 import { Navigate } from "react-router-dom";
 import calculateAge from "../../services/calculateAge";
 

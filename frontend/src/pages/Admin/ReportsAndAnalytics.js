@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Bar, Line, Pie } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -26,7 +26,76 @@ ChartJS.register(
 );
 
 const ReportsAndAnalytics = () => {
-  // Sample data for charts
+  //   const [ barData, setBarData ] = useState({});
+  //   const [lineData, setLineData ] = useState({});
+  //   const [pieData, setPieData ] = useState({});
+
+  //   useEffect(() => {
+  //     const getReports= async () => {
+  //       const url1 = "http://localhost:8000/patient-admissions";
+  //       const url2 = "http://localhost:8000/medicines-consumed";
+  //       const url3 = "http://localhost:8000/patient-distributions";
+  //       const options = {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${Cookies.get("token")}`,
+  //         },
+  //       };
+
+  //       const response1 = await fetch(url1, options);
+  //       const data1 = await response1.json();
+
+  //       const response2 = await fetch(url2,options);
+  //       const data2 = await response2.json();
+
+  //       const response3 = await fetch(url3, options);
+  //       const data3 = await response3.json();
+
+  //       setBarData({
+  //         labels: data1.labels,
+  //         datasets: [
+  //           {
+  //             label: "Patient Admissions",
+  //             data: data1.patientAdmissions,
+  //             backgroundColor: "rgba(75, 192, 192, 0.6)",
+  //           },
+  //         ],
+  //       });
+
+  //       setLineData({
+  //         labels: data2.labels,
+  //         datasets: [
+  //           {
+  //             label: "Medicines Consumed",
+  //             data: data2.medicinesConsumed,
+  //             fill: false,
+  //             backgroundColor: "rgba(75, 192, 192, 1)",
+  //           },
+  //         ],
+  //       });
+
+  //       setPieData({
+  //         labels: data3.labels,
+  //         datasets: [
+  //           {
+  //             label: "Patient Distributions",
+  //             data: data3.patientDistributions,
+  //             backgroundColor: [
+  //               "rgba(255, 99, 132, 0.6)",
+  //               "rgba(54, 162, 235, 0.6)",
+  //               "rgba(255, 206, 86, 0.6)",
+  //               "rgba(75, 192, 192, 0.6)",
+  //               "rgba(153, 102, 255, 0.6)",
+  //               "rgba(255, 159, 64, 0.6)",
+  //             ],
+  //           },
+  //         ],
+  //       });
+  //   }
+  //   getReports();
+  // },[]);
+
   const barData = {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
     datasets: [
@@ -87,36 +156,32 @@ const ReportsAndAnalytics = () => {
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold text-blue-600 mb-2">
+        <div className="flex flex-col">
+          <div className="flex-grow bg-white p-4 rounded-lg shadow-md">
+            <Bar data={barData} options={{ responsive: true }} />
+          </div>
+          <h3 className="text-center text-lg font-semibold text-blue-600 mt-3">
             Patient Admissions
           </h3>
-          <Bar data={barData} options={{ responsive: true }} />
         </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold text-blue-600 mb-2">Revenue</h3>
-          <Line data={lineData} options={{ responsive: true }} />
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold text-blue-600 mb-2">
-            Department Distribution
-          </h3>
-          <Pie data={pieData} options={{ responsive: true }} />
-        </div>
-      </div>
 
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <h3 className="text-xl font-semibold text-blue-600 mb-4">
-          Detailed Reports
-        </h3>
-        <p className="text-gray-700 mb-2">
-          Here you can add detailed textual reports, charts, or any other
-          analytics relevant to the hospital's operations.
-        </p>
-        <p className="text-gray-700 mb-2">
-          This section can be further expanded to include more interactive and
-          detailed data visualizations.
-        </p>
+        <div className="flex flex-col">
+          <div className="flex-grow bg-white p-4 rounded-lg shadow-md">
+            <Line data={lineData} options={{ responsive: true }} />
+          </div>
+          <h3 className="text-center text-lg font-semibold text-blue-600 mt-3">
+            Medicines Consumed
+          </h3>
+        </div>
+
+        <div className="flex flex-col">
+          <div className="flex-grow bg-white p-4 rounded-lg shadow-md">
+            <Pie data={pieData} options={{ responsive: true }} />
+          </div>
+          <h3 className="text-center text-lg font-semibold text-blue-600 mt-3">
+            Patient Distribution
+          </h3>
+        </div>
       </div>
     </div>
   );

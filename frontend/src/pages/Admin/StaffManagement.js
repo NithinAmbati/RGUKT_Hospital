@@ -15,11 +15,27 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 
 const StaffManagement = () => {
+  const [admins, setAdmins] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [nurses, setNurses] = useState([]);
   const [pharmacists, setPharmacists] = useState([]);
 
   useEffect(() => {
+    const fetchAdmins = async () => {
+      const url = "http://localhost:8000/users/admins";
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer " + Cookies.get("jwtToken"),
+        },
+      };
+
+      const response = await fetch(url, options);
+      const data = await response.json();
+      setAdmins(data);
+    };
+
     const fetchDoctors = async () => {
       const url = "http://localhost:8000/users/doctors";
       const options = {
@@ -65,6 +81,7 @@ const StaffManagement = () => {
       setPharmacists(data);
     };
 
+    fetchAdmins();
     fetchDoctors();
     fetchNurses();
     fetchPharmacists();
@@ -90,6 +107,28 @@ const StaffManagement = () => {
 
   return (
     <div className="p-4 bg-gray-100 min-h-screen">
+      <div className="mb-8">
+        <h3 className="text-xl font-semibold text-green-600 mb-2">Admins</h3>
+        <table className="min-w-full bg-white border border-gray-200">
+          <thead>
+            <tr className="font-semibold">
+              <td className="py-2 px-4 border-b">Id</td>
+              <td className="py-2 px-4 border-b">Username</td>
+              <td className="py-2 px-4 border-b">Contact</td>
+            </tr>
+          </thead>
+          <tbody>
+            {admins.map((admin, index) => (
+              <tr key={index} className="hover:bg-gray-100">
+                <td className="py-2 px-4 border-b">{admin.userId}</td>
+                <td className="py-2 px-4 border-b">{admin.username}</td>
+                <td className="py-2 px-4 border-b">{admin.email}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       <div className="flex justify-between">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">
           Staff Management
@@ -109,7 +148,7 @@ const StaffManagement = () => {
         )}
       </div>
 
-      <div>
+      <div className="mb-10">
         {showForm && (
           <Paper sx={{ padding: 2, mt: 2 }}>
             <Typography variant="h6">Add Staff</Typography>

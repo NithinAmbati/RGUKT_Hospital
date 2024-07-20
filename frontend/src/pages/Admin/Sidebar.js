@@ -15,7 +15,7 @@ const Sidebar = ({ selectedSection, setSelectedSection }) => {
       key: "StaffManagement",
     },
     {
-      name: "Inventory Management",
+      name: "Inventory",
       icon: "fas fa-boxes",
       key: "InventoryManagement",
     },

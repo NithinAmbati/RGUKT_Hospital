@@ -159,7 +159,7 @@ const Header = ({ headerContent }) => {
               id="modal-modal-title"
               variant="h6"
               component="h2"
-              sx={{ marginBottom: "20px" }}
+              sx={{ marginBottom: "20px", marginLeft: "55px" }}
             >
               Do you want to Logout?
             </Typography>

@@ -15,10 +15,6 @@ const MainPageHeaderContent = [
     title: "Login",
     link: "/login",
   },
-  {
-    title: "SignUp",
-    link: "/signup",
-  },
 ];
 
 const DoctorsHeaderContent = [

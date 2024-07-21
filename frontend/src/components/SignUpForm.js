@@ -1,20 +1,43 @@
-import React, { useState } from "react";
-import { Button } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import {
+  Typography,
+  Button,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Paper,
+} from "@mui/material";
 
-function SignUpForm() {
-  const [userId, setUserId] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+const SignUpForm = ({ userIds, fetchUserIds }) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("rgukt123");
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
+  const [userId, setUserId] = useState("");
+
+  useEffect(() => {
+    if (role) {
+      setUserIdBasedOnRole(role);
+    }
+  }, [userIds, role]);
+
+  const setUserIdBasedOnRole = (role) => {
+    const { admin, doctor, nurse, pharmacist } = userIds;
+    if (role === "admin") setUserId("A" + admin);
+    else if (role === "doctor") setUserId("D" + doctor);
+    else if (role === "nurse") setUserId("N" + nurse);
+    else if (role === "pharmacist") setUserId("P" + pharmacist);
+  };
 
   const submitBtn = async (event) => {
     event.preventDefault();
     const userDetails = {
-      userId,
-      username: name,
-      email,
+      userId: userId.slice(1),
+      username,
       password,
+      role,
     };
     const url = "http://localhost:8000/signup";
     const options = {
@@ -27,86 +50,81 @@ function SignUpForm() {
     const response = await fetch(url, options);
     if (response.ok) {
       alert("Registration successful");
+      await fetchUserIds();
     } else {
       const msg = await response.text();
       console.log(msg);
     }
     setUserId("");
-    setName("");
-    setPassword("");
-    setEmail("");
-    setShowPassword(false);
+    setUsername("");
+  };
+
+  const handleRoleChange = async (event) => {
+    const value = event.target.value;
+    setRole(value);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-6">
-      <h1 className="text-3xl font-bold mb-8">Sign Up Page</h1>
-      <form
-        className="bg-white p-6 rounded-lg shadow-md w-full max-w-md"
-        onSubmit={submitBtn}
-      >
-        <label className="block text-gray-700 mb-2">UserId :</label>
-        <input
-          type="text"
-          name="UserId"
-          placeholder="UserId"
-          value={userId}
-          onChange={(event) => setUserId(event.target.value)}
-          className="w-full mb-2 px-4 py-2 border border-gray-300 rounded-lg"
-        />
-        <label className="block text-gray-700 mb-2">Full Name:</label>
-        <input
-          type="text"
-          name="Name"
-          placeholder="Name"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-          className="w-full mb-2 px-4 py-2 border border-gray-300 rounded-lg"
-        />
-        <label className="block text-gray-700 mb-2">Email:</label>
-        <input
-          type="text"
-          name="username"
-          placeholder="EMAIL"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          className="w-full mb-2 px-4 py-2 border border-gray-300 rounded-lg"
-        />
-        <label className="block text-gray-700 mb-2">Password:</label>
-        <input
-          type={showPassword ? "text" : "password"}
-          name="password"
-          placeholder="PASSWORD"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          className="w-full mb-2 px-4 py-2 border border-gray-300 rounded-lg"
-        />
-        <div className="flex items-center mb-4">
-          <input
-            className="mr-2 leading-tight"
-            type="checkbox"
-            name="terms"
-            checked={showPassword}
-            onChange={(event) => setShowPassword(!showPassword)}
+    <div className="mb-10">
+      <Paper sx={{ padding: 2, mt: 2 }}>
+        <Typography variant="h6">Add Staff</Typography>
+        <form onSubmit={submitBtn}>
+          <FormControl fullWidth margin="normal">
+            <InputLabel>Role</InputLabel>
+            <Select value={role} onChange={handleRoleChange} required>
+              <MenuItem value="">None</MenuItem>
+              <MenuItem value="doctor">Doctor</MenuItem>
+              <MenuItem value="admin">Admin</MenuItem>
+              <MenuItem value="nurse">Nurse</MenuItem>
+              <MenuItem value="pharmacist">Pharmacist</MenuItem>
+            </Select>
+          </FormControl>
+          <TextField
+            required
+            id="outlined-required"
+            label="UserId"
+            value={userId}
+            InputProps={{
+              readOnly: true,
+            }}
           />
-          <span className="text-gray-700">Show password</span>
-        </div>
-        <Button
-          variant="contained"
-          type="submit"
-          className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
-        >
-          Submit
-        </Button>
-        <a
-          className="text-blue-500 hover:text-blue-700 mb-4 block underline mt-2"
-          href="/login"
-        >
-          Already have an account? Login here!
-        </a>
-      </form>
+          <TextField
+            fullWidth
+            label={`${role} Name`}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            margin="normal"
+            required
+          />
+          <TextField
+            fullWidth
+            label="Password"
+            type={showPassword ? "text" : "password"}
+            value={userId ? password : ""}
+            onChange={(e) => setPassword(e.target.value)}
+            margin="normal"
+            required
+          />
+          <div>
+            <input
+              type="checkbox"
+              checked={showPassword}
+              onChange={() => setShowPassword(!showPassword)}
+            />
+            Show Password
+          </div>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{ mt: 2 }}
+          >
+            Add
+          </Button>
+        </form>
+      </Paper>
     </div>
   );
-}
+};
 
 export default SignUpForm;

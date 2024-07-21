@@ -1,6 +1,6 @@
 const { Pharmacist, Doctor, Nurse, Admin } = require("../models");
 
-const createNewUser = async (req, res) => {
+const createNewUser = (Model) => async (req, res) => {
   const newUser = new Pharmacist({
     userId,
     username,

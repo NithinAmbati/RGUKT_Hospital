@@ -2,55 +2,47 @@ const express = require("express");
 const router = express.Router();
 const { Doctor, Pharmacist, Nurse } = require("../models");
 const { hashPassword } = require("../controllers/passwordHashing");
+const { ExistingUserIds } = require("../models");
 
 router.post("/", async (req, res) => {
-  const { userId, username, email, password } = req.body;
+  const { userId, username, password, role } = req.body;
 
   try {
-    // Check if user already exists
-    let existingUser;
-    if (userId.startsWith("D")) existingUser = await Doctor.findOne({ userId });
-    else if (userId.startsWith("P"))
-      existingUser = await Pharmacist.findOne({ userId });
-    else if (userId.startsWith("N"))
-      existingUser = await Nurse.findOne({ userId });
-    else {
-      res.status(400).send("Invalid user type");
-      return;
-    }
+    const hashedPassword = await hashPassword(password);
 
-    if (existingUser) {
-      res.status(400).send("User already exists");
-      return;
-    }
-
-    // Create new user
-    const hashedPassword = hashPassword(password);
-
-    if (userId.startsWith("D")) {
+    if (role === "doctor") {
       const newUser = new Doctor({
-        userId,
+        userId: "D" + userId,
         username,
-        email,
         password: hashedPassword,
       });
       await newUser.save();
-    } else if (userId.startsWith("P")) {
+    } else if (role === "pharmacist") {
       const newUser = new Pharmacist({
-        userId,
+        userId: "P" + userId,
         username,
-        email,
         password: hashedPassword,
       });
       await newUser.save();
-    } else if (userId.startsWith("N")) {
+    } else if (role === "nurse") {
       const newUser = new Nurse({
-        userId,
+        userId: "N" + userId,
         username,
-        email,
         password: hashedPassword,
       });
       await newUser.save();
+    }
+
+    const existingUserId = await ExistingUserIds.findOne({ role });
+
+    if (existingUserId) {
+      await ExistingUserIds.updateOne({ role }, { $set: { userId } });
+    } else {
+      const newExistingUserId = new ExistingUserIds({
+        userId,
+        role,
+      });
+      await newExistingUserId.save();
     }
     res.status(200).send("Registration Successful");
   } catch (error) {

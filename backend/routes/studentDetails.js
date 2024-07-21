@@ -10,6 +10,9 @@ router.get("/", verifyToken, async (req, res) => {
     const studentInfo = await Students.findOne({
       studentId: { $eq: studentId },
     });
+    if (!studentInfo) {
+      return res.status(404).send("Student not found!");
+    }
     res.status(200).send(studentInfo);
   } catch (error) {
     console.log(error.message);

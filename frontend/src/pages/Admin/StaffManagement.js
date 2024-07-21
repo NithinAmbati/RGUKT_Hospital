@@ -1,24 +1,30 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-
-import {
-  Typography,
-  Button,
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Paper,
-  IconButton,
-} from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import SignUpForm from "../../components/SignUpForm";
 
 const StaffManagement = () => {
   const [admins, setAdmins] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [nurses, setNurses] = useState([]);
   const [pharmacists, setPharmacists] = useState([]);
+  const [userIds, setUserIds] = useState(null);
+
+  const fetchUserIds = async () => {
+    const url = "http://localhost:8000/latest-user-ids";
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + Cookies.get("jwtToken"),
+      },
+    };
+
+    const response = await fetch(url, options);
+    const data = await response.json();
+    setUserIds(data);
+  };
 
   useEffect(() => {
     const fetchAdmins = async () => {
@@ -85,25 +91,10 @@ const StaffManagement = () => {
     fetchDoctors();
     fetchNurses();
     fetchPharmacists();
+    fetchUserIds();
   }, []);
 
-  const [newStaff, setNewStaff] = useState({
-    role: "",
-    userid: "",
-    password: "",
-  });
-
-  const [role, setRole] = useState("");
-  const [userid, setUserId] = useState("");
-  const [password, setPassword] = useState("");
-
   const [showForm, setShowForm] = useState(false);
-
-  const handleAddStaff = (e) => {
-    e.preventDefault();
-
-    setShowForm(false);
-  };
 
   return (
     <div className="p-4 bg-gray-100 min-h-screen">
@@ -148,56 +139,7 @@ const StaffManagement = () => {
         )}
       </div>
 
-      <div className="mb-10">
-        {showForm && (
-          <Paper sx={{ padding: 2, mt: 2 }}>
-            <Typography variant="h6">Add Staff</Typography>
-            <form onSubmit={handleAddStaff}>
-              <FormControl fullWidth margin="normal">
-                <InputLabel>Role</InputLabel>
-                <Select
-                  value={role}
-                  onChange={(e) => setRole(e.target.value)}
-                  required
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value="admin">Admin</MenuItem>
-                  <MenuItem value="doctor">Doctor</MenuItem>
-                  <MenuItem value="nurse">Nurse</MenuItem>
-                  <MenuItem value="pharmacist">Pharmacist</MenuItem>
-                </Select>
-              </FormControl>
-              <TextField
-                fullWidth
-                label="User Id"
-                value={userid}
-                onChange={(e) => setUserId(e.target.value)}
-                margin="normal"
-                required
-              />
-              <TextField
-                fullWidth
-                label="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                margin="normal"
-                required
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                sx={{ mt: 2 }}
-              >
-                Add
-              </Button>
-            </form>
-          </Paper>
-        )}
-      </div>
+      {showForm && <SignUpForm userIds={userIds} fetchUserIds={fetchUserIds} />}
 
       <div className="mb-8">
         <h3 className="text-xl font-semibold text-blue-600 mb-2">Doctors</h3>

@@ -9,6 +9,7 @@ import StudentManagement from "./StudentManagement";
 const StudentDetails = () => {
   const [studentData, setStudentData] = useState(null);
   const [searchInput, setSearchInput] = useState("");
+  const [notFound, setNotFound] = useState(false);
 
   const submitBtn = async () => {
     if (searchInput.length === 7) {
@@ -20,16 +21,25 @@ const StudentDetails = () => {
           authorization: "Bearer " + Cookies.get("jwtToken"),
         },
       };
-      const response = await fetch(studentDetailsUrl, options);
-      if (response.ok) {
-        const studentDetailsData = await response.json();
-        setStudentData(studentDetailsData);
-      } else {
-        const msg = await response.text();
-        alert(msg);
+      try {
+        const response = await fetch(studentDetailsUrl, options);
+        if (response.ok) {
+          const studentDetailsData = await response.json();
+          setStudentData(studentDetailsData);
+          setNotFound(false);
+        } else {
+          const msg = await response.text();
+          setStudentData(null);
+          alert(msg);
+        }
+      } catch (error) {
+        console.error("Error fetching student details:", error);
+        alert("An error occurred while fetching student details.");
       }
     } else {
-      alert("Please enter valid Student Id !");
+      setStudentData(null);
+      setNotFound(false);
+      alert("Please enter a valid Student ID!");
     }
   };
 
@@ -79,12 +89,13 @@ const StudentDetails = () => {
             {studentData.parentContact}
           </h1>
         </div>
-      ) : searchInput ? (
-        <div className="text-red-500 text-lg font-semibold">
-          Student Not Found
-        </div>
-      ) : null}
-
+      ) : (
+        notFound && (
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg text-center">
+            <h1 className="text-xl text-red-500">Student not found</h1>
+          </div>
+        )
+      )}
       <StudentManagement />
     </div>
   );

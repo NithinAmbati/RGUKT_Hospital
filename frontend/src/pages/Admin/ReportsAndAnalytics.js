@@ -119,7 +119,7 @@ const ReportsAndAnalytics = () => {
           <div className="flex-grow bg-white p-4 rounded-lg shadow-md">
             <Line
               data={{
-                labels: medicinesConsumedData.labels, // Assuming both datasets share the same labels
+                labels: medicinesConsumedData.labels,
                 datasets: [
                   {
                     label: "Medicines Consumed",

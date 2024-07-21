@@ -12,7 +12,9 @@ const PatientsHistory = () => {
 
   useEffect(() => {
     const getPatientData = async () => {
-      const url = `http://localhost:8000/treatments/admin?date=${selectedDate}`;
+      const url = `http://localhost:8000/treatments/admin?date=${new Date(
+        selectedDate
+      )}`;
       const options = {
         method: "GET",
         headers: {
@@ -47,6 +49,7 @@ const PatientsHistory = () => {
         <input
           type="date"
           className="my-3"
+          value={selectedDate.toISOString().split("T")[0]}
           onChange={(e) => setSelectedDate(new Date(e.target.value))}
         />
         <table className="min-w-full bg-white border border-gray-200">

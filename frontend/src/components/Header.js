@@ -60,7 +60,7 @@ const Header = ({ headerContent }) => {
   return (
     <>
       <CssBaseline />
-      <AppBar position="relative">
+      <AppBar position="fixed">
         <Toolbar>
           <img
             src="https://www.rgukt.in/images/Logonew.png"

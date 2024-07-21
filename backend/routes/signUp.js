@@ -3,8 +3,9 @@ const router = express.Router();
 const { Doctor, Pharmacist, Nurse } = require("../models");
 const { hashPassword } = require("../controllers/passwordHashing");
 const { ExistingUserIds } = require("../models");
+const { verifyAdminToken } = require("../Middleware/verifyToken");
 
-router.post("/", async (req, res) => {
+router.post("/", verifyAdminToken, async (req, res) => {
   const { userId, username, password, role } = req.body;
 
   try {

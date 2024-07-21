@@ -1,5 +1,4 @@
 const express = require("express");
-const VerifyToken = require("../Middleware/VerifyToken");
 const {
   getAdminDetails,
   getDoctorDetails,
@@ -8,9 +7,9 @@ const {
 } = require("../controllers/getUserDetails");
 const router = express.Router();
 
-router.get("/admins", VerifyToken, getAdminDetails);
-router.get("/doctors", VerifyToken, getDoctorDetails);
-router.get("/nurses", VerifyToken, getNurseDetails);
-router.get("/pharmacists", VerifyToken, getPharmacistDetails);
+router.get("/admins", getAdminDetails);
+router.get("/doctors", getDoctorDetails);
+router.get("/nurses", getNurseDetails);
+router.get("/pharmacists", getPharmacistDetails);
 
 module.exports = router;

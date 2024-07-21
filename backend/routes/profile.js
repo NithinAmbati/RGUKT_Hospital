@@ -1,5 +1,5 @@
 const express = require("express");
-const verifyToken = require("../Middleware/VerifyToken");
+const router = express.Router();
 const {
   getPharmacistProfile,
   getDoctorProfile,
@@ -18,25 +18,30 @@ const {
   changeAdminPassword,
   changeNursePassword,
 } = require("../controllers/changePassword");
-const router = express.Router();
+const {
+  verifyAdminToken,
+  verifyDoctorToken,
+  verifyPharmacistToken,
+  verifyNurseToken,
+} = require("../Middleware/verifyToken");
 
-router.get("/pharmacist", verifyToken, getPharmacistProfile);
-router.get("/doctor", verifyToken, getDoctorProfile);
-router.get("/admin", verifyToken, getAdminProfile);
-router.get("/nurse", verifyToken, getNurseProfile);
+router.get("/pharmacist", verifyPharmacistToken, getPharmacistProfile);
+router.get("/doctor", verifyDoctorToken, getDoctorProfile);
+router.get("/admin", verifyAdminToken, getAdminProfile);
+router.get("/nurse", verifyNurseToken, getNurseProfile);
 
-router.put("/pharmacist", verifyToken, updatePharmacistProfile);
-router.put("/doctor", verifyToken, updateDoctorProfile);
-router.put("/admin", verifyToken, updateAdminProfile);
-router.put("/nurse", verifyToken, updateNurseProfile);
+router.put("/pharmacist", verifyPharmacistToken, updatePharmacistProfile);
+router.put("/doctor", verifyDoctorToken, updateDoctorProfile);
+router.put("/admin", verifyAdminToken, updateAdminProfile);
+router.put("/nurse", verifyNurseToken, updateNurseProfile);
 
 router.put(
   "/pharmacist/change-password",
-  verifyToken,
+  verifyPharmacistToken,
   changePharmacistPassword
 );
-router.put("/doctor/change-password", verifyToken, changeDoctorPassword);
-router.put("/admin/change-password", verifyToken, changeAdminPassword);
-router.put("/nurse/change-password", verifyToken, changeNursePassword);
+router.put("/doctor/change-password", verifyDoctorToken, changeDoctorPassword);
+router.put("/admin/change-password", verifyAdminToken, changeAdminPassword);
+router.put("/nurse/change-password", verifyNurseToken, changeNursePassword);
 
 module.exports = router;

@@ -1,18 +1,18 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
-import PharmacistsHome from "./pages/Pharmacist/PharmacistsHome";
+import PharmacistsHome from "./pages/Pharmacist/PharmacistHome.js";
 import DoctorsHome from "./pages/Doctor/DoctorsHome";
-import AddMedicines from "./pages/Pharmacist/AddMedicines";
+import AddMedicines from "./pages/Pharmacist/PharmacistAddMedicines.js";
 import MedicalHistory from "./pages/MedicalHistory";
 import Staff from "./pages/Staff";
 import AdminHome from "./pages/Admin/AdminHome.js";
 import AddStudents from "./pages/Admin/StudentManagement.js";
-import NursingHome from "./pages/NursingStation/NursingHome";
-import NursingSecondPage from "./pages/NursingStation/NursingSecondPage";
-import DoctorProfilePage from "./pages/Doctor/DoctorProfilePage";
-import PharmacistProfilePage from "./pages/Pharmacist/PharmacistProfilePage";
-import NursingProfilePage from "./pages/NursingStation/NursingProfilePage.js";
+import NursingHome from "./pages/Nurse/NurseHome1.js";
+import NursingSecondPage from "./pages/Nurse/NurseHome2.js";
+import DoctorProfilePage from "./pages/Doctor/DoctorProfile.js";
+import PharmacistProfilePage from "./pages/Pharmacist/PharmacistProfile.js";
+import NursingProfilePage from "./pages/Nurse/NurseProfile.js";
 import ProtectedRoute from "./protected/ProtectedRoute";
 import CheckAlreadyLogged from "./protected/CheckAlreadyLogged.js";
 function App() {
@@ -83,13 +83,13 @@ function App() {
         />
 
         <Route
-          path="/nursing"
+          path="/nurse"
           element={
             <ProtectedRoute component={NursingHome} requiredRole="nurse" />
           }
         />
         <Route
-          path="/nursing/patient-details"
+          path="/nurse/patient-details"
           element={
             <ProtectedRoute
               component={NursingSecondPage}
@@ -98,7 +98,7 @@ function App() {
           }
         />
         <Route
-          path="/nursing/profile"
+          path="/nurse/profile"
           element={
             <ProtectedRoute
               component={NursingProfilePage}

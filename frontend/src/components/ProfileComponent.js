@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import ChangePasswordComponent from "./ChangePasswordComponent";
+import ChangePasswordComponent from "./ChangePassword";
 import axios from "axios";
 
 const ProfileComponent = ({ user }) => {
@@ -165,7 +165,7 @@ const ProfileComponent = ({ user }) => {
           {editing ? "Save" : "Edit"}
         </button>
       </div>
-      {user !== "admin" && <ChangePasswordComponent />}
+      <ChangePasswordComponent user={user} />
     </main>
   );
 };

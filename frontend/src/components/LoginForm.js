@@ -90,12 +90,6 @@ function LoginForm() {
         >
           Submit
         </Button>
-        <a
-          className="text-blue-500 hover:text-blue-700 mb-4 mt-2 block text-xs underline"
-          href="/signup"
-        >
-          Create an account?
-        </a>
       </form>
     </div>
   );

@@ -6,7 +6,7 @@ const nurseSchema = new mongoose.Schema({
   username: { type: String, required: true },
   email: { type: String, required: false },
   contactNumber: { type: String, required: false },
-  profileImgageUrl: { type: String, required: false },
+  profileImageUrl: { type: String, required: false },
 });
 
 const Nurse = mongoose.model("nurse", nurseSchema);

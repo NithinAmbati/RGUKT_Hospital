@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const verifyToken = require("../Middleware/VerifyToken");
 const {
   getAvailableMedicines,
   addMedicineStock,
@@ -8,18 +7,23 @@ const {
   deleteMedicines,
 } = require("../controllers/medicines");
 const getMedicinesForAdmin = require("../controllers/getMedicinesForAdmin");
+const {
+  verifyAdminToken,
+  verifyDoctorToken,
+  verifyPharmacistToken,
+} = require("../Middleware/verifyToken");
 
 // Medicines API  (gives you the array  of available medicines)
-router.get("/", verifyToken, getAvailableMedicines);
+router.get("/", verifyDoctorToken, getAvailableMedicines);
 
 // Adding New Medicine stock to the Database
-router.post("/", verifyToken, addMedicineStock);
+router.post("/", verifyPharmacistToken, addMedicineStock);
 
 // Reducing medicines from the Database when issued to patients
-router.put("/", verifyToken, updateMedicineQuantity);
+router.put("/", verifyPharmacistToken, updateMedicineQuantity);
 
 // Getting Medicines for Admin to view all medicines in the Database
-router.get("/admin", verifyToken, getMedicinesForAdmin);
+router.get("/admin", verifyAdminToken, getMedicinesForAdmin);
 
 //Deleting Medicines which have quantity of 0
 deleteMedicines();

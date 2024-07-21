@@ -14,7 +14,7 @@ const style = {
   borderRadius: 8,
 };
 
-const ChangePasswordComponent = () => {
+const ChangePasswordComponent = ({ user }) => {
   const [open, setOpen] = useState(false);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -39,7 +39,7 @@ const ChangePasswordComponent = () => {
       return;
     }
 
-    const url = "http://localhost:8000/profile/doctor/change-password";
+    const url = `http://localhost:8000/profile/${user}/change-password`;
     const options = {
       method: "PUT",
       headers: {

@@ -14,7 +14,7 @@ const NursingSecondPage = () => {
   // To display the entire pending treatments to update the treatment
   useEffect(() => {
     const fetchPendingList = async () => {
-      const url = "http://localhost:8000/treatments/nursing";
+      const url = "http://localhost:8000/treatments/nurse";
       const options = {
         method: "GET",
         headers: {
@@ -37,7 +37,7 @@ const NursingSecondPage = () => {
 
   //To store the searched treatment
   const filterData = async () => {
-    const url = `http://localhost:8000/treatments/nursing?studentId=${searchInput}`;
+    const url = `http://localhost:8000/treatments/nurse?studentId=${searchInput}`;
     const options = {
       method: "GET",
       headers: {
@@ -76,7 +76,7 @@ const NursingSecondPage = () => {
 
   const submitBtn = async (e) => {
     e.preventDefault();
-    const url = `http://localhost:8000/treatments//nursing-update/${selectedTreatment._id}`;
+    const url = `http://localhost:8000/treatments//nurse-update/${selectedTreatment._id}`;
     const options = {
       method: "PUT",
       headers: {

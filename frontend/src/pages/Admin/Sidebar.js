@@ -29,7 +29,6 @@ const Sidebar = ({ selectedSection, setSelectedSection }) => {
       icon: "fas fa-chart-line",
       key: "ReportsAndAnalytics",
     },
-    { name: "Settings", icon: "fas fa-cogs", key: "Settings" },
   ];
 
   return (

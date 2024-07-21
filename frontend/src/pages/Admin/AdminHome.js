@@ -7,10 +7,8 @@ import PatientsHistory from "./PatientManagement";
 import StaffManagement from "./StaffManagement";
 import InventoryManagement from "./InventoryManagement";
 import ReportsAndAnalytics from "./ReportsAndAnalytics";
-import StudentDetails from "./StudentDetails";
-import Settings from "./Settings";
-
-import "../../css/Dashboard.css";
+import StudentManagement from "./StudentManagement";
+import "../../css/AdminHome.css";
 
 const AdminHome = () => {
   const [selectedSection, setSelectedSection] = useState("Profile");
@@ -28,9 +26,7 @@ const AdminHome = () => {
       case "ReportsAndAnalytics":
         return <ReportsAndAnalytics />;
       case "StudentDetails":
-        return <StudentDetails />;
-      case "Settings":
-        return <Settings />;
+        return <StudentManagement />;
       default:
         return (
           <div>

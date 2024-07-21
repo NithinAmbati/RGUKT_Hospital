@@ -4,9 +4,8 @@ import { DoctorsHeaderContent } from "../../store/data";
 import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
 import { Button, TextField } from "@mui/material";
 import Cookies from "js-cookie";
-import SelectMedicines from "../../components/SelectMedicines";
-import { Spin } from "antd";
-import "./DoctorsHome.css";
+import SelectMedicines from "../../components/MedicineDropdown";
+import "../../css/DoctorsHome.css";
 import { Navigate } from "react-router-dom";
 import calculateAge from "../../services/calculateAge";
 
@@ -18,7 +17,6 @@ const DoctorsHome = () => {
   const [medicines, setMedicines] = useState([]);
   const [availableMedicines, setAvailableMedicines] = useState([]);
   const [showData, setShowData] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getAvailbleMedicines = async () => {
@@ -46,7 +44,6 @@ const DoctorsHome = () => {
   };
 
   const searchBtn = async () => {
-    setLoading(true);
     const pendingTreatmentUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput}&status=pending`;
     const treatedTreatmentsUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput}&status=treated`;
     const studentDetailsUrl = `http://localhost:8000/student-details?studentId=${searchInput}`;
@@ -107,7 +104,6 @@ const DoctorsHome = () => {
     } else {
       alert("Failed to mark treatment as treated");
     }
-    setLoading(false);
   };
 
   const handleChange = (field, value) => {

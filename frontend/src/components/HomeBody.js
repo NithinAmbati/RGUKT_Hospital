@@ -12,8 +12,7 @@ import {
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-import "./HomeBody.css";
-
+import "../css/HomeBody.css";
 const HomeBody = () => {
   const news = [
     {
@@ -90,7 +89,7 @@ const HomeBody = () => {
             (Hospital Services) as the Member Secretary of the Committee. This
             Committee formulates various policies for providing medical
             facilities to the Campus population.
-            </Typography>
+          </Typography>
         </Container>
 
         {/* Right Container */}
@@ -108,20 +107,6 @@ const HomeBody = () => {
           </Paper>
         </Container>
       </div>
-
-      <footer
-        style={{
-          backgroundColor: "#333",
-          color: "white",
-          textAlign: "center",
-          padding: "1rem 0",
-          marginTop: "2rem",
-        }}
-      >
-        <Typography variant="body2">
-          &copy; 2024 University Hospital. All rights reserved.
-        </Typography>
-      </footer>
     </>
   );
 };

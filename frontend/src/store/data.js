@@ -35,9 +35,9 @@ const PharmacistsHeaderContent = [
 ];
 
 const NursingHeaderContent = [
-  { title: "Home", link: "/nursing" },
-  { title: "Patient Details", link: "/nursing/patient-details" },
-  { title: "Profile", link: "/nursing/profile" },
+  { title: "Home", link: "/nurse" },
+  { title: "Patient Details", link: "/nurse/patient-details" },
+  { title: "Profile", link: "/nurse/profile" },
   { title: "Logout", link: "/logout" },
 ];
 

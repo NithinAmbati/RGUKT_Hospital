@@ -5,10 +5,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import SignUpForm from "../../components/SignUpForm";
 
 const StaffManagement = () => {
-  const [admins, setAdmins] = useState([]);
-  const [doctors, setDoctors] = useState([]);
-  const [nurses, setNurses] = useState([]);
-  const [pharmacists, setPharmacists] = useState([]);
+  const [admins, setAdmins] = useState(null);
+  const [doctors, setDoctors] = useState(null);
+  const [nurses, setNurses] = useState(null);
+  const [pharmacists, setPharmacists] = useState(null);
   const [userIds, setUserIds] = useState(null);
 
   const fetchUserIds = async () => {
@@ -22,8 +22,10 @@ const StaffManagement = () => {
     };
 
     const response = await fetch(url, options);
-    const data = await response.json();
-    setUserIds(data);
+    if (response.ok) {
+      const data = await response.json();
+      setUserIds(data);
+    }
   };
 
   useEffect(() => {
@@ -38,8 +40,10 @@ const StaffManagement = () => {
       };
 
       const response = await fetch(url, options);
-      const data = await response.json();
-      setAdmins(data);
+      if (response.ok) {
+        const data = await response.json();
+        setAdmins(data);
+      }
     };
 
     const fetchDoctors = async () => {
@@ -53,8 +57,10 @@ const StaffManagement = () => {
       };
 
       const response = await fetch(url, options);
-      const data = await response.json();
-      setDoctors(data);
+      if (response.ok) {
+        const data = await response.json();
+        setDoctors(data);
+      }
     };
 
     const fetchNurses = async () => {
@@ -68,8 +74,10 @@ const StaffManagement = () => {
       };
 
       const response = await fetch(url, options);
-      const data = await response.json();
-      setNurses(data);
+      if (response.ok) {
+        const data = await response.json();
+        setNurses(data);
+      }
     };
 
     const fetchPharmacists = async () => {
@@ -83,8 +91,10 @@ const StaffManagement = () => {
       };
 
       const response = await fetch(url, options);
-      const data = await response.json();
-      setPharmacists(data);
+      if (response.ok) {
+        const data = await response.json();
+        setPharmacists(data);
+      }
     };
 
     fetchAdmins();
@@ -109,13 +119,14 @@ const StaffManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {admins.map((admin, index) => (
-              <tr key={index} className="hover:bg-gray-100">
-                <td className="py-2 px-4 border-b">{admin.userId}</td>
-                <td className="py-2 px-4 border-b">{admin.username}</td>
-                <td className="py-2 px-4 border-b">{admin.email}</td>
-              </tr>
-            ))}
+            {admins &&
+              admins.map((admin, index) => (
+                <tr key={index} className="hover:bg-gray-100">
+                  <td className="py-2 px-4 border-b">{admin.userId}</td>
+                  <td className="py-2 px-4 border-b">{admin.username}</td>
+                  <td className="py-2 px-4 border-b">{admin.email}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
@@ -152,13 +163,14 @@ const StaffManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {doctors.map((doctor, index) => (
-              <tr key={index} className="hover:bg-gray-100">
-                <td className="py-2 px-4 border-b">{doctor.userId}</td>
-                <td className="py-2 px-4 border-b">{doctor.username}</td>
-                <td className="py-2 px-4 border-b">{doctor.email}</td>
-              </tr>
-            ))}
+            {doctors &&
+              doctors.map((doctor, index) => (
+                <tr key={index} className="hover:bg-gray-100">
+                  <td className="py-2 px-4 border-b">{doctor.userId}</td>
+                  <td className="py-2 px-4 border-b">{doctor.username}</td>
+                  <td className="py-2 px-4 border-b">{doctor.email}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
@@ -174,13 +186,14 @@ const StaffManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {nurses.map((nurse, index) => (
-              <tr key={index} className="hover:bg-gray-100">
-                <td className="py-2 px-4 border-b">{nurse.userId}</td>
-                <td className="py-2 px-4 border-b">{nurse.username}</td>
-                <td className="py-2 px-4 border-b">{nurse.email}</td>
-              </tr>
-            ))}
+            {nurses &&
+              nurses.map((nurse, index) => (
+                <tr key={index} className="hover:bg-gray-100">
+                  <td className="py-2 px-4 border-b">{nurse.userId}</td>
+                  <td className="py-2 px-4 border-b">{nurse.username}</td>
+                  <td className="py-2 px-4 border-b">{nurse.email}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
@@ -198,13 +211,14 @@ const StaffManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {pharmacists.map((pharmacist, index) => (
-              <tr key={index} className="hover:bg-gray-100">
-                <td className="py-2 px-4 border-b">{pharmacist.userId}</td>
-                <td className="py-2 px-4 border-b">{pharmacist.username}</td>
-                <td className="py-2 px-4 border-b">{pharmacist.email}</td>
-              </tr>
-            ))}
+            {pharmacists &&
+              pharmacists.map((pharmacist, index) => (
+                <tr key={index} className="hover:bg-gray-100">
+                  <td className="py-2 px-4 border-b">{pharmacist.userId}</td>
+                  <td className="py-2 px-4 border-b">{pharmacist.username}</td>
+                  <td className="py-2 px-4 border-b">{pharmacist.email}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

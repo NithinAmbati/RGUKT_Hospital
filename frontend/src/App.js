@@ -4,8 +4,6 @@ import HomePage from "./pages/HomePage";
 import PharmacistsHome from "./pages/Pharmacist/PharmacistHome.js";
 import DoctorsHome from "./pages/Doctor/DoctorsHome";
 import AddMedicines from "./pages/Pharmacist/PharmacistAddMedicines.js";
-import MedicalHistory from "./pages/MedicalHistory";
-import Staff from "./pages/Staff";
 import AdminHome from "./pages/Admin/AdminHome.js";
 import AddStudents from "./pages/Admin/StudentManagement.js";
 import NursingHome from "./pages/Nurse/NurseHome1.js";
@@ -20,8 +18,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<CheckAlreadyLogged component={HomePage} />} />
-        <Route path="/medical-history" element={<MedicalHistory />} />
-        <Route path="/staff" element={<Staff />} />
 
         <Route path="/login" element={<LoginPage />} />
 

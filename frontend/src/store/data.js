@@ -1,17 +1,5 @@
 const MainPageHeaderContent = [
   {
-    title: "Home",
-    link: "/",
-  },
-  {
-    title: "Staff",
-    link: "/staff",
-  },
-  {
-    title: "Medical History",
-    link: "/medical-history",
-  },
-  {
     title: "Login",
     link: "/login",
   },

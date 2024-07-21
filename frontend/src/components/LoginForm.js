@@ -39,17 +39,17 @@ function LoginForm() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-6 min-w-[400px]">
-      <h1 className="text-3xl font-bold mb-8">Login Page</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen py-6 px-4 bg-blue-100">
+      <h1 className="text-4xl font-bold text-black-800 mb-8"> Login In</h1>
       <form
         className="bg-white p-6 rounded-lg shadow-md w-full max-w-md"
         onSubmit={submitBtn}
       >
-        <label className="block text-gray-700 mb-2">UserId :</label>
+        <label className="block text-gray-700 mb-2">User ID:</label>
         <input
           type="text"
           name="username"
-          placeholder="username"
+          placeholder="Enter your User ID"
           value={userId}
           onChange={(event) => setUserId(event.target.value)}
           className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg"
@@ -59,14 +59,14 @@ function LoginForm() {
         <input
           type={showPassword ? "text" : "password"}
           name="password"
-          placeholder="password"
+          placeholder="Enter your Password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg"
         />
 
-        <div className="flex justify-between  items-center mb-4">
-          <div className="flex items-center mb-4 ">
+        <div className="flex justify-between items-center mb-4">
+          <div className="flex items-center">
             <input
               className="mr-2 leading-tight"
               type="checkbox"
@@ -76,10 +76,10 @@ function LoginForm() {
             <span className="text-gray-700">Show password</span>
           </div>
           <a
-            className="text-blue-500 hover:text-blue-700 mb-4 block text-xs underline"
-            href="/signup"
+            className="text-blue-500 hover:text-blue-700 text-xs underline"
+            href="/forgot-password"
           >
-            Forgot password
+            Forgot password?
           </a>
         </div>
 
@@ -88,7 +88,7 @@ function LoginForm() {
           type="submit"
           className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
         >
-          Submit
+          Login
         </Button>
       </form>
     </div>

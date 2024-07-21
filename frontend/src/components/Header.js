@@ -103,6 +103,9 @@ const Header = ({ headerContent }) => {
                   },
                 }}
               >
+                {item.title === "Login" ? (
+                  <i className="mr-2 fas fa-sign-in-alt"></i>
+                ) : null}
                 {item.title}{" "}
                 {item.title === "Logout" ? (
                   <i className="ml-2 fas fa-sign-out-alt"></i>

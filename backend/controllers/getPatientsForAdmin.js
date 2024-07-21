@@ -3,33 +3,29 @@ const { Treatments } = require("../models");
 const getPatientsForAdmin = async (req, res) => {
   try {
     const { date } = req.query;
-    const parsedDate = new Date(date);
 
-    if (isNaN(parsedDate.getTime())) {
-      // Invalid date
-      return res.status(400).send("Invalid date format");
+    if (!date) {
+      return res.status(400).send("Date query parameter is required");
     }
 
-    // Normalize the date to match exactly
-    const startOfDay = new Date(parsedDate.setHours(0, 0, 0, 0));
-    const endOfDay = new Date(parsedDate.setHours(23, 59, 59, 999));
+    const treatmentDate = new Date(date);
+    treatmentDate.setUTCHours(0, 0, 0, 0);
 
-    // Adjust the query to filter treatments by the given date
+    const startDate = new Date(treatmentDate);
+    const endDate = new Date(treatmentDate);
+    endDate.setUTCHours(23, 59, 59, 999);
+
     const treatments = await Treatments.find({
       treatmentDate: {
-        $gte: startOfDay,
-        $lt: endOfDay,
+        $gte: startDate,
+        $lte: endDate,
       },
     });
 
-    if (treatments.length === 0) {
-      return res.status(404).send("No treatments found for the given date");
-    }
-
-    res.status(200).send(treatments);
+    res.status(200).json(treatments);
   } catch (error) {
-    console.error("Error:", error.message);
-    res.status(500).send(error.message);
+    console.error("Error fetching treatments:", error);
+    res.status(500).send("An error occurred while fetching treatments");
   }
 };
 

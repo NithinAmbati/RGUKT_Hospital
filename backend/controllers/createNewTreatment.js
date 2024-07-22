@@ -26,10 +26,10 @@ const createNewTreatment = async (req, res) => {
     });
 
     await newTreatment.save();
-    res.status(201).send("Appointment successful");
+    res.status(201).josn("Appointment successful");
   } catch (error) {
     console.log(error.message);
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 };
 

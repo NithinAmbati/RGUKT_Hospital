@@ -15,10 +15,9 @@ router.get("/", verifyAdminToken, async (req, res) => {
     data.map((element) => {
       users[element["role"]] = parseInt(element.userId) + 1;
     });
-    res.status(200).send(users);
+    res.status(200).json(users);
   } catch (error) {
-    console.log(error.message);
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 });
 

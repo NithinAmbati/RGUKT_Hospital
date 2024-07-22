@@ -31,9 +31,9 @@ function LoginForm() {
       if (userId.startsWith("D")) navigate("/doctor");
       else if (userId.startsWith("P")) navigate("/pharmacist");
       else if (userId.startsWith("A")) navigate("/admin");
-      else if (userId.startsWith("N")) navigate("/nursing");
+      else if (userId.startsWith("N")) navigate("/nurse");
     } else {
-      const msg = await response.text();
+      const msg = await response.json();
       alert(msg);
     }
   };

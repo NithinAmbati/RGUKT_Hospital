@@ -8,7 +8,7 @@ const getPatientsForNurse = async (req, res) => {
         studentId,
         $or: [{ status: "pending" }, { status: "issueMedicine" }],
       });
-      res.status(200).send(treatments);
+      res.status(200).json(treatments);
     } else {
       // Corrected part
       const treatments = await Treatments.find({
@@ -18,7 +18,7 @@ const getPatientsForNurse = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 };
 

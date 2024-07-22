@@ -59,7 +59,6 @@ const AddMedicines = () => {
         alert("Failed to add medicines. Please try again.");
       }
     } catch (error) {
-      console.error("Error adding medicines:", error);
       alert("Error adding medicines. Please try again later.");
     }
   };

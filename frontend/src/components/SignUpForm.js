@@ -52,7 +52,7 @@ const SignUpForm = ({ userIds, fetchUserIds }) => {
       alert("Registration successful");
       await fetchUserIds();
     } else {
-      const msg = await response.text();
+      const msg = await response.json();
       console.log(msg);
     }
     setUserId("");

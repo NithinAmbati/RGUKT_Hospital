@@ -23,25 +23,24 @@ router.post("/", async (req, res) => {
       user = await Nurse.findOne({ userId });
       role = "nurse";
     } else {
-      res.status(400).send("Invalid user type");
+      res.status(400).json("Invalid user type");
       return;
     }
 
     if (!user) {
-      res.status(400).send("Login Failure");
+      res.status(400).json("Login Failure");
       return;
     }
 
     const isValidPassword = verifyPassword(password, user.password);
     if (isValidPassword) {
       const jwtToken = generateJwtToken(userId, role);
-      return res.status(201).send({ jwtToken });
+      return res.status(201).json({ jwtToken });
     }
 
-    res.status(400).send("Invalid credentials");
+    res.status(400).json("Invalid credentials");
   } catch (error) {
-    console.log(error.message);
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 });
 

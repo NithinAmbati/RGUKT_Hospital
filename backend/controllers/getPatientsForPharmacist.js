@@ -8,17 +8,16 @@ const getPatientsForPharmacist = async (req, res) => {
         studentId,
         status: "issueMedicine",
       });
-      res.status(200).send(treatments);
+      res.status(200).json(treatments);
     } else {
-      // Corrected part
       const treatments = await Treatments.find({
         status: "issueMedicine",
       });
-      res.status(200).send(treatments);
+      res.status(200).json(treatments);
     }
   } catch (error) {
     console.log(error.message);
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 };
 

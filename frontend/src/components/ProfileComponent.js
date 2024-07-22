@@ -24,7 +24,7 @@ const ProfileComponent = ({ user }) => {
         const data = await response.json();
         setProfileData(data);
       } else {
-        const msg = await response.text();
+        const msg = await response.json();
         alert(msg);
       }
     };
@@ -69,7 +69,7 @@ const ProfileComponent = ({ user }) => {
       setProfileData(updatedProfile);
       setEditing(false);
     } else {
-      const msg = await response.text();
+      const msg = await response.json();
       alert(msg);
     }
   };

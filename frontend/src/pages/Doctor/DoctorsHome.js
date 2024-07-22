@@ -62,7 +62,7 @@ const DoctorsHome = () => {
       if (pendingTreatmentData.length > 0) setShowData(true);
       setPendingTreatment(pendingTreatmentData[0]);
     } else {
-      const msg = await response1.text();
+      const msg = await response1.json();
       alert(msg);
     }
     const response2 = await fetch(treatedTreatmentsUrl, options);
@@ -71,7 +71,7 @@ const DoctorsHome = () => {
       console.log(treatedTreatmentData);
       setTreatedTreatments(treatedTreatmentData);
     } else {
-      const msg = await response2.text();
+      const msg = await response2.json();
       alert(msg);
     }
     const response3 = await fetch(studentDetailsUrl, options);
@@ -79,7 +79,7 @@ const DoctorsHome = () => {
       const studentDetailsData = await response3.json();
       setStudentDetails(studentDetailsData);
     } else {
-      const msg = await response3.text();
+      const msg = await response3.json();
       alert(msg);
     }
   };

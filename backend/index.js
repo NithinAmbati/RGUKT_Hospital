@@ -3,7 +3,10 @@ const cors = require("cors");
 const routes = require("./routes");
 const connectMongoDb = require("./connection");
 
-connectMongoDb("mongodb://localhost:27017/RGUKT_Hospital");
+const MONGO_URI =
+  "mongodb+srv://nithinambati2:yLbT7wHeE14Surh1@cluster0.9qpuxmc.mongodb.net/RGUKT_Hospital?retryWrites=true&w=majority";
+
+connectMongoDb(MONGO_URI);
 
 const app = express();
 app.use(express.json());

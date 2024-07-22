@@ -2,7 +2,7 @@ import Header from "../../components/Header";
 import ProfileComponent from "../../components/ProfileComponent";
 import { DoctorsHeaderContent } from "../../store/data";
 
-const DoctorProfilePage = () => {
+const DoctorProfile = () => {
   return (
     <>
       <Header headerContent={DoctorsHeaderContent} />
@@ -11,4 +11,4 @@ const DoctorProfilePage = () => {
   );
 };
 
-export default DoctorProfilePage;
+export default DoctorProfile;

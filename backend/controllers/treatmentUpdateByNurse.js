@@ -2,11 +2,12 @@ const { Treatments } = require("../models");
 
 const treatmentUpdateByNurse = async (req, res) => {
   try {
-    const { spo2, ecg } = req.body;
+    const { spo2, ecg, temperature, weight, pulseRate, bloodPressure } =
+      req.body;
     const { treatmentId } = req.params;
     await Treatments.findByIdAndUpdate(
       { _id: treatmentId },
-      { $set: { spo2, ecg } },
+      { $set: { spo2, ecg, temperature, weight, pulseRate, bloodPressure } },
       { new: true }
     );
     res.status(200).json("Updated Successfully");

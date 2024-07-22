@@ -27,7 +27,7 @@ const treatmentUpdateByPharmacist = async (req, res) => {
       $set: {
         medicinesGiven,
         medicineIssuedBy: userId,
-        status: "treated",
+        status: "TREATED",
       },
     });
 

@@ -73,7 +73,7 @@ const updateMedicineQuantity = async (req, res) => {
 
     await Treatments.updateOne(
       { _id: treatmentId },
-      { $set: { status: "treated", medicineIssuedBy: userId } }
+      { $set: { status: "TREATED", medicineIssuedBy: userId } }
     );
     res.status(200).json("Successful");
   } catch (error) {

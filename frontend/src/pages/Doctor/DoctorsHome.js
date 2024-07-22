@@ -44,8 +44,8 @@ const DoctorsHome = () => {
   };
 
   const searchBtn = async () => {
-    const pendingTreatmentUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput}&status=pending`;
-    const treatedTreatmentsUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput}&status=treated`;
+    const pendingTreatmentUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput}&status=PENDING`;
+    const treatedTreatmentsUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput}&status=TREATED`;
     const studentDetailsUrl = `http://localhost:8000/student-details?studentId=${searchInput}`;
 
     const options = {

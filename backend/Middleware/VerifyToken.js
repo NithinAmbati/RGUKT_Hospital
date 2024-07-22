@@ -32,7 +32,7 @@ const verifyNurseToken = async (req, res, next) => {
   try {
     const payload = jwt.verify(jwtToken, "Nithin");
     const { userId, role } = payload;
-    if (role !== "doctor") return;
+    if (role !== "nurse") return;
     req.userId = userId;
     next();
   } catch (error) {

@@ -6,13 +6,13 @@ const getPatientsForNurse = async (req, res) => {
     if (studentId) {
       const treatments = await Treatments.find({
         studentId,
-        $or: [{ status: "pending" }, { status: "issueMedicine" }],
+        $or: [{ status: "PENDING" }, { status: "ISSUE_MEDICINE" }],
       });
       res.status(200).json(treatments);
     } else {
       // Corrected part
       const treatments = await Treatments.find({
-        $or: [{ status: "pending" }, { status: "issueMedicine" }],
+        $or: [{ status: "PENDING" }, { status: "ISSUE_MEDICINE" }],
       });
       res.status(200).send(treatments);
     }

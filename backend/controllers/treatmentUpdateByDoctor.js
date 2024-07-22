@@ -23,7 +23,7 @@ const treatmentUpdateByDoctor = async (req, res) => {
           advice,
           hopi,
           medicinesWritten,
-          status: "IssueMedicine",
+          status: "ISSUE_MEDICINE",
         },
       }
     );

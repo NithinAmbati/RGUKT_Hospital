@@ -22,11 +22,11 @@ const createNewTreatment = async (req, res) => {
       pulseRate,
       weight,
       nursingStationBy: userId,
-      status: "pending",
+      status: "PENDING",
     });
 
     await newTreatment.save();
-    res.status(201).josn("Appointment successful");
+    res.status(201).json("Appointment successful");
   } catch (error) {
     console.log(error.message);
     res.status(500).json(error.message);

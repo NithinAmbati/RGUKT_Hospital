@@ -5,13 +5,12 @@ const getPatientsForPharmacist = async (req, res) => {
     const { studentId } = req.query;
     if (studentId) {
       const treatments = await Treatments.find({
-        studentId,
-        status: "issueMedicine",
+        status: "ISSUE_MEDICINE",
       });
       res.status(200).json(treatments);
     } else {
       const treatments = await Treatments.find({
-        status: "issueMedicine",
+        status: "ISSUE_MEDICINE",
       });
       res.status(200).json(treatments);
     }

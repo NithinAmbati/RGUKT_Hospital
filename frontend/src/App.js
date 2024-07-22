@@ -8,10 +8,12 @@ import AdminHome from "./pages/Admin/AdminHome.js";
 import AddStudents from "./pages/Admin/StudentManagement.js";
 import NursingHome from "./pages/Nurse/NurseHome1.js";
 import NursingSecondPage from "./pages/Nurse/NurseHome2.js";
-import ProfileComponent from "./components/ProfileComponent.js";
 import ProtectedRoute from "./protected/ProtectedRoute";
 import CheckAlreadyLogged from "./protected/CheckAlreadyLogged.js";
 import ForgotPassword from "./pages/ForgotPassword.js";
+import PharmacistProfile from "./pages/Pharmacist/PharmacistProfile.js";
+import NurseProfile from "./pages/Nurse/NurseProfile.js";
+import DoctorProfile from "./pages/Doctor/DoctorProfile.js";
 function App() {
   return (
     <BrowserRouter>
@@ -30,10 +32,7 @@ function App() {
         <Route
           path="/doctor/profile"
           element={
-            <ProtectedRoute
-              component={ProfileComponent}
-              requiredRole="doctor"
-            />
+            <ProtectedRoute component={DoctorProfile} requiredRole="doctor" />
           }
         />
 
@@ -59,7 +58,7 @@ function App() {
           path="/pharmacist/profile"
           element={
             <ProtectedRoute
-              component={ProfileComponent}
+              component={PharmacistProfile}
               requiredRole="pharmacist"
             />
           }
@@ -96,7 +95,7 @@ function App() {
         <Route
           path="/nurse/profile"
           element={
-            <ProtectedRoute component={ProfileComponent} requiredRole="nurse" />
+            <ProtectedRoute component={NurseProfile} requiredRole="nurse" />
           }
         />
 

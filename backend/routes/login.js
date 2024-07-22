@@ -7,7 +7,6 @@ const { verifyPassword } = require("../controllers/passwordHashing");
 // Candidate Login API
 router.post("/", async (req, res) => {
   const { userId, password } = req.body;
-
   try {
     let user, role;
     if (userId.startsWith("D")) {
@@ -32,8 +31,7 @@ router.post("/", async (req, res) => {
       return;
     }
 
-    const isValidPassword = verifyPassword(password, user.password);
-    //console.log(isValidPassword);
+    const isValidPassword = await verifyPassword(password, user.password);
     if (isValidPassword) {
       const jwtToken = generateJwtToken(userId, role);
       return res.status(201).json({ jwtToken });

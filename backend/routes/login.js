@@ -32,8 +32,8 @@ router.post("/", async (req, res) => {
       return;
     }
 
-    const isValidPassword = await verifyPassword(password, user.password);
-    console.log(isValidPassword);
+    const isValidPassword = verifyPassword(password, user.password);
+    //console.log(isValidPassword);
     if (isValidPassword) {
       const jwtToken = generateJwtToken(userId, role);
       return res.status(201).json({ jwtToken });

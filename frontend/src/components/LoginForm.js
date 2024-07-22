@@ -39,10 +39,10 @@ function LoginForm() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-6 px-4 bg-blue-100">
+    <div className="flex flex-col items-center  min-h-screen py-6 px-4 ">
       <h1 className="text-4xl font-bold text-black-800 mb-8"> Login In</h1>
       <form
-        className="bg-white p-6 rounded-lg shadow-md w-full max-w-md"
+        className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md"
         onSubmit={submitBtn}
       >
         <label className="block text-gray-700 mb-2">User ID:</label>

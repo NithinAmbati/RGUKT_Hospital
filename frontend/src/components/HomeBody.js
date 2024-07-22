@@ -24,17 +24,13 @@ const HomeBody = () => {
       title: "New Duty Schedule",
       description: "The new duty schedule for July has been released.",
     },
-    {
-      title: "Emergency Contact",
-      description: "In case of emergency, contact the hospital administration.",
-    },
   ];
 
   return (
     <>
-      <div className="container mx-auto py-6 px-4">
-        <div className="flex flex-col lg:flex-row justify-between gap-8">
-          <div className="flex flex-col flex-grow gap-8">
+      <div className="mx-auto py-6 px-4">
+        <div className="flex flex-col lg:flex-row justify-between ">
+          <div className="mt-16 flex flex-col flex-grow gap-14">
             {/* News Section */}
             <Container maxWidth="sm">
               <Paper elevation={3} style={{ padding: "16px" }}>
@@ -57,12 +53,12 @@ const HomeBody = () => {
 
             {/* Important Numbers Section */}
             <Container maxWidth="sm">
-              <Paper elevation={2} style={{ padding: "16px" }}>
-                <Typography variant="h6" gutterBottom>
+              <Paper elevation={3} style={{ padding: "16px" }}>
+                <Typography className="text-center" variant="h6" gutterBottom>
                   Important Numbers
                 </Typography>
                 <List>
-                  <ListItem>
+                  <ListItem className="mr-4">
                     <ListItemText primary="Emergency" secondary="911" />
                     <ListItemText primary="Ambulance" secondary="911" />
                   </ListItem>
@@ -77,9 +73,11 @@ const HomeBody = () => {
               About RGUKT Hospital
             </h1>
             <Carousel
-              showThumbs={false}
               autoPlay
               infiniteLoop
+              showThumbs={false}
+              showArrows={false}
+              showIndicators={false}
               showStatus={false}
             >
               <div>

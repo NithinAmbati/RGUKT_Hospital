@@ -66,7 +66,7 @@ const NursingHome = () => {
   return (
     <>
       <Header headerContent={NursingHeaderContent} />
-      <main>
+      <main className="m-10 ">
         <form onSubmit={submitBtn}>
           <TextField
             id="outlined-multiline-flexible"

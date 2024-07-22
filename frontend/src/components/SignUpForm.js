@@ -53,6 +53,7 @@ const SignUpForm = ({ userIds, fetchUserIds }) => {
       await fetchUserIds();
     } else {
       const msg = await response.json();
+      alert(msg);
       console.log(msg);
     }
     setUserId("");
@@ -107,6 +108,7 @@ const SignUpForm = ({ userIds, fetchUserIds }) => {
           />
           <div>
             <input
+              className="m-2"
               type="checkbox"
               checked={showPassword}
               onChange={() => setShowPassword(!showPassword)}

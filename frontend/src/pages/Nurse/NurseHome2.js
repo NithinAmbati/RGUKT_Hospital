@@ -104,7 +104,7 @@ const NursingSecondPage = () => {
       <Header headerContent={NursingHeaderContent} />
       <main>
         {/* Search Bar */}
-        <section className="mb-6">
+        <section className="mt-10 mb-6">
           <div className="flex items-center bg-white p-3 rounded-lg shadow-md max-w-md mx-auto">
             <input
               type="search"

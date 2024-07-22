@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Doctor, Pharmacist, Nurse } = require("../models");
+const { Doctor, Pharmacist, Nurse, Admin } = require("../models");
 const { hashPassword } = require("../controllers/passwordHashing");
 const { ExistingUserIds } = require("../models");
 const { verifyAdminToken } = require("../Middleware/verifyToken");
@@ -28,6 +28,13 @@ router.post("/", verifyAdminToken, async (req, res) => {
     } else if (role === "nurse") {
       const newUser = new Nurse({
         userId: "N" + userId,
+        username,
+        password: hashedPassword,
+      });
+      await newUser.save();
+    } else if (role === "admin") {
+      const newUser = new Admin({
+        userId: "A" + userId,
         username,
         password: hashedPassword,
       });

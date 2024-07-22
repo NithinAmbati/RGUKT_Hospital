@@ -26,7 +26,7 @@ function LoginForm() {
     const response = await fetch(url, options);
     if (response.ok) {
       const data = await response.json();
-      const jwtToken = data.jwtToken;
+      const { jwtToken } = data;
       Cookie.set("jwtToken", jwtToken, { expires: 1 });
       if (userId.startsWith("D")) navigate("/doctor");
       else if (userId.startsWith("P")) navigate("/pharmacist");

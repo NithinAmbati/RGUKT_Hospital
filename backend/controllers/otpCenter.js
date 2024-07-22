@@ -1,5 +1,6 @@
 const { Doctor, Admin, Nurse, Pharmacist } = require("../models");
 const nodemailer = require("nodemailer");
+const { hashPassword } = require("./passwordHashing");
 const otpStore = new Map();
 
 const transporter = nodemailer.createTransport({
@@ -30,7 +31,7 @@ const getOtp = async (req, res) => {
     }
 
     const otp = generateOtp();
-    otpStore.set(user.email, otp);
+    otpStore.set(userId, otp);
 
     const mailOptions = {
       from: "nithinambati9@gmail.com",
@@ -47,11 +48,40 @@ const getOtp = async (req, res) => {
 };
 
 const verifyOtp = async (req, res) => {
-  const { email, otp } = req.body;
-  const storedOtp = otpStore.get(email);
+  const { userId, otp } = req.body;
+  const storedOtp = otpStore.get(userId);
 
   if (storedOtp === otp) {
-    otpStore.delete(email);
+    otpStore.delete(userId);
+    const hashedPassword = await hashPassword("rgukt123");
+    if (userId.startsWith("A"))
+      await Admin.updateOne({
+        userId,
+        $set: {
+          password: hashedPassword,
+        },
+      });
+    else if (userId.startsWith("D"))
+      await Doctor.updateOne({
+        userId,
+        $set: {
+          password: hashedPassword,
+        },
+      });
+    else if (userId.startsWith("N"))
+      await Nurse.updateOne({
+        userId,
+        $set: {
+          password: hashedPassword,
+        },
+      });
+    else if (userId.startsWith("P"))
+      await Pharmacist.updateOne({
+        userId,
+        $set: {
+          password: hashedPassword,
+        },
+      });
     res.status(200).json("OTP Verified..");
   } else {
     res.status(400).json("Invalid OTP");

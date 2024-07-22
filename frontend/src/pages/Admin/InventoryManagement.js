@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import formatDate from "../../services/formatDate";
+import formatDate from "../../services/FormatDate";
 
 const InventoryManagement = () => {
   const [inventory, setInventory] = useState([]);
@@ -22,6 +22,10 @@ const InventoryManagement = () => {
     };
     getMedicines();
   }, []);
+
+  if (!inventory) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="p-4 bg-gray-100 min-h-screen">

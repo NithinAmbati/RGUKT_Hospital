@@ -11,6 +11,8 @@ const StaffManagement = () => {
   const [pharmacists, setPharmacists] = useState(null);
   const [userIds, setUserIds] = useState(null);
 
+  const [showForm, setShowForm] = useState(false);
+
   const fetchUserIds = async () => {
     const url = "http://localhost:8000/latest-user-ids";
     const options = {
@@ -104,7 +106,9 @@ const StaffManagement = () => {
     fetchUserIds();
   }, []);
 
-  const [showForm, setShowForm] = useState(false);
+  if (!admins || !doctors || !nurses || !pharmacists) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="p-4 bg-gray-100 min-h-screen">

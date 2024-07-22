@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PaginationComponent from "../../components/PaginationComponent";
 import Cookies from "js-cookie";
-import formatDate from "../../services/formatDate";
+import formatDate from "../../services/FormatDate";
 import ViewPatientFullDetails from "../../components/ViewPatientFullDetails";
 
 const PatientsHistory = () => {
@@ -32,6 +32,10 @@ const PatientsHistory = () => {
     };
     getPatientData();
   }, [selectedDate]);
+
+  if (!patientsData) {
+    return <div>Loading...</div>;
+  }
 
   const handlePageChange = (value) => {
     setPage(value);

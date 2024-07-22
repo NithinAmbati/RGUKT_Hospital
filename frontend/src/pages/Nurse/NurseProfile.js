@@ -21,7 +21,7 @@ const NursingProfilePage = () => {
         const data = await response.json();
         setProfileData(data);
       } else {
-        const msg = await response.text();
+        const msg = await response.json();
         alert(msg);
       }
     };

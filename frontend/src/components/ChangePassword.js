@@ -57,7 +57,7 @@ const ChangePasswordComponent = ({ user }) => {
       alert("Password changed successfully!");
       handleClose();
     } else {
-      const msg = await response.text();
+      const msg = await response.json();
       alert(msg);
     }
   };

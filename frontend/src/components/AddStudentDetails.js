@@ -57,7 +57,7 @@ const StudentDetails = () => {
         alert("Data uploaded successfully");
         console.log("File uploaded successfully:");
       } else {
-        const msg = await response.text();
+        const msg = await response.json();
         alert(msg);
       }
     };

@@ -27,7 +27,7 @@ const StudentManagement = () => {
           setStudentData(studentDetailsData);
           setNotFound(false);
         } else {
-          const msg = await response.text();
+          const msg = await response.json();
           setStudentData(null);
           alert(msg);
         }

@@ -10,6 +10,7 @@ const profileRouter = require("./profile");
 const userDetailsRouter = require("./userDetails");
 const adminChartsRouter = require("./chartsData");
 const existingUserRouter = require("./existingUserIds");
+const forgotPasswordRouter = require("./forgotPassword");
 
 // Use the routes from the different files
 
@@ -22,5 +23,6 @@ router.use("/profile", profileRouter);
 router.use("/users", userDetailsRouter);
 router.use("/admin-charts-data", adminChartsRouter);
 router.use("/latest-user-ids", existingUserRouter);
+router.use("/forgot-password", forgotPasswordRouter);
 
 module.exports = router;

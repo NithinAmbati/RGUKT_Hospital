@@ -38,7 +38,9 @@ const HomeBody = () => {
             {/* News Section */}
             <Container maxWidth="sm">
               <Paper elevation={3} style={{ padding: "16px" }}>
-                <marquee>Duty Doctors News</marquee>
+                <div className="marquee-container">
+                  <div className="marquee-content">Duty Doctors News</div>
+                </div>
                 <List>
                   {news.map((item, index) => (
                     <div key={index}>

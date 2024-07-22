@@ -6,7 +6,7 @@ const getMedicinesForAdmin = async (req, res) => {
     res.send(data);
   } catch (error) {
     console.error("Error:", error.message);
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 };
 

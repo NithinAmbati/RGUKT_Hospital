@@ -24,8 +24,7 @@ const getPatientsForAdmin = async (req, res) => {
 
     res.status(200).json(treatments);
   } catch (error) {
-    console.error("Error fetching treatments:", error);
-    res.status(500).send("An error occurred while fetching treatments");
+    res.status(500).json("An error occurred while fetching treatments");
   }
 };
 

@@ -22,10 +22,9 @@ const getAvailableMedicines = async (req, res) => {
         },
       },
     ]);
-    res.send(data);
+    res.json(data);
   } catch (error) {
-    console.error("Error:", error.message);
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 };
 
@@ -33,10 +32,9 @@ const addMedicineStock = async (req, res) => {
   try {
     const { newMedicines } = req.body;
     await Medicines.insertMany(newMedicines);
-    res.status(200).send("Succesful");
+    res.status(200).json("Succesful");
   } catch (error) {
-    console.error("Error:", error.message);
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 };
 
@@ -77,10 +75,9 @@ const updateMedicineQuantity = async (req, res) => {
       { _id: treatmentId },
       { $set: { status: "treated", medicineIssuedBy: userId } }
     );
-    res.status(200).send("Successful");
+    res.status(200).json("Successful");
   } catch (error) {
-    console.error("Error:", error.message);
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 };
 

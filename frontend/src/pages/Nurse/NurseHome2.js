@@ -51,7 +51,7 @@ const NursingSecondPage = () => {
       console.log(filteredPendingList);
       setPendingList(filteredPendingList);
     } else {
-      const msg = await response.text();
+      const msg = await response.json();
       alert(msg);
     }
   };

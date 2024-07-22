@@ -13,11 +13,13 @@ import PharmacistProfilePage from "./pages/Pharmacist/PharmacistProfile.js";
 import NursingProfilePage from "./pages/Nurse/NurseProfile.js";
 import ProtectedRoute from "./protected/ProtectedRoute";
 import CheckAlreadyLogged from "./protected/CheckAlreadyLogged.js";
+import ForgotPassword from "./pages/ForgotPassword.js";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<CheckAlreadyLogged component={HomePage} />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
         <Route path="/login" element={<LoginPage />} />
 

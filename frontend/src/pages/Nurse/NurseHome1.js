@@ -53,7 +53,7 @@ const NursingHome = () => {
       setStudentId("");
       setECG("");
     } else {
-      const msg = await response.text();
+      const msg = await response.json();
       alert(msg);
     }
   };

@@ -9,7 +9,7 @@ const changePassword = (Model) => async (req, res) => {
 
     // Verify the old password
     const isMatch = await verifyPassword(oldPassword, user.password);
-    if (!isMatch) return res.status(401).send("Incorrect Password");
+    if (!isMatch) return res.status(401).json("Incorrect Password");
 
     // Hash the new password and update it in the database
     const hashedPassword = await hashPassword(newPassword);
@@ -21,10 +21,10 @@ const changePassword = (Model) => async (req, res) => {
         },
       }
     );
-    res.status(200).send(data);
+    res.status(200).json(data);
   } catch (error) {
     console.log(error.message);
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 };
 

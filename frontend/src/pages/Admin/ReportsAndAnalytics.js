@@ -53,7 +53,7 @@ const ReportsAndAnalytics = () => {
           setMedicinesImportedData(medicinesImportedChartsData);
           setPatientsAdmissionsData(patientsChartsData);
         } else {
-          console.error("Error fetching data:", await response.text());
+          console.error("Error fetching data:", await response.json());
         }
       } catch (error) {
         console.error("Fetch error:", error);

@@ -6,12 +6,13 @@ import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
 import { Button } from "@mui/material";
 import { Navigate } from "react-router-dom";
 
-// This component will be used to update the treatment of the student by nurse after Doctor treatment
 const NursingSecondPage = () => {
   const [pendingList, setPendingList] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [isFormVisible, setFormVisible] = useState(false);
+  const [selectedTreatment, setSelectedTreatment] = useState(null);
 
-  // To display the entire pending treatments to update the treatment
+  // Fetch pending treatments on component mount
   useEffect(() => {
     const fetchPendingList = async () => {
       const url = "http://localhost:8000/treatments/nurse";
@@ -23,19 +24,23 @@ const NursingSecondPage = () => {
         },
       };
 
-      const response = await fetch(url, options);
-      console.log(response);
-      if (response.ok) {
-        const data = await response.json();
-        setPendingList(data);
-      } else {
-        console.log("Failed to fetch pending list");
+      try {
+        const response = await fetch(url, options);
+        if (response.ok) {
+          const data = await response.json();
+          setPendingList(data);
+        } else {
+          console.error("Failed to fetch pending list");
+        }
+      } catch (error) {
+        console.error("Error fetching pending list:", error);
       }
     };
+
     fetchPendingList();
   }, []);
 
-  //To store the searched treatment
+  // Filter treatments based on search input
   const filterData = async () => {
     const url = `http://localhost:8000/treatments/nurse?studentId=${searchInput}`;
     const options = {
@@ -45,38 +50,42 @@ const NursingSecondPage = () => {
         authorization: "Bearer " + Cookies.get("jwtToken"),
       },
     };
-    const response = await fetch(url, options);
-    if (response.ok) {
-      const filteredPendingList = await response.json();
-      console.log(filteredPendingList);
-      setPendingList(filteredPendingList);
-    } else {
-      const msg = await response.json();
-      alert(msg);
+
+    try {
+      const response = await fetch(url, options);
+      if (response.ok) {
+        const filteredPendingList = await response.json();
+        setPendingList(filteredPendingList);
+      } else {
+        const msg = await response.json();
+        alert(msg);
+      }
+    } catch (error) {
+      console.error("Error filtering data:", error);
     }
   };
 
-  // Update Form Functionality
-  const [isFormVisible, setFormVisible] = useState(false);
-  const [selectedTreatment, setSelectedTreatment] = useState(null);
-
+  // Handle input changes in the form
   const handleChange = (field, value) => {
-    setSelectedTreatment({ ...selectedTreatment, [field]: value });
+    setSelectedTreatment((prev) => ({ ...prev, [field]: value }));
   };
 
+  // Handle update button click
   const handleUpdateClick = (treatment) => {
     setSelectedTreatment(treatment);
     setFormVisible(true);
   };
 
+  // Close the update form
   const handleCloseForm = () => {
     setFormVisible(false);
     setSelectedTreatment(null);
   };
 
+  // Handle form submission
   const submitBtn = async (e) => {
     e.preventDefault();
-    const url = `http://localhost:8000/treatments//nurse-update/${selectedTreatment._id}`;
+    const url = `http://localhost:8000/treatments/nurse-update/${selectedTreatment._id}`;
     const options = {
       method: "PUT",
       headers: {
@@ -85,12 +94,17 @@ const NursingSecondPage = () => {
       },
       body: JSON.stringify(selectedTreatment),
     };
-    const response = await fetch(url, options);
-    if (response.ok) {
-      alert("Treatment updated successfully!");
-      handleCloseForm();
-    } else {
-      console.log("Failed to update treatment");
+
+    try {
+      const response = await fetch(url, options);
+      if (response.ok) {
+        alert("Treatment updated successfully!");
+        handleCloseForm();
+      } else {
+        console.error("Failed to update treatment");
+      }
+    } catch (error) {
+      console.error("Error updating treatment:", error);
     }
   };
 
@@ -119,7 +133,7 @@ const NursingSecondPage = () => {
           </div>
         </section>
 
-        {/* To display the entire pending treatments to update the treatment */}
+        {/* Display pending treatments */}
         <section className="bg-gray-100 py-8">
           <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">
             Pending Treatments
@@ -148,7 +162,7 @@ const NursingSecondPage = () => {
         </section>
 
         {/* Update Treatment Form */}
-        {isFormVisible && (
+        {isFormVisible && selectedTreatment && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
               <h3 className="text-center text-xl font-semibold mb-4">
@@ -166,6 +180,7 @@ const NursingSecondPage = () => {
                     type="text"
                     id="studentId"
                     value={selectedTreatment.studentId}
+                    readOnly
                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                   />
                 </div>
@@ -181,7 +196,7 @@ const NursingSecondPage = () => {
                     <input
                       type="text"
                       id="pulseRate"
-                      value={selectedTreatment.pulseRate}
+                      value={selectedTreatment.pulseRate || ""}
                       onChange={(e) =>
                         handleChange("pulseRate", e.target.value)
                       }
@@ -198,7 +213,7 @@ const NursingSecondPage = () => {
                     <input
                       type="text"
                       id="bloodPressure"
-                      value={selectedTreatment.bloodPressure}
+                      value={selectedTreatment.bloodPressure || ""}
                       onChange={(e) =>
                         handleChange("bloodPressure", e.target.value)
                       }
@@ -215,7 +230,7 @@ const NursingSecondPage = () => {
                     <input
                       type="text"
                       id="spo2"
-                      value={selectedTreatment.spo2}
+                      value={selectedTreatment.spo2 || ""}
                       onChange={(e) => handleChange("spo2", e.target.value)}
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                     />
@@ -230,7 +245,7 @@ const NursingSecondPage = () => {
                     <input
                       type="text"
                       id="temperature"
-                      value={selectedTreatment.temperature}
+                      value={selectedTreatment.temperature || ""}
                       onChange={(e) =>
                         handleChange("temperature", e.target.value)
                       }
@@ -247,7 +262,7 @@ const NursingSecondPage = () => {
                     <input
                       type="text"
                       id="weight"
-                      value={selectedTreatment.weight}
+                      value={selectedTreatment.weight || ""}
                       onChange={(e) => handleChange("weight", e.target.value)}
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                     />
@@ -262,7 +277,7 @@ const NursingSecondPage = () => {
                     <input
                       type="text"
                       id="ecg"
-                      value={selectedTreatment.ecg}
+                      value={selectedTreatment.ecg || ""}
                       onChange={(e) => handleChange("ecg", e.target.value)}
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                     />
@@ -272,11 +287,11 @@ const NursingSecondPage = () => {
                       Medicines
                     </label>
                     <div className="bg-gray-100 p-2 rounded-lg">
-                      {selectedTreatment.medicinesWritten.length > 0 &&
+                      {selectedTreatment.medicinesWritten?.length > 0 &&
                         selectedTreatment.medicinesWritten.map(
                           (medic, index) => (
                             <p key={index} className="text-gray-700">
-                              {medic}
+                              {medic.name}-{medic.quantity}
                             </p>
                           )
                         )}

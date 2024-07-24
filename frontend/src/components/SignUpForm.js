@@ -9,6 +9,7 @@ import {
   MenuItem,
   Paper,
 } from "@mui/material";
+import Cookies from "js-cookie";
 
 const SignUpForm = ({ userIds, fetchUserIds }) => {
   const [username, setUsername] = useState("");
@@ -44,6 +45,7 @@ const SignUpForm = ({ userIds, fetchUserIds }) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: "Bearer " + Cookies.get("jwtToken"),
       },
       body: JSON.stringify(userDetails),
     };

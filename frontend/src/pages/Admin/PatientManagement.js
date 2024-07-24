@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PaginationComponent from "../../components/PaginationComponent";
 import Cookies from "js-cookie";
-import formatDate from "../../services/FormatDate";
+import formatDate from "../../services/formatDate";
 import ViewPatientFullDetails from "../../components/ViewPatientFullDetails";
 
 const PatientsHistory = () => {

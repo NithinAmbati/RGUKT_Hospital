@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import formatDate from "../../services/FormatDate";
+import formatDate from "../../services/formatDate";
 
 const InventoryManagement = () => {
   const [inventory, setInventory] = useState([]);

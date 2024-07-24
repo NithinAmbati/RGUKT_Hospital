@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Header from "../../components/Header";
 import { PharmacistsHeaderContent } from "../../store/data";
 import Cookies from "js-cookie";
 import { Button } from "@mui/material";
 import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
 import { Navigate } from "react-router-dom";
-
+import ReactToPrint from "react-to-print";
+import PrintablePatient from "../../components/PrintPrescription";
 function PharmacistsHome() {
   const [patientsList, setPatientsList] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const printRefs = useRef({});
 
   useEffect(() => {
     const fetchPatientsList = async () => {
@@ -117,6 +119,22 @@ function PharmacistsHome() {
                   >
                     Issue Medicine
                   </Button>
+                  <ReactToPrint
+                    trigger={() => (
+                      <Button color="success" variant="contained">
+                        Print
+                      </Button>
+                    )}
+                    content={() => printRefs.current[item._id]}
+                    documentTitle="Patient Details"
+                    pageStyle="@page { size: auto; margin: 20mm; }"
+                  />
+                </div>
+                <div style={{ display: "none" }}>
+                  <PrintablePatient
+                    ref={(el) => (printRefs.current[item._id] = el)}
+                    patient={item}
+                  />
                 </div>
               </li>
             ))}

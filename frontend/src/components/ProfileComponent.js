@@ -75,7 +75,7 @@ const ProfileComponent = ({ user }) => {
   };
 
   return (
-    <main className="flex flex-col items-center min-h-screen p-4 bg-gray-100">
+    <main className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100">
       <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg p-6 mb-4">
         <h1 className="text-2xl font-semibold mb-4 text-blue-600">Profile</h1>
         <div className="grid gap-10 md:grid-cols-2">

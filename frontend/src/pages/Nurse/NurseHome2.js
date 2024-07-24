@@ -163,8 +163,8 @@ const NursingSecondPage = () => {
 
         {/* Update Treatment Form */}
         {isFormVisible && selectedTreatment && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 ">
+            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md max-h-[80vh] overflow-y-scroll">
               <h3 className="text-center text-xl font-semibold mb-4">
                 Update Treatment
               </h3>

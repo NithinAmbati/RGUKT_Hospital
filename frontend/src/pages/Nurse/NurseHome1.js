@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../components/Header";
 import { Button, TextField } from "@mui/material";
-import { useState } from "react";
 import { NursingHeaderContent } from "../../store/data";
 import Cookies from "js-cookie";
 import { Navigate } from "react-router-dom";
@@ -29,8 +28,6 @@ const NursingHome = () => {
       treatmentDate: new Date(),
     };
 
-    // API call to save vitals
-    console.log(Vitals);
     const url = "http://localhost:8000/treatments";
     const options = {
       method: "POST",
@@ -66,78 +63,85 @@ const NursingHome = () => {
   return (
     <>
       <Header headerContent={NursingHeaderContent} />
-      <main className="m-10 ">
-        <form onSubmit={submitBtn}>
-          <TextField
-            id="outlined-multiline-flexible"
-            label="Student ID"
-            multiline
-            maxRows={4}
-            fullWidth
-            value={studentId}
-            onChange={(e) => setStudentId(e.target.value)}
-          />
-          <h1 className="text-3xl font-bold text-center m-4">Vitals</h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <main className="min-h-[90vh] flex flex-col justify-center items-center">
+        <div className=" max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg">
+          <form onSubmit={submitBtn}>
             <TextField
-              id="outlined-multiline-flexible"
-              label="Pulse Rate"
-              multiline
-              maxRows={4}
+              id="studentId"
+              label="Student ID"
+              variant="outlined"
               fullWidth
-              value={pulseRate}
-              onChange={(e) => setPulseRate(e.target.value)}
+              value={studentId}
+              onChange={(e) => setStudentId(e.target.value)}
+              className="mb-4"
             />
-            <TextField
-              id="outlined-multiline-flexible"
-              label="Blood Pressure"
-              multiline
-              maxRows={4}
-              fullWidth
-              value={bloodPressure}
-              onChange={(e) => setBloodPressure(e.target.value)}
-            />
-            <TextField
-              id="outlined-multiline-flexible"
-              label="SPO2"
-              multiline
-              maxRows={4}
-              fullWidth
-              value={spo2}
-              onChange={(e) => setSpo2(e.target.value)}
-            />
-            <TextField
-              id="outlined-multiline-flexible"
-              label="Temperature"
-              multiline
-              maxRows={4}
-              fullWidth
-              value={temperature}
-              onChange={(e) => setTemperature(e.target.value)}
-            />
-            <TextField
-              id="outlined-multiline-flexible"
-              label="Weight"
-              multiline
-              maxRows={4}
-              fullWidth
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
-            />
-            <TextField
-              id="outlined-multiline-flexible"
-              label="ECG"
-              multiline
-              maxRows={4}
-              fullWidth
-              value={ecg}
-              onChange={(e) => setECG(e.target.value)}
-            />
-            <Button type="submit" variant="contained" color="primary">
-              Submit
-            </Button>
-          </div>
-        </form>
+            <h1 className="text-3xl font-bold text-center mb-6 mt-3">Vitals</h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <TextField
+                id="pulseRate"
+                label="Pulse Rate"
+                variant="outlined"
+                fullWidth
+                value={pulseRate}
+                onChange={(e) => setPulseRate(e.target.value)}
+                className="mb-4"
+              />
+              <TextField
+                id="bloodPressure"
+                label="Blood Pressure"
+                variant="outlined"
+                fullWidth
+                value={bloodPressure}
+                onChange={(e) => setBloodPressure(e.target.value)}
+                className="mb-4"
+              />
+              <TextField
+                id="spo2"
+                label="SPO2"
+                variant="outlined"
+                fullWidth
+                value={spo2}
+                onChange={(e) => setSpo2(e.target.value)}
+                className="mb-4"
+              />
+              <TextField
+                id="temperature"
+                label="Temperature"
+                variant="outlined"
+                fullWidth
+                value={temperature}
+                onChange={(e) => setTemperature(e.target.value)}
+                className="mb-4"
+              />
+              <TextField
+                id="weight"
+                label="Weight"
+                variant="outlined"
+                fullWidth
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
+                className="mb-4"
+              />
+              <TextField
+                id="ecg"
+                label="ECG"
+                variant="outlined"
+                fullWidth
+                value={ecg}
+                onChange={(e) => setECG(e.target.value)}
+                className="mb-4"
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className="md:col-span-2"
+              >
+                Submit
+              </Button>
+            </div>
+          </form>
+        </div>
       </main>
     </>
   );

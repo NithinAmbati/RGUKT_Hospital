@@ -34,7 +34,7 @@ function PharmacistsHome() {
   }, [searchInput]);
 
   const submitBtn = (medicinesWritten, treatmentId) => async () => {
-    const url = "http://localhost:8000/medicines";
+    const url = `http://localhost:8000/treatments/pharmacist-update/${treatmentId}`;
     const options = {
       method: "PUT",
       headers: {
@@ -43,7 +43,6 @@ function PharmacistsHome() {
       },
       body: JSON.stringify({
         medicinesWritten,
-        treatmentId,
       }),
     };
     try {

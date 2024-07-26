@@ -1,4 +1,4 @@
-const { Doctor, Admin, Nurse, Pharmacist } = require("../models");
+const { Doctor, Admin, Nurse, Pharmacist, Students } = require("../models");
 const nodemailer = require("nodemailer");
 const { hashPassword } = require("./passwordHashing");
 const otpStore = new Map();
@@ -88,7 +88,56 @@ const verifyOtp = async (req, res) => {
   }
 };
 
+const sendPrescriptionToStudent = async (treatmentData) => {
+  try {
+    const {
+      studentId,
+      nursingStationBy,
+      treatmentDate,
+      temperature,
+      bloodPressure,
+      pulseRate,
+      weight,
+      medicinesWritten,
+      advice,
+      description,
+      reason,
+      medicineIssuedBy,
+      labTest,
+      treatedBy,
+    } = treatmentData;
+
+    const user = await Students.findOne({ studentId });
+
+    const mailOptions = {
+      from: "nithinambati9@gmail.com",
+      to: user.email,
+      subject: "Your visit to Hospital on ${treatmentDate}",
+      text: `
+        Temerature: ${temperature}
+        Blood Pressure: ${bloodPressure}
+        Pulse Rate: ${pulseRate}
+        Weight: ${weight}
+        Medicines Written: ${medicinesWritten.join(", ")}
+        Advice: ${advice}
+        Description: ${description}
+        Reason: ${reason}
+        Medicine Issued By: ${medicineIssuedBy}
+        Lab Test: ${labTest}
+        Treated By: ${treatedBy}
+        Nurse: ${nursingStationBy}
+        
+      `,
+    };
+
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 module.exports = {
   getOtp,
   verifyOtp,
+  sendPrescriptionToStudent,
 };

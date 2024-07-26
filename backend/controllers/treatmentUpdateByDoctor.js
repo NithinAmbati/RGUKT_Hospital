@@ -2,6 +2,7 @@ const { Treatments } = require("../models");
 
 const treatmentUpdateByDoctor = async (req, res) => {
   try {
+    const { user } = req;
     const {
       reason,
       description,
@@ -23,6 +24,7 @@ const treatmentUpdateByDoctor = async (req, res) => {
           advice,
           hopi,
           medicinesWritten,
+          treatedBy: user,
           status: "ISSUE_MEDICINE",
         },
       }

@@ -71,10 +71,11 @@ const updateMedicineQuantity = async (req, res) => {
       }
     }
 
-    await Treatments.updateOne(
+    const treatmentData = await Treatments.findByIdAndUpdate(
       { _id: treatmentId },
       { $set: { status: "TREATED", medicineIssuedBy: userId } }
     );
+    console.log(treatmentData);
     res.status(200).json("Successful");
   } catch (error) {
     res.status(500).json(error.message);

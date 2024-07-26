@@ -1,39 +1,49 @@
 const { Medicines, Treatments } = require("../models");
+const { sendPrescriptionToStudent } = require("./otpCenter");
 
 const treatmentUpdateByPharmacist = async (req, res) => {
   try {
-    const { treatmentId } = req.params;
     const { userId } = req;
-    const { medicinesGiven } = req.body;
+    const { treatmentId } = req.params;
+    const { medicinesWritten } = req.body;
 
-    // Find the medicines and log the output
-    const data = await Medicines.find();
-    if (data.length === 0) {
-      return res.status(404).json("Medicines not found");
-    }
+    for (let item of medicinesWritten) {
+      let remainingQuantity = item.quantity;
+      const currentDate = new Date();
 
-    const { medicines } = data[0];
+      const medicines = await Medicines.find({
+        name: item.name.toLowerCase(),
+        expiryDate: { $gte: currentDate },
+      }).sort({ expiryDate: 1 });
 
-    for (const medGiven of medicinesGiven) {
-      const medItem = medicines.find((item) => item.name === medGiven.name);
-      if (medItem) {
-        medItem.quantity -= medGiven.medicineQuantity;
+      for (let med of medicines) {
+        if (remainingQuantity <= 0) break;
+
+        if (med.quantity >= remainingQuantity) {
+          await Medicines.updateOne(
+            { _id: med._id },
+            { $inc: { quantity: -remainingQuantity } }
+          );
+          remainingQuantity = 0;
+        } else {
+          remainingQuantity -= med.quantity;
+          await Medicines.updateOne(
+            { _id: med._id },
+            { $set: { quantity: 0 } }
+          );
+        }
       }
     }
+    const treatmentData = await Treatments.findByIdAndUpdate(
+      treatmentId,
+      { $set: { status: "TREATED", medicineIssuedBy: userId } },
+      { new: true }
+    );
 
-    await Medicines.findByIdAndUpdate(data[0]._id, { $set: { medicines } });
-
-    await Treatments.findByIdAndUpdate(treatmentId, {
-      $set: {
-        medicinesGiven,
-        medicineIssuedBy: userId,
-        status: "TREATED",
-      },
-    });
+    await sendPrescriptionToStudent(treatmentData);
 
     res.status(200).json("Updated Successfully");
   } catch (error) {
-    console.log(error.message);
     res.status(500).json(error.message);
   }
 };

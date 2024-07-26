@@ -6,8 +6,8 @@ import { Button, TextField } from "@mui/material";
 import Cookies from "js-cookie";
 import SelectMedicines from "../../components/MedicineDropdown";
 import "../../css/DoctorsHome.css";
-import { Navigate } from "react-router-dom";
 import calculateAge from "../../services/calculateAge";
+import formatDate from "../../services/formatDate";
 
 const DoctorsHome = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -17,6 +17,7 @@ const DoctorsHome = () => {
   const [medicines, setMedicines] = useState([]);
   const [availableMedicines, setAvailableMedicines] = useState([]);
   const [showData, setShowData] = useState(false);
+  const [review, setReview] = useState("");
 
   useEffect(() => {
     const getAvailbleMedicines = async () => {
@@ -58,7 +59,6 @@ const DoctorsHome = () => {
     const response1 = await fetch(pendingTreatmentUrl, options);
     if (response1.ok) {
       const pendingTreatmentData = await response1.json();
-      console.log(pendingTreatmentData);
       if (pendingTreatmentData.length > 0) setShowData(true);
       setPendingTreatment(pendingTreatmentData[0]);
     } else {
@@ -68,7 +68,6 @@ const DoctorsHome = () => {
     const response2 = await fetch(treatedTreatmentsUrl, options);
     if (response2.ok) {
       const treatedTreatmentData = await response2.json();
-      console.log(treatedTreatmentData);
       setTreatedTreatments(treatedTreatmentData);
     } else {
       const msg = await response2.json();
@@ -109,11 +108,6 @@ const DoctorsHome = () => {
   const handleChange = (field, value) => {
     setPendingTreatment({ ...pendingTreatment, [field]: value });
   };
-
-  const jwtToken = Cookies.get("jwtToken");
-  if (!jwtToken) {
-    return <Navigate to="/login" />;
-  }
 
   return (
     <div>
@@ -221,7 +215,7 @@ const DoctorsHome = () => {
                   <label htmlFor="drugallergy" className="form-label">
                     Drug Allergy:
                   </label>
-                  <textarea
+                  <TextField
                     id="drugallergy"
                     rows="4"
                     className="form-textarea"
@@ -229,7 +223,7 @@ const DoctorsHome = () => {
                     onChange={(e) =>
                       handleChange("drugallergy", e.target.value)
                     }
-                  ></textarea>
+                  />
                 </div>
                 <TextField
                   id="advice"
@@ -241,10 +235,19 @@ const DoctorsHome = () => {
                   onChange={(e) => handleChange("advice", e.target.value)}
                 />
                 <h1 className="form-title">Treatment</h1>
-                <SelectMedicines
-                  selectedMedicines={medicines}
-                  onChange={handleMedicineChange}
-                  medicines={availableMedicines}
+                <div>
+                  <SelectMedicines
+                    selectedMedicines={medicines}
+                    onChange={handleMedicineChange}
+                    medicines={availableMedicines}
+                  />
+                </div>
+                <TextField
+                  value={review}
+                  label="Review"
+                  fullWidth
+                  onChange={(e) => setReview(e.target.value)}
+                  sx={{ marginBottom: 2 }}
                 />
                 <Button
                   variant="contained"
@@ -262,29 +265,43 @@ const DoctorsHome = () => {
                 {treatedTreatments.map((item, index) => (
                   <li key={index} className="result-item">
                     <div className="result-details">
-                      <p className="text-bold">Reason: {item.reason}</p>
-                      <p className="text-normal">
-                        Description: {item.description}
+                      <p className="text-bold">
+                        <span className="font-bold">Reason : </span>{" "}
+                        {item.reason}
                       </p>
                       <p className="text-normal">
-                        Treated By: {item.treatedBy}
+                        <span className="font-bold">Description</span>:{" "}
+                        {item.description}
                       </p>
                       <p className="text-normal">
-                        Treatment Date: {item.treatmentDate}
+                        <span className="font-bold">Treated By : </span>{" "}
+                        {item.treatedBy}
                       </p>
                       <p className="text-normal">
-                        Temperature: {item.temperature}
+                        <span className="font-bold">Treatment Date : </span>{" "}
+                        {formatDate(item.treatmentDate)}
                       </p>
                       <p className="text-normal">
-                        Blood Pressure: {item.bloodPressure}
+                        <span className="font-bold">Temperature : </span>{" "}
+                        {item.temperature}
                       </p>
                       <p className="text-normal">
-                        Pulse Rate: {item.pulseRate}
+                        <span className="font-bold">Blood Pressure : </span>{" "}
+                        {item.bloodPressure}
                       </p>
-                      <p className="text-normal">Weight: {item.weight}</p>
-                      <p className="text-normal">Height: {item.height}</p>
                       <p className="text-normal">
-                        Medicines Written: {item.medicinesWritten.join(", ")}
+                        <span className="font-bold">Pulse Rate : </span>{" "}
+                        {item.pulseRate}
+                      </p>
+                      <p className="text-normal">
+                        <span className="font-bold">Weight : </span>{" "}
+                        {item.weight}
+                      </p>
+                      <p className="text-normal">
+                        <span className="font-bold">MedicinesWritten : </span>{" "}
+                        {item.medicinesWritten
+                          .map((med) => med.name)
+                          .join(", ")}
                       </p>
                     </div>
                   </li>

@@ -9,6 +9,7 @@ import InventoryManagement from "./InventoryManagement";
 import ReportsAndAnalytics from "./ReportsAndAnalytics";
 import StudentManagement from "./StudentManagement";
 import "../../css/AdminHome.css";
+import SummaryOfDay from "./SummaryOfDay";
 
 const AdminHome = () => {
   const [selectedSection, setSelectedSection] = useState("Profile");
@@ -27,6 +28,8 @@ const AdminHome = () => {
         return <ReportsAndAnalytics />;
       case "StudentDetails":
         return <StudentManagement />;
+      case "SummaryOfTheDay":
+        return <SummaryOfDay />;
       default:
         return (
           <div>

@@ -11,6 +11,8 @@ const treatmentUpdateByDoctor = async (req, res) => {
       advice,
       hopi,
       medicinesWritten,
+      review,
+      medicineDisposed,
     } = req.body;
     const { treatmentId } = req.params;
     await Treatments.findByIdAndUpdate(
@@ -24,6 +26,8 @@ const treatmentUpdateByDoctor = async (req, res) => {
           advice,
           hopi,
           medicinesWritten,
+          review,
+          medicineDisposed,
           treatedBy: user,
           status: "ISSUE_MEDICINE",
         },

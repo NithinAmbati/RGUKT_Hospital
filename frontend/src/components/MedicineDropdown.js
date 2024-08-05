@@ -23,7 +23,7 @@ const SelectMedicines = (props) => {
           morning: 0,
           afternoon: 0,
           night: 0,
-          foodTiming: "Before food",
+          foodTiming: "After food",
           numberOfDays: 0,
         }
       );

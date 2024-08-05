@@ -80,6 +80,7 @@ const reasons = [
   "Mumps",
   "Hepatitis",
   "Tuberculosis",
+  "Others",
 ];
 
 export {

@@ -282,6 +282,29 @@ const NursingSecondPage = () => {
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                     />
                   </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="patient-type"
+                      id="ip-checkbox"
+                      className="mr-2"
+                      onChange={() => handleChange("patientType", "IP")}
+                      checked={selectedTreatment.patientType === "IP"}
+                    />
+                    <label htmlFor="ip-checkbox" className="mr-5">
+                      IP
+                    </label>
+
+                    <input
+                      type="radio"
+                      name="patient-type"
+                      id="op-checkbox"
+                      className="mr-2"
+                      onChange={() => handleChange("patientType", "OP")}
+                      checked={selectedTreatment.patientType === "OP"}
+                    />
+                    <label htmlFor="op-checkbox">OP</label>
+                  </div>
                   <div className="mb-4">
                     <label className="block text-gray-700 font-semibold mb-2">
                       Medicines

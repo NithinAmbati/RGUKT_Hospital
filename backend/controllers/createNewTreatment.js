@@ -22,6 +22,7 @@ const createNewTreatment = async (req, res) => {
       pulseRate,
       weight,
       nursingStationBy: userId,
+      patientType: "OP",
       status: "PENDING",
     });
 

@@ -62,14 +62,6 @@ const ReportsAndAnalytics = () => {
     getData();
   }, []);
 
-  if (
-    !medicinesConsumedData ||
-    !medicinesImportedData ||
-    !patientsAdmissionsData
-  ) {
-    return <div>Loading...</div>;
-  }
-
   const pieData = {
     labels: [
       "Cardiology",
@@ -98,6 +90,14 @@ const ReportsAndAnalytics = () => {
       },
     ],
   };
+
+  if (
+    !medicinesConsumedData ||
+    !medicinesImportedData ||
+    !patientsAdmissionsData
+  ) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="p-4 bg-gray-100 min-h-screen">

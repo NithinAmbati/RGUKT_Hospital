@@ -30,7 +30,7 @@ const Sidebar = ({ selectedSection, setSelectedSection }) => {
       key: "ReportsAndAnalytics",
     },
     {
-      name: "SummaryOfTheDay",
+      name: "Daily Overview",
       icon: "fas fa-calendar-day",
       key: "SummaryOfTheDay",
     },

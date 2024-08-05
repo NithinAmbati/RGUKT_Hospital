@@ -33,15 +33,15 @@ const PatientsHistory = () => {
     getPatientData();
   }, [selectedDate]);
 
-  if (!patientsData) {
-    return <div>Loading...</div>;
-  }
-
   const handlePageChange = (value) => {
     setPage(value);
   };
 
   const filteredPageData = patientsData.slice((page - 1) * 10, page * 10);
+
+  if (!patientsData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="p-4 bg-gray-100 min-h-screen">

@@ -5,7 +5,6 @@ const SummaryOfTheDay = () => {
   const [summary, updateSummary] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  console.log(summary);
   useEffect(() => {
     const fetchDetails = async () => {
       const url = `http://localhost:8000/summary?date=${new Date(
@@ -80,7 +79,7 @@ const SummaryOfTheDay = () => {
 
       <div>
         <p style={{ fontSize: "1rem", fontWeight: "bold", margin: "8px 0" }}>
-          Number of Out Patients : {summary && summary.opCount}
+          Number of Out Patients :{summary && summary.opCount}
         </p>
       </div>
       <hr style={{ margin: "16px 0" }} />

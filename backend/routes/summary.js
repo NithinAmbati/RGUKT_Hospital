@@ -18,15 +18,14 @@ router.get("/", async (req, res) => {
     endDate.setUTCHours(23, 59, 59, 999);
 
     const data = await Treatments.aggregate([
-      // Filter documents by treatmentDate
       {
         $match: {
           treatmentDate: { $gte: startDate, $lte: endDate },
+          status: "TREATED",
         },
       },
       {
         $facet: {
-          // Facet for counting OP and IP patients
           patientTypeCounts: [
             {
               $group: {
@@ -50,7 +49,6 @@ router.get("/", async (req, res) => {
               },
             },
           ],
-          // Facet for counting reasons
           reasonCounts: [
             {
               $group: {
@@ -62,7 +60,14 @@ router.get("/", async (req, res) => {
               $sort: { count: -1 },
             },
             {
-              $limit: 5, // Limit to the top 5 reasons
+              $limit: 5,
+            },
+            {
+              $project: {
+                _id: 0,
+                reason: "$_id",
+                count: 1,
+              },
             },
           ],
         },
@@ -70,15 +75,13 @@ router.get("/", async (req, res) => {
       {
         $project: {
           _id: 0,
-          patientTypeCounts: {
-            $arrayElemAt: ["$patientTypeCounts", 0],
-          },
-          reasonCounts: "$reasonCounts",
+          ipCount: { $arrayElemAt: ["$patientTypeCounts.ipCount", 0] },
+          opCount: { $arrayElemAt: ["$patientTypeCounts.opCount", 0] },
+          reasons: "$reasonCounts",
         },
       },
     ]);
 
-    console.log(data[0]);
     res.status(200).send(data[0]);
   } catch (error) {
     res.status(500).send({ error: error.message });

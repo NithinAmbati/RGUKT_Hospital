@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../components/Header";
-import { DoctorsHeaderContent } from "../../store/data";
+import { DoctorsHeaderContent, reasons } from "../../store/data";
 import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Autocomplete } from "@mui/material";
 import Cookies from "js-cookie";
 import SelectMedicines from "../../components/MedicineDropdown";
 import "../../css/DoctorsHome.css";
@@ -17,7 +17,9 @@ const DoctorsHome = () => {
   const [medicines, setMedicines] = useState([]);
   const [availableMedicines, setAvailableMedicines] = useState([]);
   const [showData, setShowData] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [review, setReview] = useState("");
+  const [medicineDisposed, setMedicineDisposed] = useState("");
 
   useEffect(() => {
     const getAvailbleMedicines = async () => {
@@ -45,6 +47,7 @@ const DoctorsHome = () => {
   };
 
   const searchBtn = async () => {
+    setIsLoading(true);
     const pendingTreatmentUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput}&status=PENDING`;
     const treatedTreatmentsUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput}&status=TREATED`;
     const studentDetailsUrl = `http://localhost:8000/student-details?studentId=${searchInput}`;
@@ -56,30 +59,33 @@ const DoctorsHome = () => {
         authorization: "Bearer " + Cookies.get("jwtToken"),
       },
     };
-    const response1 = await fetch(pendingTreatmentUrl, options);
-    if (response1.ok) {
-      const pendingTreatmentData = await response1.json();
-      if (pendingTreatmentData.length > 0) setShowData(true);
-      setPendingTreatment(pendingTreatmentData[0]);
-    } else {
-      const msg = await response1.json();
-      alert(msg);
-    }
-    const response2 = await fetch(treatedTreatmentsUrl, options);
-    if (response2.ok) {
-      const treatedTreatmentData = await response2.json();
-      setTreatedTreatments(treatedTreatmentData);
-    } else {
-      const msg = await response2.json();
-      alert(msg);
-    }
-    const response3 = await fetch(studentDetailsUrl, options);
-    if (response3.ok) {
-      const studentDetailsData = await response3.json();
-      setStudentDetails(studentDetailsData);
-    } else {
-      const msg = await response3.json();
-      alert(msg);
+
+    try {
+      const [pendingResponse, treatedResponse, studentResponse] =
+        await Promise.all([
+          fetch(pendingTreatmentUrl, options),
+          fetch(treatedTreatmentsUrl, options),
+          fetch(studentDetailsUrl, options),
+        ]);
+
+      if (pendingResponse.ok && treatedResponse.ok && studentResponse.ok) {
+        const pendingTreatmentData = await pendingResponse.json();
+        const treatedTreatmentData = await treatedResponse.json();
+        const studentDetailsData = await studentResponse.json();
+
+        if (pendingTreatmentData.length > 0) setShowData(true);
+        setPendingTreatment(pendingTreatmentData[0]);
+        setTreatedTreatments(treatedTreatmentData);
+        setStudentDetails(studentDetailsData);
+      } else {
+        const msg = await pendingResponse.json();
+        alert(msg);
+      }
+    } catch (error) {
+      console.error("Failed to fetch data", error);
+      alert("An error occurred while fetching data");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -95,6 +101,8 @@ const DoctorsHome = () => {
       body: JSON.stringify({
         ...pendingTreatment,
         medicinesWritten: medicines,
+        medicineDisposed,
+        review,
       }),
     };
     const response = await fetch(url, options);
@@ -106,7 +114,13 @@ const DoctorsHome = () => {
   };
 
   const handleChange = (field, value) => {
-    setPendingTreatment({ ...pendingTreatment, [field]: value });
+    if (field === "medicineDisposed") {
+      setMedicineDisposed(value);
+    } else if (field === "review") {
+      setReview(value);
+    } else {
+      setPendingTreatment({ ...pendingTreatment, [field]: value });
+    }
   };
 
   return (
@@ -130,7 +144,9 @@ const DoctorsHome = () => {
             Search
           </Button>
         </section>
-        {showData && (
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : showData ? (
           <>
             <section className="form-container">
               <form onSubmit={submitBtn}>
@@ -149,7 +165,7 @@ const DoctorsHome = () => {
                   <h1 className="form-label">
                     Long Term Diseases:{" "}
                     {studentDetails.longTermDiseases &&
-                      studentDetails.longTermDiseases.join(", ")}
+                      studentDetails.longTermDiseases}
                   </h1>
                 </div>
                 <h1 className="form-title">Vitals</h1>
@@ -177,12 +193,14 @@ const DoctorsHome = () => {
                   <label htmlFor="reason" className="form-label">
                     Reason:
                   </label>
-                  <input
+                  <Autocomplete
                     id="reason"
-                    type="text"
-                    className="form-input"
+                    options={reasons}
                     value={pendingTreatment.reason}
-                    onChange={(e) => handleChange("reason", e.target.value)}
+                    onChange={(e, value) => handleChange("reason", value)}
+                    renderInput={(params) => (
+                      <TextField {...params} variant="outlined" />
+                    )}
                   />
                 </div>
                 <div className="form-field">
@@ -242,24 +260,40 @@ const DoctorsHome = () => {
                     medicines={availableMedicines}
                   />
                 </div>
-                <TextField
-                  value={review}
-                  label="Review"
-                  fullWidth
-                  onChange={(e) => setReview(e.target.value)}
-                  sx={{ marginBottom: 2 }}
-                />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className="form-button"
-                  type="submit"
-                >
-                  Submit
-                </Button>
+                <div className="form-field">
+                  <label htmlFor="medicineDisposed" className="form-label">
+                    Medicine Disposed:
+                  </label>
+                  <textarea
+                    id="medicineDisposed"
+                    rows="2"
+                    className="form-textarea"
+                    value={medicineDisposed}
+                    onChange={(e) =>
+                      handleChange("medicineDisposed", e.target.value)
+                    }
+                  ></textarea>
+                </div>
+                <div className="form-field">
+                  <TextField
+                    value={review}
+                    label="Review"
+                    fullWidth
+                    onChange={(e) => handleChange("review", e.target.value)}
+                    sx={{ marginBottom: 2 }}
+                  />
+                </div>
+                <div className="submit-btn-container">
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    className="submit-button"
+                  >
+                    Submit
+                  </Button>
+                </div>
               </form>
             </section>
-            <h2 className="results-title">Past Health Records in Campus:</h2>
             <section className="results-container">
               <ul className="results-list">
                 {treatedTreatments.map((item, index) => (
@@ -309,7 +343,7 @@ const DoctorsHome = () => {
               </ul>
             </section>
           </>
-        )}
+        ) : null}
       </main>
     </div>
   );

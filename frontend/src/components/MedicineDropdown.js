@@ -44,6 +44,21 @@ const SelectMedicines = (props) => {
         ? {
             ...med,
             [timeOfDay]: med[timeOfDay] === 0 ? 1 : 0,
+            quantity:
+              (timeOfDay === "morning"
+                ? med.morning === 0
+                  ? 1
+                  : 0
+                : med.morning) *
+                med.numberOfDays +
+              (timeOfDay === "afternoon"
+                ? med.afternoon === 0
+                  ? 1
+                  : 0
+                : med.afternoon) *
+                med.numberOfDays +
+              (timeOfDay === "night" ? (med.night === 0 ? 1 : 0) : med.night) *
+                med.numberOfDays,
           }
         : med
     );
@@ -85,7 +100,7 @@ const SelectMedicines = (props) => {
             value.map((option, index) => (
               <Chip
                 key={option}
-                label={`${option} (${
+                label={`${option.toUpperCase()} (${
                   selectedMedicines.find((med) => med.name === option)
                     ?.quantity || 1
                 })`}
@@ -108,7 +123,7 @@ const SelectMedicines = (props) => {
             numberOfDays,
           }) => (
             <div key={name} className="">
-              <h1 className="font-bold">{name} :</h1>
+              <h1 className="font-bold capitalize">{name} :</h1>
               <div className="flex flex-col md:flex-row items-center gap-4 justify">
                 <div className="flex items-center gap-2">
                   <TextField

@@ -19,6 +19,7 @@ const treatmentSchema = new mongoose.Schema({
   advice: { type: String, required: false },
   medicinesWritten: { type: Array, required: false },
   patientType: { type: String, defaultValue: "OP" },
+  medicineDisposed: { type: String, required: false },
   status: { type: String, required: true },
 });
 

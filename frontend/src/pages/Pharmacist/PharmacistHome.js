@@ -4,7 +4,6 @@ import { PharmacistsHeaderContent } from "../../store/data";
 import Cookies from "js-cookie";
 import { Button } from "@mui/material";
 import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
-import { Navigate } from "react-router-dom";
 import ReactToPrint from "react-to-print";
 import PrintablePatient from "../../components/PrintPrescription";
 function PharmacistsHome() {
@@ -50,6 +49,12 @@ function PharmacistsHome() {
       if (response.ok) {
         console.log("Medicines Issued successfully");
         alert("Medicines Issued successfully");
+
+        // Update patientsList state after issuing medicines
+        const updatedPatientsList = patientsList.filter(
+          (patient) => patient._id !== treatmentId
+        );
+        setPatientsList(updatedPatientsList);
       } else {
         const msg = await response.text();
         alert(msg);
@@ -62,11 +67,6 @@ function PharmacistsHome() {
   const filteredPatientsList = patientsList.filter((item) =>
     item.studentId.toLowerCase().includes(searchInput.toLowerCase())
   );
-
-  const jwtToken = Cookies.get("jwtToken");
-  if (!jwtToken) {
-    return <Navigate to="/login" />;
-  }
 
   return (
     <div className="min-h-screen bg-gray-100">

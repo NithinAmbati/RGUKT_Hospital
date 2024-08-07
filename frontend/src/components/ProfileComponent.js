@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import ChangePasswordComponent from "./ChangePassword";
-import axios from "axios";
 
 const ProfileComponent = ({ user }) => {
   const [profileData, setProfileData] = useState({});
   const [editing, setEditing] = useState(false);
-  const [profileImage, setProfileImage] = useState(null);
   const jwtToken = Cookies.get("jwtToken");
 
   useEffect(() => {
@@ -36,22 +34,8 @@ const ProfileComponent = ({ user }) => {
   };
 
   const handleSubmit = async () => {
-    let profileImageUrl = profileData.profileImageUrl;
-    if (profileImage) {
-      const formData = new FormData();
-      formData.append("file", profileImage);
-      formData.append("upload_preset", "image_preset");
-      formData.append("cloud_name", "dqztnamkx");
-      const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/dqztnamkx/upload",
-        formData
-      );
-      profileImageUrl = response.data.secure_url;
-    }
-
     const updatedProfile = {
       ...profileData,
-      profileImageUrl,
     };
 
     const url = `http://localhost:8000/profile/${user}`;
@@ -126,36 +110,6 @@ const ProfileComponent = ({ user }) => {
                 <p>{profileData.contactNumber}</p>
               )}
             </h2>
-          </div>
-          <div className="flex flex-col items-center m-4">
-            {editing ? (
-              <h2 className="text-lg font-medium mb-2">
-                <span className="font-bold">Upload Your Image:</span>
-              </h2>
-            ) : null}
-            <label className="w-32 h-32 bg-gray-200 flex items-center justify-center rounded-full cursor-pointer overflow-hidden relative">
-              {profileImage || profileData.profileImageUrl ? (
-                <img
-                  src={
-                    profileImage
-                      ? URL.createObjectURL(profileImage)
-                      : profileData.profileImageUrl
-                  }
-                  alt="Profile"
-                  className="w-full h-full object-cover rounded-full"
-                />
-              ) : (
-                <span className="text-gray-500">Choose Image</span>
-              )}
-              {editing && (
-                <input
-                  type="file"
-                  className="absolute opacity-0 w-full h-full cursor-pointer"
-                  accept="image/*"
-                  onChange={(e) => setProfileImage(e.target.files[0])}
-                />
-              )}
-            </label>
           </div>
         </div>
         <button

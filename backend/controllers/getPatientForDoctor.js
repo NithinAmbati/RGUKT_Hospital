@@ -3,7 +3,10 @@ const { Treatments } = require("../models");
 const getPatientForDoctors = async (req, res) => {
   try {
     const { status, studentId } = req.query;
-    const treatments = await Treatments.find({ status, studentId });
+    console.log(studentId);
+    const treatments = await Treatments.find({ status, studentId }).sort({
+      treatmentDate: -1,
+    });
     res.status(200).json(treatments);
   } catch (error) {
     console.log(error.message);

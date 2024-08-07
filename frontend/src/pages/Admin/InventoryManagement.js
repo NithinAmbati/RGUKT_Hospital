@@ -44,7 +44,7 @@ const InventoryManagement = () => {
           </thead>
           <tbody>
             {inventory.map((item, index) => (
-              <tr key={index} className="hover:bg-gray-100">
+              <tr key={index} className="hover:bg-gray-100 capitalize">
                 <td className="py-2 px-4 border-b">{item.name}</td>
                 <td className="py-2 px-4 border-b">{item.quantity}</td>
                 <td className="py-2 px-4 border-b">

@@ -13,6 +13,7 @@ const DoctorsHeaderContent = [
 
 const PharmacistsHeaderContent = [
   { title: "Home", link: "/pharmacist" },
+  { title: "View-Medicines", link: "/pharmacist/view-medicines" },
   { title: "Add Medicine", link: "/pharmacist/add-medicines" },
   { title: "Profile", link: "/pharmacist/profile" },
   { title: "Logout", link: "/logout" },

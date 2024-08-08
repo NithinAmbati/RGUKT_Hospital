@@ -4,7 +4,6 @@ import {
   List,
   ListItem,
   ListItemText,
-  Divider,
   Typography,
   Container,
 } from "@mui/material";
@@ -15,50 +14,69 @@ import LoginForm from "./LoginForm";
 import "../css/HomeBody.css";
 
 const HomeBody = () => {
-  const news = [
-    {
-      title: "Doctor A on duty",
-      description: "Doctor A will be on duty this weekend.",
-    },
-    {
-      title: "New Duty Schedule",
-      description: "The new duty schedule for July has been released.",
-    },
+  const staff = [
+    { name: "Dr. Jagadheeshwar" },
+    { name: "Dr. Mahesh" },
+    { name: "Dr. Akhila" },
+    { name: "Dr. Divya" },
+    { name: "Dr. Sharzel" },
+    { name: "Dr. Sharzaam" },
+    { name: "Dr. Srinivas" },
   ];
 
   return (
     <>
       <div className="mx-auto py-6 px-4">
         <div className="flex flex-col lg:flex-row justify-between ">
-          <div className="mt-16 flex flex-col flex-grow gap-14">
-            {/* News Section */}
-            <Container maxWidth="sm">
-              <Paper elevation={3} style={{ padding: "16px" }}>
-                <div className="marquee-container">
-                  <div className="marquee-content">Duty Doctors News</div>
-                </div>
-                <List>
-                  {news.map((item, index) => (
-                    <div key={index}>
-                      <ListItem>
-                        <ListItemText
-                          primary={item.title}
-                          secondary={item.description}
-                        />
-                      </ListItem>
-                      {index < news.length - 1 && <Divider />}
+          <div className="mt-10 flex flex-col flex-grow gap-14">
+            {/* Staff Details */}
+            <Container maxWidth="md" style={{ marginTop: "2rem" }}>
+              <Paper
+                elevation={2}
+                style={{
+                  padding: "1rem",
+                  maxHeight: "600px",
+                  overflowY: "auto",
+                }}
+              >
+                <h1
+                  style={{
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  Doctors
+                </h1>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  {staff.map((member, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        padding: "4px 0",
+                      }}
+                    >
+                      <span>{member.name}</span>
                     </div>
                   ))}
-                </List>
+                </div>
               </Paper>
             </Container>
 
             {/* Important Numbers Section */}
             <Container maxWidth="sm">
-              <Paper elevation={3} style={{ padding: "16px" }}>
-                <Typography className="text-center" variant="h6" gutterBottom>
+              <Paper elevation={2}>
+                <h1
+                  style={{
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    marginTop: "2px",
+                  }}
+                >
                   Important Numbers
-                </Typography>
+                </h1>
                 <List>
                   <ListItem className="mr-4">
                     <ListItemText primary="Emergency" secondary="911" />
@@ -102,13 +120,11 @@ const HomeBody = () => {
               nominated by him and members drawn from hospital and other
               recognized bodies of the Institute including student
               representatives, with the Head (Hospital Services) as the Member
-              Secretary of the Committee. This Committee formulates various
-              policies for providing medical facilities to the Campus
-              population.
+              Secretary of the Committee.
             </Typography>
           </Container>
 
-          {/* Login Form Section */}
+          {/* Login Form */}
           <Container maxWidth="sm" className="flex-grow mt-8 lg:mt-0">
             <LoginForm />
           </Container>

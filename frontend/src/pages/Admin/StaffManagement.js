@@ -113,7 +113,9 @@ const StaffManagement = () => {
   return (
     <div className="p-4 bg-gray-100 min-h-screen">
       <div className="mb-8">
-        <h3 className="text-xl font-semibold text-green-600 mb-2">Admins</h3>
+        <h3 className="text-xl font-semibold text-green-600 mb-2">
+          RGUKT Hospital Administration
+        </h3>
         <table className="min-w-full bg-white border border-gray-200">
           <thead>
             <tr className="font-semibold">
@@ -136,9 +138,7 @@ const StaffManagement = () => {
       </div>
 
       <div className="flex justify-between">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">
-          Staff Management
-        </h2>
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Staff Details</h2>
         {!showForm ? (
           <Button
             variant="contained"

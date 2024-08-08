@@ -15,6 +15,7 @@ import PharmacistProfile from "./pages/Pharmacist/PharmacistProfile.js";
 import NurseProfile from "./pages/Nurse/NurseProfile.js";
 import DoctorProfile from "./pages/Doctor/DoctorProfile.js";
 import PharmacistMedicinesView from "./pages/Pharmacist/PharmacistMedicinesView.js";
+import Others from "./pages/Doctor/Others.js";
 function App() {
   return (
     <BrowserRouter>
@@ -29,6 +30,10 @@ function App() {
           element={
             <ProtectedRoute component={DoctorsHome} requiredRole="doctor" />
           }
+        />
+        <Route
+          path="/doctor/others"
+          element={<ProtectedRoute component={Others} requiredRole="doctor" />}
         />
         <Route
           path="/doctor/profile"

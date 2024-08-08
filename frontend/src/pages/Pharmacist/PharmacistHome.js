@@ -116,7 +116,7 @@ function PharmacistsHome() {
                     variant="contained"
                     onClick={submitBtn(item.medicinesWritten, item._id)}
                   >
-                    Issue Medicine
+                    Issue Of Medicine
                   </Button>
                   <ReactToPrint
                     trigger={() => (

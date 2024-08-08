@@ -205,7 +205,7 @@ const DoctorsHome = () => {
                 </div>
                 <div className="form-field">
                   <label htmlFor="description" className="form-label">
-                    Description:
+                    Provisional Diagnosis:
                   </label>
                   <input
                     id="description"

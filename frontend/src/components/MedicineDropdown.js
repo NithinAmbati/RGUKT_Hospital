@@ -92,7 +92,7 @@ const SelectMedicines = (props) => {
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Medicines"
+              label="Prescription"
               onFocus={() => (params.InputProps.placeholder = "")}
             />
           )}

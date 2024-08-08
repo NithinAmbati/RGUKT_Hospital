@@ -88,18 +88,6 @@ const HomeBody = () => {
                   alt="Slide 1"
                 />
               </div>
-              <div>
-                <img
-                  src="https://data1.ibtimes.co.in/en/full/773945/probe-ordered-into-food-poisoning-telanganas-iiit-basara.jpg?h=450&l=50&t=40"
-                  alt="Slide 2"
-                />
-              </div>
-              <div>
-                <img
-                  src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202207/Collage_Maker-15-Jul-2022-09.4_1200x768.jpeg?VersionId=OC0p_ktmEpFOkJrQy9.WIA4riPFiIz4p&size=690:388"
-                  alt="Slide 3"
-                />
-              </div>
             </Carousel>
             <Typography
               className="justified-text"

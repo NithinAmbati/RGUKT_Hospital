@@ -39,12 +39,16 @@ const AddMedicinesThroughExcel = () => {
       };
 
       newMedicines = newMedicines.map((med) => {
-        if (typeof med.expiryDate === "number") {
-          med.expiryDate = excelDateToJSDate(med.expiryDate);
+        if (typeof med.EXP === "number") {
+          med.EXP = excelDateToJSDate(med.EXP);
         }
-        med.name = med.name.toLowerCase();
-        med.importDate = new Date();
-        return med;
+        return {
+          name: med["PRODUCT NAME"].toLowerCase(),
+          batchNo: med["B.NO"],
+          expiryDate: med.EXP,
+          importDate: new Date(),
+          quantity: med.QTY,
+        };
       });
 
       try {

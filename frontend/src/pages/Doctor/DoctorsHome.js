@@ -52,9 +52,9 @@ const DoctorsHome = () => {
 
   const searchBtn = async () => {
     setIsLoading(true);
-    const pendingTreatmentUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput}&status=PENDING`;
-    const treatedTreatmentsUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput}&status=TREATED`;
-    const studentDetailsUrl = `http://localhost:8000/student-details?studentId=${searchInput}`;
+    const pendingTreatmentUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput.toUpperCase()}&status=PENDING`;
+    const treatedTreatmentsUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput.toUpperCase()}&status=TREATED`;
+    const studentDetailsUrl = `http://localhost:8000/student-details?studentId=${searchInput.toUpperCase()}`;
 
     const options = {
       method: "GET",
@@ -83,11 +83,11 @@ const DoctorsHome = () => {
         setStudentDetails(studentDetailsData);
       } else {
         const msg = await pendingResponse.json();
-        alert(msg);
+        toast(msg);
       }
     } catch (error) {
       console.error("Failed to fetch data", error);
-      alert("An error occurred while fetching data");
+      toast.error("An error occurred while fetching data");
     } finally {
       setIsLoading(false);
     }

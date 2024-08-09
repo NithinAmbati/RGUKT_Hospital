@@ -102,6 +102,7 @@ function PharmacistsHome() {
 
   return (
     <main className="min-h-screen bg-gray-100">
+      <ToastContainer />
       <Header headerContent={PharmacistsHeaderContent} />
       <main className="p-6">
         <h1 className="text-3xl font-bold text-center mb-6">Pharmacist Home</h1>

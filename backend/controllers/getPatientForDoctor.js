@@ -3,7 +3,6 @@ const { Treatments } = require("../models");
 const getPatientForDoctors = async (req, res) => {
   try {
     const { status, studentId } = req.query;
-    console.log(studentId);
     const treatments = await Treatments.find({ status, studentId }).sort({
       treatmentDate: -1,
     });

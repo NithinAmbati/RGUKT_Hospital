@@ -21,7 +21,7 @@ const NursingHome = () => {
       toast.warning("Please enter a valid student ID");
       return;
     }
-    if (studentId.length() !== 7) {
+    if (studentId.length !== 7) {
       toast.warning("Please enter a valid student ID");
       return;
     }

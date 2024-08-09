@@ -30,6 +30,7 @@ const ReportsAndAnalytics = () => {
   const [patientsAdmissionsData, setPatientsAdmissionsData] = useState(null);
   const [medicinesConsumedData, setMedicinesConsumedData] = useState(null);
   const [medicinesImportedData, setMedicinesImportedData] = useState(null);
+  const [patientDistributionData, setPatientDistributionData] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -48,10 +49,12 @@ const ReportsAndAnalytics = () => {
             medicinesImportedChartsData,
             medicinesConsumedChartsData,
             patientsChartsData,
+            patientDistributionData,
           } = await response.json();
           setMedicinesConsumedData(medicinesConsumedChartsData);
           setMedicinesImportedData(medicinesImportedChartsData);
           setPatientsAdmissionsData(patientsChartsData);
+          setPatientDistributionData(patientDistributionData);
         } else {
           console.error("Error fetching data:", await response.json());
         }
@@ -62,39 +65,13 @@ const ReportsAndAnalytics = () => {
     getData();
   }, []);
 
-  const pieData = {
-    labels: [
-      "Cardiology",
-      "Neurology",
-      "Orthopedics",
-      "Pediatrics",
-      "Radiology",
-    ],
-    datasets: [
-      {
-        data: [300, 50, 100, 40, 120],
-        backgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#FF6384",
-          "#36A2EB",
-        ],
-        hoverBackgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#FF6384",
-          "#36A2EB",
-        ],
-      },
-    ],
-  };
+  console.log(medicinesImportedData);
 
   if (
     !medicinesConsumedData ||
     !medicinesImportedData ||
-    !patientsAdmissionsData
+    !patientsAdmissionsData ||
+    !patientDistributionData
   ) {
     return <div>Loading...</div>;
   }
@@ -145,7 +122,10 @@ const ReportsAndAnalytics = () => {
 
         <div className="flex flex-col">
           <div className="flex-grow bg-white p-4 rounded-lg shadow-md">
-            <Pie data={pieData} options={{ responsive: true }} />
+            <Pie
+              data={patientDistributionData}
+              options={{ responsive: true }}
+            />
           </div>
           <h3 className="text-center text-lg font-semibold text-blue-600 mt-3">
             Patient Distribution

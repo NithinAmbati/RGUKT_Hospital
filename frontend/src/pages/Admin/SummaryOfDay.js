@@ -63,7 +63,7 @@ const SummaryOfTheDay = () => {
         >
           Summary
         </h2>
-        <label>Choose Date: </label>
+        <label>Date: </label>
         <input
           type="date"
           className="my-3"
@@ -76,13 +76,13 @@ const SummaryOfTheDay = () => {
       />
       <div style={{ marginTop: "16px" }}>
         <p style={{ fontSize: "1rem", fontWeight: "bold", margin: "8px 0" }}>
-          Number of In Patients : {summary && summary.ipCount}
+          Number of In Patients (IP) : {summary && summary.ipCount}
         </p>
       </div>
       <hr style={{ margin: "16px 0" }} />
       <div>
         <p style={{ fontSize: "1rem", fontWeight: "bold", margin: "8px 0" }}>
-          Number of Out Patients : {summary && summary.opCount}
+          Number of Out Patients (OP) : {summary && summary.opCount}
         </p>
       </div>
       <hr style={{ margin: "16px 0" }} />

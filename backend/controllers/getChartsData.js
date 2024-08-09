@@ -1,18 +1,45 @@
-const { Medicines, Treatments } = require("../models");
+const { Medicines, Treatments, Others } = require("../models");
 
 const getChartsData = async (req, res) => {
   try {
     const medicinesImportedChartsData = await getMedicinesImportedChartsData();
     const patientsChartsData = await getPatientsChartsData();
     const medicinesConsumedChartsData = await getMedicinesConsumedChartsData();
+    const patientDistributionData = await getPatientDistributionData();
+
     res.status(200).json({
       medicinesImportedChartsData,
       patientsChartsData,
       medicinesConsumedChartsData,
+      patientDistributionData,
     });
   } catch (error) {
     res.status(500).json(error.message);
   }
+};
+
+const getPatientDistributionData = async () => {
+  const distributionData = {
+    Students: 0,
+    Staff: 0,
+  };
+
+  const studentsCount = await Treatments.countDocuments();
+  const staffCount = await Others.countDocuments();
+  distributionData.Students = studentsCount;
+  distributionData.Staff = staffCount;
+
+  const pieData = {
+    labels: Object.keys(distributionData),
+    datasets: [
+      {
+        label: "Patient Distribution",
+        data: Object.values(distributionData),
+        backgroundColor: ["rgba(75, 192, 192, 1)", "orange"],
+      },
+    ],
+  };
+  return pieData;
 };
 
 const getMedicinesConsumedChartsData = async () => {
@@ -113,41 +140,45 @@ const processTreatmentData = (treatments) => {
   return barData;
 };
 
-const processMedicineData = (medicines) => {
-  const monthLabels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+const processMedicineData = async (medicines) => {
+  try {
+    const monthLabels = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
 
-  const monthData = Array(12).fill(0);
+    const monthData = Array(12).fill(0); // Initialize array for 12 months
 
-  medicines.forEach((medicine) => {
-    const month = new Date(medicine.importDate).getMonth();
-    monthData[month] += 1;
-  });
+    medicines.forEach((medicine) => {
+      const month = new Date(medicine.importDate).getMonth();
+      monthData[month] += medicine.quantity; // Sum up the quantity for each month
+    });
 
-  const barData = {
-    labels: monthLabels,
-    datasets: [
-      {
-        label: "Medicines Imported",
-        data: monthData,
-        backgroundColor: "rgba(75, 192, 192, 0.6)",
-      },
-    ],
-  };
+    const barData = {
+      labels: monthLabels,
+      datasets: [
+        {
+          label: "Medicines Imported",
+          data: monthData,
+          backgroundColor: "rgba(75, 192, 192, 0.6)",
+        },
+      ],
+    };
 
-  return barData;
+    return barData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
 };
 
 module.exports = { getChartsData };

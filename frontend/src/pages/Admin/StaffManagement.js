@@ -137,12 +137,13 @@ const StaffManagement = () => {
         </table>
       </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-evenly">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Staff Details</h2>
         {!showForm ? (
           <Button
             variant="contained"
             color="primary"
+            sx={{ fontSize: "0.75rem", padding: "0px 12px" }} // Adjust size with sx prop
             onClick={() => setShowForm(true)}
           >
             Add Staff

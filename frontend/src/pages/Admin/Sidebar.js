@@ -1,7 +1,14 @@
 import React from "react";
 import "../../css/Sidebar.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThLarge, faTimes } from "@fortawesome/free-solid-svg-icons";
 
-const Sidebar = ({ selectedSection, setSelectedSection }) => {
+const Sidebar = ({
+  selectedSection,
+  setSelectedSection,
+  isSidebarOpen,
+  setIsSidebarOpen,
+}) => {
   const sections = [
     { name: "Profile", icon: "fas fa-user", key: "Profile" },
     {
@@ -19,11 +26,7 @@ const Sidebar = ({ selectedSection, setSelectedSection }) => {
       icon: "fas fa-user-injured",
       key: "PatientsHistory",
     },
-    {
-      name: "Inventory",
-      icon: "fas fa-boxes",
-      key: "InventoryManagement",
-    },
+    { name: "Inventory", icon: "fas fa-boxes", key: "InventoryManagement" },
     {
       name: "Reports and Analytics",
       icon: "fas fa-chart-line",
@@ -37,23 +40,36 @@ const Sidebar = ({ selectedSection, setSelectedSection }) => {
   ];
 
   return (
-    <div className="sidebar bg-gray-800 text-white h-full fixed top-16">
-      <ul className="list-none p-0">
-        {sections.map((section) => (
-          <li
-            key={section.key}
-            className={`flex items-center px-4 py-2 cursor-pointer  ${
-              selectedSection === section.key
-                ? "bg-gray-700"
-                : "hover:bg-gray-700"
-            }`}
-            onClick={() => setSelectedSection(section.key)}
-          >
-            <i className={`${section.icon} mr-3`}></i> {section.name}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <div className={`sidebar ${isSidebarOpen ? "show" : ""}`}>
+        <ul className="list-none p-0">
+          {sections.map((section) => (
+            <li
+              key={section.key}
+              className={`flex items-center px-4 py-2 cursor-pointer ${
+                selectedSection === section.key
+                  ? "bg-gray-700"
+                  : "hover:bg-gray-700"
+              }`}
+              onClick={() => {
+                setSelectedSection(section.key);
+                if (window.innerWidth <= 768) {
+                  setIsSidebarOpen(false); // Close sidebar on item click (small screens)
+                }
+              }}
+            >
+              <i className={`${section.icon} mr-3`}></i> {section.name}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <button
+        className="sidebar-toggle"
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+      >
+        <FontAwesomeIcon icon={isSidebarOpen ? faTimes : faThLarge} />
+      </button>
+    </>
   );
 };
 

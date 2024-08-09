@@ -72,7 +72,8 @@ const HomeBody = () => {
                   style={{
                     textAlign: "center",
                     fontWeight: "bold",
-                    marginTop: "2px",
+                    marginTop: "1rem",
+                    color: "red",
                   }}
                 >
                   Important Numbers

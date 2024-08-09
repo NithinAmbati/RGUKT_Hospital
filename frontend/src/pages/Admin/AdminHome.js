@@ -13,6 +13,7 @@ import SummaryOfDay from "./SummaryOfDay";
 
 const AdminHome = () => {
   const [selectedSection, setSelectedSection] = useState("Profile");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const renderContent = () => {
     switch (selectedSection) {
@@ -44,10 +45,14 @@ const AdminHome = () => {
     <>
       <Header headerContent={AdminHeaderContent} />
       <div className="dashboard-container">
-        <Sidebar setSelectedSection={setSelectedSection} />
-        <div className="dashboard-main">
+        <Sidebar
+          setSelectedSection={setSelectedSection}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+        />
+        <div className={`dashboard-main ${isSidebarOpen ? "expanded" : ""}`}>
           <h1 className="dashboard-heading">
-            <i className="fas fa-tachometer-alt"></i>
+            <i className="mr-2 fas fa-tachometer-alt"></i>
             Dashboard
           </h1>
           <div>{renderContent()}</div>

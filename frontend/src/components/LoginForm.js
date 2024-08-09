@@ -27,17 +27,17 @@ function LoginForm() {
     };
     const response = await fetch(url, options);
     if (response.ok) {
-      toast.success("Logged in successfully!");
       const data = await response.json();
-      const { jwtToken } = data;
+      const { jwtToken, message } = data;
+      toast.success(message);
       Cookie.set("jwtToken", jwtToken, { expires: 1 });
       if (userId.startsWith("D")) navigate("/doctor");
       else if (userId.startsWith("P")) navigate("/pharmacist");
       else if (userId.startsWith("A")) navigate("/admin");
       else if (userId.startsWith("N")) navigate("/nurse");
     } else {
-      const msg = await response.json();
-      toast.error(msg);
+      const { message } = await response.json();
+      toast.error(message);
     }
   };
 

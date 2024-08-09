@@ -4,6 +4,8 @@ import Cookies from "js-cookie";
 import calculateAge from "../../services/calculateAge";
 import "../../components/AddStudentDetails";
 import StudentDetails from "../../components/AddStudentDetails";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const StudentManagement = () => {
   const [studentData, setStudentData] = useState(null);
@@ -23,27 +25,27 @@ const StudentManagement = () => {
       try {
         const response = await fetch(studentDetailsUrl, options);
         if (response.ok) {
-          const studentDetailsData = await response.json();
-          setStudentData(studentDetailsData);
+          const { studentInfo } = await response.json();
+          setStudentData(studentInfo);
           setNotFound(false);
         } else {
-          const msg = await response.json();
+          const { message } = await response.json();
           setStudentData(null);
-          alert(msg);
+          toast.success(message);
         }
       } catch (error) {
-        console.error("Error fetching student details:", error);
-        alert("An error occurred while fetching student details.");
+        toast.error("An error occurred while fetching student details.");
       }
     } else {
       setStudentData(null);
       setNotFound(false);
-      alert("Please enter a valid Student ID!");
+      toast.warning("Please enter a valid Student ID!");
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 flex flex-col items-center">
+      <ToastContainer />
       <section className="mb-6 w-full max-w-lg">
         <div className="flex items-center bg-white p-3 rounded-lg shadow-md">
           <input

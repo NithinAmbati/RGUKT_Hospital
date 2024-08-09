@@ -5,7 +5,9 @@ const getPatientsForAdmin = async (req, res) => {
     const { date } = req.query;
 
     if (!date) {
-      return res.status(400).send("Date query parameter is required");
+      return res
+        .status(400)
+        .json({ message: "Date query parameter is required" });
     }
 
     const treatmentDate = new Date(date);
@@ -22,9 +24,9 @@ const getPatientsForAdmin = async (req, res) => {
       },
     });
 
-    res.status(200).json(treatments);
+    res.status(200).json({ treatments });
   } catch (error) {
-    res.status(500).json("An error occurred while fetching treatments");
+    res.status(500).json({ message: error.message });
   }
 };
 

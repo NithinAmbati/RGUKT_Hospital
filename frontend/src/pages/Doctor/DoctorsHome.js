@@ -35,8 +35,8 @@ const DoctorsHome = () => {
       };
       const response = await fetch(url, options);
       if (response.ok) {
-        const data = await response.json();
-        setAvailableMedicines(data);
+        const { medicines } = await response.json();
+        setAvailableMedicines(medicines);
       } else {
         console.error("Failed to get medicines");
       }
@@ -52,9 +52,9 @@ const DoctorsHome = () => {
 
   const searchBtn = async () => {
     setIsLoading(true);
-    const pendingTreatmentUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput}&status=PENDING`;
-    const treatedTreatmentsUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput}&status=TREATED`;
-    const studentDetailsUrl = `http://localhost:8000/student-details?studentId=${searchInput}`;
+    const pendingTreatmentUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput.toUpperCase()}&status=PENDING`;
+    const treatedTreatmentsUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput.toUpperCase()}&status=TREATED`;
+    const studentDetailsUrl = `http://localhost:8000/student-details?studentId=${searchInput.toUpperCase()}`;
 
     const options = {
       method: "GET",
@@ -73,21 +73,21 @@ const DoctorsHome = () => {
         ]);
 
       if (pendingResponse.ok && treatedResponse.ok && studentResponse.ok) {
-        const pendingTreatmentData = await pendingResponse.json();
-        const treatedTreatmentData = await treatedResponse.json();
-        const studentDetailsData = await studentResponse.json();
+        const { pendingTreatments, message } = await pendingResponse.json();
+        const { treatedTreatments } = await treatedResponse.json();
+        const { studentInfo } = await studentResponse.json();
+        toast.success(message);
 
-        if (pendingTreatmentData.length > 0) setShowData(true);
-        setPendingTreatment(pendingTreatmentData[0]);
-        setTreatedTreatments(treatedTreatmentData);
-        setStudentDetails(studentDetailsData);
+        if (pendingTreatments.length > 0) setShowData(true);
+        setPendingTreatment(pendingTreatments[0]);
+        setTreatedTreatments(treatedTreatments);
+        setStudentDetails(studentInfo);
       } else {
-        const msg = await pendingResponse.json();
-        alert(msg);
+        const { message } = await pendingResponse.json();
+        toast.error(message);
       }
     } catch (error) {
-      console.error("Failed to fetch data", error);
-      alert("An error occurred while fetching data");
+      toast.error("An error occurred while fetching data");
     } finally {
       setIsLoading(false);
     }
@@ -111,7 +111,9 @@ const DoctorsHome = () => {
     };
     const response = await fetch(url, options);
     if (response.ok) {
-      toast.success("Treatment marked as treated successfully");
+      const { message } = await response.json();
+      console.log(message);
+      toast.success(message);
     } else {
       toast.error("Failed to mark treatment as treated");
     }
@@ -128,8 +130,9 @@ const DoctorsHome = () => {
   };
 
   return (
-    <div>
+    <>
       <Header headerContent={DoctorsHeaderContent} />
+      <ToastContainer />
       <main className="container">
         <h1 className="text-3xl font-bold mb-6 text-center">Patient Details</h1>
         <section className="search-container">
@@ -350,7 +353,7 @@ const DoctorsHome = () => {
           </>
         ) : null}
       </main>
-    </div>
+    </>
   );
 };
 

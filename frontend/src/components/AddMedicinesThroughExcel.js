@@ -65,10 +65,12 @@ const AddMedicinesThroughExcel = () => {
         };
         const response = await fetch(url, options);
         if (response.ok) {
+          const { message } = await response.json();
           setFile(null);
-          toast.success("Data uploaded successfully");
+          toast.success(message);
         } else {
-          toast.error("Error uploading data");
+          const { message } = await response.json();
+          toast.error(message);
         }
       } catch (error) {
         toast.error("Error uploading Data");

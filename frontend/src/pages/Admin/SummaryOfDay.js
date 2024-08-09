@@ -25,8 +25,8 @@ const SummaryOfTheDay = () => {
       try {
         const response = await fetch(url, options);
         if (response.ok) {
-          const data = await response.json();
-          updateSummary(data);
+          const { summary } = await response.json();
+          updateSummary(summary);
         } else {
           console.error("Failed to fetch summary");
         }

@@ -27,10 +27,9 @@ const treatmentUpdateByNurse = async (req, res) => {
       },
       { new: true }
     );
-    res.status(200).json("Updated Successfully");
+    res.status(200).json({ message: "Updated Successfully" });
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json(error.message);
+    res.status(500).json({ message: error.message });
   }
 };
 

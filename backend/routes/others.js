@@ -5,9 +5,9 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const patients = await Others.find({ status: "PENDING" });
-    res.status(200).json(patients);
+    res.status(200).json({ patients });
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ message: error.message });
   }
 });
 
@@ -23,9 +23,9 @@ router.post("/", async (req, res) => {
     });
 
     await newPatient.save();
-    res.status(201).json("Treatment Saved Succesfully");
+    res.status(201).json({ message: "Treatment Saved Succesfully" });
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ message: error.message });
   }
 });
 
@@ -38,9 +38,9 @@ router.put("/:treatmentId", async (req, res) => {
       { new: true }
     );
     if (!patient) return res.status(404).json({ message: "Patient not found" });
-    res.status(200).json("Treated Sucessfully");
+    res.status(200).json({ message: "Treated Sucessfully" });
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ message: error.message });
   }
 });
 

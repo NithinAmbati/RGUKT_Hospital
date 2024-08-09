@@ -17,8 +17,8 @@ const InventoryManagement = () => {
       };
 
       const response = await fetch(url, options);
-      const data = await response.json();
-      setInventory(data);
+      const { medicinesData } = await response.json();
+      setInventory(medicinesData);
     };
     getMedicines();
   }, []);

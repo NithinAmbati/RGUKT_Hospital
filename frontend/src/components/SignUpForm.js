@@ -53,11 +53,12 @@ const SignUpForm = ({ userIds, fetchUserIds }) => {
     };
     const response = await fetch(url, options);
     if (response.ok) {
-      toast.success("Registration successful");
+      const { message } = response.json();
+      toast.success(message);
       await fetchUserIds();
     } else {
-      const msg = await response.json();
-      toast.error(msg);
+      const { message } = await response.json();
+      toast.error(message);
     }
     setUserId("");
     setUsername("");

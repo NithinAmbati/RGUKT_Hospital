@@ -7,7 +7,9 @@ router.get("/", async (req, res) => {
     const { date } = req.query;
 
     if (!date) {
-      return res.status(400).send("Date query parameter is required");
+      return res
+        .status(400)
+        .json({ message: "Date query parameter is required" });
     }
 
     const treatmentDate = new Date(date);
@@ -82,7 +84,7 @@ router.get("/", async (req, res) => {
       },
     ]);
 
-    res.status(200).send(data[0]);
+    res.status(200).json({ summary: data[0] });
   } catch (error) {
     res.status(500).send({ error: error.message });
   }

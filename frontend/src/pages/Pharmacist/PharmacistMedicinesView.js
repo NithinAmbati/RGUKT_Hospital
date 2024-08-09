@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import formatDate from "../../services/formatDate";
 import Header from "../../components/Header";
 import { PharmacistsHeaderContent } from "../../store/data";
+import { toast } from "react-toastify";
 
 const PharmacistMedicinesView = () => {
   const [inventory, setInventory] = useState([]);
@@ -19,8 +20,13 @@ const PharmacistMedicinesView = () => {
       };
 
       const response = await fetch(url, options);
-      const data = await response.json();
-      setInventory(data);
+      if (response.ok) {
+        const { medicinesData } = await response.json();
+        setInventory(medicinesData);
+      } else {
+        const { message } = response.json();
+        toast.error(message);
+      }
     };
     getMedicines();
   }, []);

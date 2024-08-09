@@ -24,10 +24,10 @@ const PatientsHistory = () => {
       };
       const response = await fetch(url, options);
       if (response.ok) {
-        const data = await response.json();
-        const dataLength = data.length;
+        const { treatments } = await response.json();
+        const dataLength = treatments.length;
         setTotalPages(Math.ceil(dataLength / 10));
-        setPatientsData(data);
+        setPatientsData(treatments);
       }
     };
     getPatientData();

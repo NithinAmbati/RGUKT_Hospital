@@ -21,11 +21,11 @@ const ForgotPassword = () => {
 
       if (response.ok) {
         setShowOtpInput(true);
-        const data = await response.json();
-        setMsg(data);
+        const { message } = await response.json();
+        setMsg(message);
       } else {
-        const msg = await response.json();
-        setMsg(msg);
+        const { message } = await response.json();
+        setMsg(message);
       }
     } catch (error) {
       toast.error(error.message);
@@ -47,15 +47,14 @@ const ForgotPassword = () => {
     try {
       const response = await fetch(url, options);
       if (response.ok) {
-        toast.success(
-          "Password reset successful. Please login with the Password rgukt123."
-        );
+        const { message } = await response.json();
+        toast.success(message);
         toast.warning(
           "change the password after Login in the profile section."
         );
       } else {
-        const msg = await response.json();
-        toast.error(msg);
+        const { message } = await response.json();
+        toast.error(message);
       }
     } catch (error) {
       toast.error(error.message);
@@ -64,6 +63,7 @@ const ForgotPassword = () => {
 
   return (
     <main className="h-[100vh] flex justify-center items-center">
+      <ToastContainer />
       <form
         className="flex flex-col space-y-4 shadow-md p-6 max-w-[350px]"
         onSubmit={submitOtp}

@@ -25,8 +25,8 @@ const Others = () => {
       };
       const response = await fetch(url, options);
       if (response.ok) {
-        const data = await response.json();
-        setAvailableMedicines(data);
+        const { medicines } = await response.json();
+        setAvailableMedicines(medicines);
       } else {
         console.error("Failed to get medicines");
       }
@@ -56,10 +56,13 @@ const Others = () => {
     };
     const response = await fetch(url, options);
     if (response.ok) {
-      const messsage = await response.json();
-      toast.success(messsage);
+      const { message } = await response.json();
+      toast.success(message);
+      setName("");
+      setReason("");
+      setMedicines([]);
     } else {
-      const message = await response.json();
+      const { message } = await response.json();
       toast.error(message);
     }
   };
@@ -67,9 +70,9 @@ const Others = () => {
   return (
     <>
       <Header headerContent={DoctorsHeaderContent} />
+      <ToastContainer />
       <main className="container">
         <section className="form-container mt-8">
-          <ToastContainer />
           <form onSubmit={submitBtn}>
             <div className="form-field">
               <label htmlFor="medicineWritten" className="form-label">

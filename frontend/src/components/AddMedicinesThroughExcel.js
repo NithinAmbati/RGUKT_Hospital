@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import * as XLSX from "xlsx";
 import CircularProgress from "@mui/material/CircularProgress";
 import Cookies from "js-cookie";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddMedicinesThroughExcel = () => {
   const [file, setFile] = useState(null);
@@ -15,7 +17,7 @@ const AddMedicinesThroughExcel = () => {
     e.preventDefault();
 
     if (!file) {
-      alert("Please select a file first!");
+      toast.warning("Please select a file first!");
       return;
     }
 
@@ -64,12 +66,12 @@ const AddMedicinesThroughExcel = () => {
         const response = await fetch(url, options);
         if (response.ok) {
           setFile(null);
-          alert("Data uploaded successfully");
+          toast.success("Data uploaded successfully");
         } else {
-          alert("Error uploading data");
+          toast.error("Error uploading data");
         }
       } catch (error) {
-        alert("Error uploading Data");
+        toast.error("Error uploading Data");
       } finally {
         setLoading(false);
       }
@@ -80,6 +82,7 @@ const AddMedicinesThroughExcel = () => {
 
   return (
     <main className="mx-auto max-w-screen-lg p-4">
+      <ToastContainer />
       <h1 className="text-3xl font-bold text-center">Add Medicines Here </h1>
       <form
         onSubmit={handleSubmit}

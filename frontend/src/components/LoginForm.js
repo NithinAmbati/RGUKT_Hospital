@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Button } from "@mui/material";
 import Cookie from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function LoginForm() {
   const [userId, setUserId] = useState("");
@@ -25,6 +27,7 @@ function LoginForm() {
     };
     const response = await fetch(url, options);
     if (response.ok) {
+      toast.success("Logged in successfully!");
       const data = await response.json();
       const { jwtToken } = data;
       Cookie.set("jwtToken", jwtToken, { expires: 1 });
@@ -34,13 +37,14 @@ function LoginForm() {
       else if (userId.startsWith("N")) navigate("/nurse");
     } else {
       const msg = await response.json();
-      alert(msg);
+      toast.error(msg);
     }
   };
 
   return (
     <>
       <div className="flex flex-col items-center  min-h-screen py-6 px-4 ">
+        <ToastContainer />
         <h1 className="text-xl font-bold text-gray-800 mt-5">Log In</h1>
         <form
           style={{

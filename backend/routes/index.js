@@ -12,6 +12,7 @@ const adminChartsRouter = require("./chartsData");
 const existingUserRouter = require("./existingUserIds");
 const forgotPasswordRouter = require("./forgotPassword");
 const summaryRouter = require("./summary");
+const othersRouter = require("./others");
 
 // Use the routes from the different files
 
@@ -26,5 +27,6 @@ router.use("/admin-charts-data", adminChartsRouter);
 router.use("/latest-user-ids", existingUserRouter);
 router.use("/forgot-password", forgotPasswordRouter);
 router.use("/summary", summaryRouter);
+router.use("/others/treatments", othersRouter);
 
 module.exports = router;

@@ -7,6 +7,8 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SelectMedicines = (props) => {
   const { medicines, availableMedicines, selectedMedicines, onChange } = props;
@@ -56,7 +58,7 @@ const SelectMedicines = (props) => {
         if (newQuantity <= availableMedicine.quantity) {
           updatedMed.quantity = newQuantity;
         } else {
-          alert(`Cannot exceed available quantity for ${name}`);
+          toast.warning(`Cannot exceed available quantity for ${name}`);
         }
         return updatedMed;
       }
@@ -79,7 +81,7 @@ const SelectMedicines = (props) => {
         if (newQuantity <= availableMedicine.quantity) {
           return { ...med, numberOfDays: value, quantity: newQuantity };
         } else {
-          alert(`Cannot exceed available quantity for ${name}`);
+          toast.warning(`Cannot exceed available quantity for ${name}`);
           return med;
         }
       }
@@ -91,6 +93,7 @@ const SelectMedicines = (props) => {
 
   return (
     <div className="p-4">
+      <ToastContainer />
       <FormControl sx={{ m: 1, width: 300 }} className="w-full mb-4">
         <InputLabel id="multiple-medicines-label"></InputLabel>
         <Autocomplete

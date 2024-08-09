@@ -6,6 +6,9 @@ import { Button } from "@mui/material";
 import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
 import ReactToPrint from "react-to-print";
 import PrintablePatient from "../../components/PrintPrescription";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function PharmacistsHome() {
   const [patientsList, setPatientsList] = useState([]);
   const [searchInput, setSearchInput] = useState("");
@@ -13,27 +16,51 @@ function PharmacistsHome() {
 
   useEffect(() => {
     const fetchPatientsList = async () => {
-      const url = `http://localhost:8000/treatments/pharmacist`;
-      const options = {
-        method: "GET",
-        headers: {
-          "content-type": "application/json",
-          authorization: `Bearer ${Cookies.get("jwtToken")}`,
-        },
-      };
-      const response = await fetch(url, options);
-      if (response.ok) {
-        const data = await response.json();
-        setPatientsList(data);
-      } else {
-        throw new Error("Failed to fetch patients list");
+      try {
+        const url1 = `http://localhost:8000/treatments/pharmacist`;
+        const url2 = `http://localhost:8000/others/treatments`;
+
+        const options = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${Cookies.get("jwtToken")}`,
+          },
+        };
+
+        const [response1, response2] = await Promise.all([
+          fetch(url1, options),
+          fetch(url2, options),
+        ]);
+
+        if (!response1.ok) {
+          throw new Error(
+            `Failed to fetch from ${url1}: ${response1.statusText}`
+          );
+        }
+        if (!response2.ok) {
+          return;
+        }
+
+        const data1 = await response1.json();
+        const data2 = await response2.json();
+
+        const combinedPatientsList = [...data1, ...data2];
+        setPatientsList(combinedPatientsList);
+      } catch (error) {
+        alert(`Error fetching patients: ${error.message}`);
       }
     };
-    fetchPatientsList();
-  }, [searchInput]);
 
-  const submitBtn = (medicinesWritten, treatmentId) => async () => {
-    const url = `http://localhost:8000/treatments/pharmacist-update/${treatmentId}`;
+    fetchPatientsList();
+  }, []);
+
+  const submitBtn = (medicinesWritten, treatmentId, name) => async () => {
+    console.log(name);
+    let url;
+    if (name) url = `http://localhost:8000/others/treatments/${treatmentId}`;
+    else
+      url = `http://localhost:8000/treatments/pharmacist-update/${treatmentId}`;
     const options = {
       method: "PUT",
       headers: {
@@ -48,7 +75,7 @@ function PharmacistsHome() {
       const response = await fetch(url, options);
       if (response.ok) {
         console.log("Medicines Issued successfully");
-        alert("Medicines Issued successfully");
+        toast.success("Medicines Issued successfully");
 
         // Update patientsList state after issuing medicines
         const updatedPatientsList = patientsList.filter(
@@ -57,19 +84,24 @@ function PharmacistsHome() {
         setPatientsList(updatedPatientsList);
       } else {
         const msg = await response.text();
-        alert(msg);
+        toast.error(msg);
       }
     } catch (error) {
       console.error("Error issuing medicines:", error);
     }
   };
 
-  const filteredPatientsList = patientsList.filter((item) =>
-    item.studentId.toLowerCase().includes(searchInput.toLowerCase())
+  console.log(patientsList);
+
+  const filteredPatientsList = patientsList.filter(
+    (item) =>
+      (item.studentId &&
+        item.studentId.toLowerCase().includes(searchInput.toLowerCase())) ||
+      (item.name && item.name.toLowerCase().includes(searchInput.toLowerCase()))
   );
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <main className="min-h-screen bg-gray-100">
       <Header headerContent={PharmacistsHeaderContent} />
       <main className="p-6">
         <h1 className="text-3xl font-bold text-center mb-6">Pharmacist Home</h1>
@@ -95,9 +127,15 @@ function PharmacistsHome() {
                 className="bg-white p-4 rounded-lg shadow-md flex flex-col justify-between"
               >
                 <div>
-                  <h2 className="text-xl font-semibold mb-2">
-                    Student ID: {item.studentId}
-                  </h2>
+                  {item.studentId ? (
+                    <h2 className="text-xl font-semibold mb-2">
+                      Student ID: {item.studentId}
+                    </h2>
+                  ) : (
+                    <h2 className="text-xl font-semibold mb-2">
+                      Name: {item.name}
+                    </h2>
+                  )}
                   <p className="text-gray-600 mb-2">Reason: {item.reason}</p>
                   <div className="mb-2">
                     <p className="font-semibold">Medicines:</p>
@@ -114,7 +152,11 @@ function PharmacistsHome() {
                   <Button
                     color="secondary"
                     variant="contained"
-                    onClick={submitBtn(item.medicinesWritten, item._id)}
+                    onClick={submitBtn(
+                      item.medicinesWritten,
+                      item._id,
+                      item.name
+                    )}
                   >
                     Issue Of Medicine
                   </Button>
@@ -140,7 +182,7 @@ function PharmacistsHome() {
           </ul>
         )}
       </main>
-    </div>
+    </main>
   );
 }
 

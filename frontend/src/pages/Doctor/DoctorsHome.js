@@ -8,6 +8,8 @@ import SelectMedicines from "../../components/MedicineDropdown";
 import "../../css/DoctorsHome.css";
 import calculateAge from "../../services/calculateAge";
 import formatDate from "../../services/formatDate";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DoctorsHome = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -109,9 +111,9 @@ const DoctorsHome = () => {
     };
     const response = await fetch(url, options);
     if (response.ok) {
-      alert("Treatment marked as treated successfully");
+      toast.success("Treatment marked as treated successfully");
     } else {
-      alert("Failed to mark treatment as treated");
+      toast.error("Failed to mark treatment as treated");
     }
   };
 

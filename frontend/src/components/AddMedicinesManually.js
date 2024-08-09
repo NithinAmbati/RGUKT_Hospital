@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Button, TextField } from "@mui/material";
 import Cookies from "js-cookie";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddMedicines = () => {
   const [additionalMedicines, setAdditionalMedicines] = useState([]);
@@ -53,18 +55,19 @@ const AddMedicines = () => {
     try {
       const response = await fetch(url, options);
       if (response.ok) {
-        alert("Medicines added successfully!");
+        toast.success("Medicines added successfully!");
         setAdditionalMedicines([]);
       } else {
-        alert("Failed to add medicines. Please try again.");
+        toast.error("Failed to add medicines. Please try again.");
       }
     } catch (error) {
-      alert("Error adding medicines. Please try again later.");
+      toast.error("Error adding medicines. Please try again later.");
     }
   };
 
   return (
     <main className="py-10">
+      <ToastContainer />
       <h1 className="text-2xl font-bold my-6 text-center">
         Add Medicines Page
       </h1>

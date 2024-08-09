@@ -6,6 +6,7 @@ const Pharmacist = require("./pharmacist.js");
 const Admin = require("./admin.js");
 const Doctor = require("./doctor.js");
 const ExistingUserIds = require("./existingUserIds.js");
+const Others = require("./others.js");
 
 module.exports = {
   Students,
@@ -16,4 +17,5 @@ module.exports = {
   Admin,
   Doctor,
   ExistingUserIds,
+  Others,
 };

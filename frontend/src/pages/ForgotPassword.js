@@ -1,5 +1,7 @@
 import { Button } from "@mui/material";
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ForgotPassword = () => {
   const [userId, setUserId] = useState("");
@@ -26,7 +28,7 @@ const ForgotPassword = () => {
         setMsg(msg);
       }
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message);
     }
   };
 
@@ -45,15 +47,18 @@ const ForgotPassword = () => {
     try {
       const response = await fetch(url, options);
       if (response.ok) {
-        alert(
-          "Password reset successful. Please login with the Password rgukt123 and change the password after Login in the profile section."
+        toast.success(
+          "Password reset successful. Please login with the Password rgukt123."
+        );
+        toast.warning(
+          "change the password after Login in the profile section."
         );
       } else {
         const msg = await response.json();
-        alert(msg);
+        toast.error(msg);
       }
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message);
     }
   };
 

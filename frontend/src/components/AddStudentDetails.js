@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import * as XLSX from "xlsx";
 import Cookies from "js-cookie";
 import { Navigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const StudentDetails = () => {
   const [file, setFile] = useState(null);
@@ -15,7 +17,7 @@ const StudentDetails = () => {
     e.preventDefault();
 
     if (!file) {
-      alert("Please select a file first!");
+      toast.warning("Please select a file first!");
       return;
     }
 
@@ -56,25 +58,20 @@ const StudentDetails = () => {
       const response = await fetch(url, options);
       setLoading(false);
       if (response.ok) {
-        alert("Data uploaded successfully");
-        console.log("File uploaded successfully:");
+        toast.success("Data uploaded successfully");
       } else {
         const msg = await response.json();
-        alert(msg);
+        toast.error(msg);
       }
     };
 
     reader.readAsArrayBuffer(file);
   };
 
-  const jwtToken = Cookies.get("jwtToken");
-  if (!jwtToken) {
-    return <Navigate to="/login" />;
-  }
-
   return (
     <>
       <main className="mx-auto max-w-screen-lg p-4">
+        <ToastContainer />
         <h1 className="mb-3 text-2xl font-semibold text-blue-600 text-center">
           Add Students Here
         </h1>

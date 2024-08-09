@@ -3,7 +3,8 @@ import Header from "../../components/Header";
 import { Button, TextField } from "@mui/material";
 import { NursingHeaderContent } from "../../store/data";
 import Cookies from "js-cookie";
-import { Navigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const NursingHome = () => {
   const [temperature, setTemperature] = useState("");
@@ -16,6 +17,14 @@ const NursingHome = () => {
 
   const submitBtn = async (event) => {
     event.preventDefault();
+    if (!studentId.startsWith("B") && !studentId.startsWith("b")) {
+      toast.warning("Please enter a valid student ID");
+      return;
+    }
+    if (studentId.length() !== 7) {
+      toast.warning("Please enter a valid student ID");
+      return;
+    }
 
     const Vitals = {
       studentId,
@@ -41,7 +50,7 @@ const NursingHome = () => {
     const response = await fetch(url, options);
 
     if (response.ok) {
-      alert("Vitals saved successfully!");
+      toast.success("Vitals saved successfully!");
       setTemperature("");
       setBloodPressure("");
       setPulseRate("");
@@ -51,18 +60,14 @@ const NursingHome = () => {
       setECG("");
     } else {
       const msg = await response.json();
-      alert(msg);
+      toast.error(msg);
     }
   };
-
-  const jwtToken = Cookies.get("jwtToken");
-  if (!jwtToken) {
-    return <Navigate to="/login" />;
-  }
 
   return (
     <>
       <Header headerContent={NursingHeaderContent} />
+      <ToastContainer />
       <main className="min-h-[90vh] flex flex-col justify-center items-center">
         <div className=" max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg">
           <form onSubmit={submitBtn}>

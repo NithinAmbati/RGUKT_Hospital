@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Modal, Button, Box, TextField } from "@mui/material";
 import Cookies from "js-cookie";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const style = {
   position: "absolute",
@@ -30,12 +32,12 @@ const ChangePasswordComponent = ({ user }) => {
 
   const handleConfirm = async () => {
     if (newPassword !== confirmNewPassword) {
-      alert("Passwords not matched!");
+      toast.error("Passwords not matched!");
       return;
     }
 
     if (oldPassword === newPassword) {
-      alert("Old password is same as new password!");
+      toast.warning("Old password is same as new password!");
       return;
     }
 
@@ -54,16 +56,17 @@ const ChangePasswordComponent = ({ user }) => {
 
     const response = await fetch(url, options);
     if (response.ok) {
-      alert("Password changed successfully!");
+      toast.success("Password changed successfully!");
       handleClose();
     } else {
       const msg = await response.json();
-      alert(msg);
+      toast.success(msg);
     }
   };
 
   return (
     <div>
+      <ToastContainer />
       <Modal
         open={open}
         onClose={handleClose}

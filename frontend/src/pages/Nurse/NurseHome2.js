@@ -5,6 +5,8 @@ import { NursingHeaderContent } from "../../store/data";
 import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
 import { Button } from "@mui/material";
 import { Navigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const NursingSecondPage = () => {
   const [pendingList, setPendingList] = useState([]);
@@ -58,10 +60,11 @@ const NursingSecondPage = () => {
         setPendingList(filteredPendingList);
       } else {
         const msg = await response.json();
-        alert(msg);
+        toast.error(msg);
       }
     } catch (error) {
       console.error("Error filtering data:", error);
+      toast.error("An error occurred while fetching data.");
     }
   };
 
@@ -98,26 +101,20 @@ const NursingSecondPage = () => {
     try {
       const response = await fetch(url, options);
       if (response.ok) {
-        alert("Treatment updated successfully!");
+        toast.success("Treatment updated successfully!");
         handleCloseForm();
       } else {
-        console.error("Failed to update treatment");
+        toast.error("Failed to update treatment");
       }
     } catch (error) {
       console.error("Error updating treatment:", error);
     }
   };
 
-  const jwtToken = Cookies.get("jwtToken");
-  if (!jwtToken) {
-    return <Navigate to="/login" />;
-  }
-
   return (
     <>
       <Header headerContent={NursingHeaderContent} />
       <main>
-        {/* Search Bar */}
         <section className="mt-10 mb-6">
           <div className="flex items-center bg-white p-3 rounded-lg shadow-md max-w-md mx-auto">
             <input

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import ChangePasswordComponent from "./ChangePassword";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProfileComponent = ({ user }) => {
   const [profileData, setProfileData] = useState({});
@@ -23,7 +25,7 @@ const ProfileComponent = ({ user }) => {
         setProfileData(data);
       } else {
         const msg = await response.json();
-        alert(msg);
+        toast.error(msg);
       }
     };
     getProfileData();
@@ -54,12 +56,13 @@ const ProfileComponent = ({ user }) => {
       setEditing(false);
     } else {
       const msg = await response.json();
-      alert(msg);
+      toast.error(msg);
     }
   };
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100">
+      <ToastContainer />
       <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg p-6 mb-4">
         <h1 className="text-2xl font-semibold mb-4 text-blue-600">Profile</h1>
         <div className="grid gap-10 md:grid-cols-2">

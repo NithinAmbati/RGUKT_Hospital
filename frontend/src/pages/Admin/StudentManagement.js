@@ -14,7 +14,7 @@ const StudentManagement = () => {
 
   const submitBtn = async () => {
     if (searchInput.length === 7) {
-      const studentDetailsUrl = `http://localhost:8000/student-details?studentId=${searchInput}`;
+      const studentDetailsUrl = `http://localhost:8000/student-details?studentId=${searchInput.toUpperCase()}`;
       const options = {
         method: "GET",
         headers: {
@@ -31,7 +31,7 @@ const StudentManagement = () => {
         } else {
           const { message } = await response.json();
           setStudentData(null);
-          toast.success(message);
+          toast.error(message);
         }
       } catch (error) {
         toast.error("An error occurred while fetching student details.");

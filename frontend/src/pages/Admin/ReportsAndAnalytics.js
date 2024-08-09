@@ -13,6 +13,7 @@ import {
   PointElement,
   LineElement,
 } from "chart.js";
+import LoadingView from "../../services/loaderView";
 
 ChartJS.register(
   CategoryScale,
@@ -73,7 +74,7 @@ const ReportsAndAnalytics = () => {
     !patientsAdmissionsData ||
     !patientDistributionData
   ) {
-    return <div>Loading...</div>;
+    return <LoadingView />;
   }
 
   return (

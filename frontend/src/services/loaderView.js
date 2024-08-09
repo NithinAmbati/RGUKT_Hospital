@@ -1,8 +1,12 @@
 import React from "react";
 import { Spin } from "antd";
 
-const loaderView = () => {
-  return <Spin size="large" />;
+const LoadingView = () => {
+  return (
+    <div className="flex flex-col justify-center items-center h-[70vh]">
+      <Spin size="large" />;
+    </div>
+  );
 };
 
-export default loaderView;
+export default LoadingView;

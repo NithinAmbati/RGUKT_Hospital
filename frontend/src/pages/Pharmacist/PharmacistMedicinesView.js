@@ -4,6 +4,7 @@ import formatDate from "../../services/formatDate";
 import Header from "../../components/Header";
 import { PharmacistsHeaderContent } from "../../store/data";
 import { toast } from "react-toastify";
+import LoadingView from "../../services/loaderView";
 
 const PharmacistMedicinesView = () => {
   const [inventory, setInventory] = useState([]);
@@ -32,7 +33,7 @@ const PharmacistMedicinesView = () => {
   }, []);
 
   if (!inventory) {
-    return <div>Loading...</div>;
+    return <LoadingView />;
   }
 
   return (

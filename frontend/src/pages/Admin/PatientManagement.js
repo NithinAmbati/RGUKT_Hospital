@@ -3,6 +3,7 @@ import PaginationComponent from "../../components/PaginationComponent";
 import Cookies from "js-cookie";
 import formatDate from "../../services/formatDate";
 import ViewPatientFullDetails from "../../components/ViewPatientFullDetails";
+import LoadingView from "../../services/loaderView";
 
 const PatientsHistory = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -40,7 +41,7 @@ const PatientsHistory = () => {
   const filteredPageData = patientsData.slice((page - 1) * 10, page * 10);
 
   if (!patientsData) {
-    return <div>Loading...</div>;
+    return <LoadingView />;
   }
 
   return (

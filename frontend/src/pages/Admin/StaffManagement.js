@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { Button, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SignUpForm from "../../components/SignUpForm";
+import LoadingView from "../../services/loaderView";
 
 const StaffManagement = () => {
   const [admins, setAdmins] = useState(null);
@@ -107,7 +108,7 @@ const StaffManagement = () => {
   }, []);
 
   if (!admins || !doctors || !nurses || !pharmacists) {
-    return <div>Loading...</div>;
+    return <LoadingView />;
   }
 
   return (

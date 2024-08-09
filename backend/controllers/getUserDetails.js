@@ -3,10 +3,9 @@ const { Doctor, Admin, Nurse, Pharmacist } = require("../models");
 const getUserDetails = (Model) => async (req, res) => {
   try {
     const userDetails = await Model.find();
-    res.status(200).json(userDetails);
+    res.status(200).json({ userDetails });
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json(error.message);
+    res.status(500).json({ message: error.message });
   }
 };
 

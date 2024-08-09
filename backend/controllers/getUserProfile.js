@@ -4,10 +4,9 @@ const getUserData = (Model) => async (req, res) => {
   try {
     const { userId } = req;
     const data = await Model.findOne({ userId });
-    res.status(200).json(data);
+    res.status(200).json({ profile: data });
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json(error.message);
+    res.status(500).json({ message: error.message });
   }
 };
 

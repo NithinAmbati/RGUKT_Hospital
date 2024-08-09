@@ -50,7 +50,8 @@ const NursingHome = () => {
     const response = await fetch(url, options);
 
     if (response.ok) {
-      toast.success("Vitals saved successfully!");
+      const { message } = await response.json();
+      toast.success(message);
       setTemperature("");
       setBloodPressure("");
       setPulseRate("");
@@ -59,8 +60,8 @@ const NursingHome = () => {
       setStudentId("");
       setECG("");
     } else {
-      const msg = await response.json();
-      toast.error(msg);
+      const { message } = await response.json();
+      toast.error(message);
     }
   };
 

@@ -43,8 +43,6 @@ const StudentDetails = () => {
         return student;
       });
 
-      console.log(studentsData);
-
       const url = "http://localhost:8000/student-details";
       const options = {
         method: "POST",
@@ -57,10 +55,11 @@ const StudentDetails = () => {
       const response = await fetch(url, options);
       setLoading(false);
       if (response.ok) {
-        toast.success("Data uploaded successfully");
+        const { message } = await response.json();
+        toast.success(message);
       } else {
-        const msg = await response.json();
-        toast.error(msg);
+        const { message } = await response.json();
+        toast.error(message);
       }
     };
 

@@ -21,11 +21,11 @@ const ProfileComponent = ({ user }) => {
       };
       const response = await fetch(url, options);
       if (response.ok) {
-        const data = await response.json();
-        setProfileData(data);
+        const { profile } = await response.json();
+        setProfileData(profile);
       } else {
-        const msg = await response.json();
-        toast.error(msg);
+        const { message } = await response.json();
+        toast.error(message);
       }
     };
     getProfileData();
@@ -51,12 +51,11 @@ const ProfileComponent = ({ user }) => {
     };
     const response = await fetch(url, options);
     if (response.ok) {
-      await response.json();
       setProfileData(updatedProfile);
       setEditing(false);
     } else {
-      const msg = await response.json();
-      toast.error(msg);
+      const { message } = await response.json();
+      toast.error(message);
     }
   };
 

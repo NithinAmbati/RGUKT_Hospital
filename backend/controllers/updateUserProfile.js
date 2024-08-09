@@ -4,7 +4,7 @@ const getUserData = (Model) => async (req, res) => {
   try {
     const { userId } = req;
     const { username, email, contactNumber } = req.body;
-    const data = await Model.updateOne(
+    await Model.updateOne(
       { userId },
       {
         $set: {
@@ -14,10 +14,9 @@ const getUserData = (Model) => async (req, res) => {
         },
       }
     );
-    res.status(200).json(data);
+    res.status(200).json({ message: "Succesuly Updated" });
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json(error.message);
+    res.status(500).json({ message: error.message });
   }
 };
 

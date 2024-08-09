@@ -31,10 +31,9 @@ const createNewTreatment = async (req, res) => {
     });
 
     await newTreatment.save();
-    res.status(201).json("Appointment successful");
+    res.status(201).json({ message: "Appointment successful" });
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json(error.message);
+    res.status(500).json({ message: error.message });
   }
 };
 

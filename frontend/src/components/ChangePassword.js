@@ -56,11 +56,12 @@ const ChangePasswordComponent = ({ user }) => {
 
     const response = await fetch(url, options);
     if (response.ok) {
-      toast.success("Password changed successfully!");
+      const { message } = await response.json();
+      toast.success(message);
       handleClose();
     } else {
-      const msg = await response.json();
-      toast.success(msg);
+      const { message } = await response.json();
+      toast.success(message);
     }
   };
 

@@ -25,8 +25,8 @@ const StaffManagement = () => {
 
     const response = await fetch(url, options);
     if (response.ok) {
-      const data = await response.json();
-      setUserIds(data);
+      const { latestUserIds } = await response.json();
+      setUserIds(latestUserIds);
     }
   };
 
@@ -43,8 +43,8 @@ const StaffManagement = () => {
 
       const response = await fetch(url, options);
       if (response.ok) {
-        const data = await response.json();
-        setAdmins(data);
+        const { userDetails } = await response.json();
+        setAdmins(userDetails);
       }
     };
 
@@ -60,8 +60,8 @@ const StaffManagement = () => {
 
       const response = await fetch(url, options);
       if (response.ok) {
-        const data = await response.json();
-        setDoctors(data);
+        const { userDetails } = await response.json();
+        setDoctors(userDetails);
       }
     };
 
@@ -77,8 +77,8 @@ const StaffManagement = () => {
 
       const response = await fetch(url, options);
       if (response.ok) {
-        const data = await response.json();
-        setNurses(data);
+        const { userDetails } = await response.json();
+        setNurses(userDetails);
       }
     };
 
@@ -94,8 +94,8 @@ const StaffManagement = () => {
 
       const response = await fetch(url, options);
       if (response.ok) {
-        const data = await response.json();
-        setPharmacists(data);
+        const { userDetails } = await response.json();
+        setPharmacists(userDetails);
       }
     };
 
@@ -143,7 +143,7 @@ const StaffManagement = () => {
           <Button
             variant="contained"
             color="primary"
-            sx={{ fontSize: "0.75rem", padding: "0px 12px" }} // Adjust size with sx prop
+            sx={{ fontSize: "0.75rem", padding: "0px 12px" }}
             onClick={() => setShowForm(true)}
           >
             Add Staff

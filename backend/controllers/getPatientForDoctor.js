@@ -6,10 +6,11 @@ const getPatientForDoctors = async (req, res) => {
     const treatments = await Treatments.find({ status, studentId }).sort({
       treatmentDate: -1,
     });
-    res.status(200).json(treatments);
+    res
+      .status(200)
+      .json({ pendingTreatments: treatments, treatedTreatments: treatments });
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json(error.message);
+    res.status(500).json({ message: error.message });
   }
 };
 

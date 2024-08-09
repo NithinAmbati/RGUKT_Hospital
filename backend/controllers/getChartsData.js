@@ -11,7 +11,7 @@ const getChartsData = async (req, res) => {
       medicinesConsumedChartsData,
     });
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -60,8 +60,7 @@ const getMedicinesImportedChartsData = async (req, res) => {
     const barData = processMedicineData(medicines);
     return barData;
   } catch (error) {
-    console.error("Error fetching medicines:", error.message);
-    res.status(500).json(error.message);
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -71,8 +70,7 @@ const getPatientsChartsData = async (req, res) => {
     const barData = processTreatmentData(treatments);
     return barData;
   } catch (error) {
-    console.error("Error fetching treatments:", error.message);
-    res.status(500).json(error.message);
+    res.status(500).json({ message: error.message });
   }
 };
 

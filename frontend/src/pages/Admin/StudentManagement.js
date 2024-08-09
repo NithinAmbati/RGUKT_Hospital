@@ -25,16 +25,15 @@ const StudentManagement = () => {
       try {
         const response = await fetch(studentDetailsUrl, options);
         if (response.ok) {
-          const studentDetailsData = await response.json();
-          setStudentData(studentDetailsData);
+          const { studentInfo } = await response.json();
+          setStudentData(studentInfo);
           setNotFound(false);
         } else {
-          const msg = await response.json();
+          const { message } = await response.json();
           setStudentData(null);
-          toast.success(msg);
+          toast.success(message);
         }
       } catch (error) {
-        console.error("Error fetching student details:", error);
         toast.error("An error occurred while fetching student details.");
       }
     } else {

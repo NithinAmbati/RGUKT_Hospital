@@ -3,8 +3,6 @@ import Cookies from "js-cookie";
 import Header from "../../components/Header";
 import { NursingHeaderContent } from "../../store/data";
 import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
-import { Button } from "@mui/material";
-import { Navigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -29,8 +27,8 @@ const NursingSecondPage = () => {
       try {
         const response = await fetch(url, options);
         if (response.ok) {
-          const data = await response.json();
-          setPendingList(data);
+          const { treatments } = await response.json();
+          setPendingList(treatments);
         } else {
           console.error("Failed to fetch pending list");
         }
@@ -41,32 +39,6 @@ const NursingSecondPage = () => {
 
     fetchPendingList();
   }, []);
-
-  // Filter treatments based on search input
-  const filterData = async () => {
-    const url = `http://localhost:8000/treatments/nurse?studentId=${searchInput}`;
-    const options = {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-        authorization: "Bearer " + Cookies.get("jwtToken"),
-      },
-    };
-
-    try {
-      const response = await fetch(url, options);
-      if (response.ok) {
-        const filteredPendingList = await response.json();
-        setPendingList(filteredPendingList);
-      } else {
-        const msg = await response.json();
-        toast.error(msg);
-      }
-    } catch (error) {
-      console.error("Error filtering data:", error);
-      toast.error("An error occurred while fetching data.");
-    }
-  };
 
   // Handle input changes in the form
   const handleChange = (field, value) => {
@@ -101,19 +73,26 @@ const NursingSecondPage = () => {
     try {
       const response = await fetch(url, options);
       if (response.ok) {
-        toast.success("Treatment updated successfully!");
+        const { message } = await response.json();
+        toast.success(message);
         handleCloseForm();
       } else {
-        toast.error("Failed to update treatment");
+        const { message } = await response.json();
+        toast.error(message);
       }
     } catch (error) {
       console.error("Error updating treatment:", error);
     }
   };
 
+  const filteredPendingList = pendingList.filter((item) =>
+    item.studentId.toLowerCase().includes(searchInput.toLowerCase())
+  );
+
   return (
     <>
       <Header headerContent={NursingHeaderContent} />
+      <ToastContainer />
       <main>
         <section className="mt-10 mb-6">
           <div className="flex items-center bg-white p-3 rounded-lg shadow-md max-w-md mx-auto">
@@ -124,9 +103,6 @@ const NursingSecondPage = () => {
               onChange={(e) => setSearchInput(e.target.value)}
             />
             <SearchTwoToneIcon className="text-gray-500 mr-3" />
-            <Button variant="contained" onClick={filterData}>
-              Search
-            </Button>
           </div>
         </section>
 
@@ -136,7 +112,7 @@ const NursingSecondPage = () => {
             Pending Treatments
           </h2>
           <ul className="list-none space-y-6 max-w-2xl mx-auto">
-            {pendingList.map((treatment) => (
+            {filteredPendingList.map((treatment) => (
               <li
                 key={treatment._id}
                 className="bg-white p-6 rounded-lg shadow-md flex justify-between items-center hover:shadow-lg transition-shadow duration-300"

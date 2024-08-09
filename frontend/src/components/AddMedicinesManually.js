@@ -55,10 +55,12 @@ const AddMedicines = () => {
     try {
       const response = await fetch(url, options);
       if (response.ok) {
-        toast.success("Medicines added successfully!");
+        const { message } = await response.json();
+        toast.success(message);
         setAdditionalMedicines([]);
       } else {
-        toast.error("Failed to add medicines. Please try again.");
+        const { message } = await response.json();
+        toast.error(message);
       }
     } catch (error) {
       toast.error("Error adding medicines. Please try again later.");

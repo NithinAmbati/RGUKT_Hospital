@@ -27,7 +27,9 @@ const getOtp = async (req, res) => {
       user = await Pharmacist.findOne({ userId });
 
     if (!user || !user.email) {
-      return res.status(404).json("User not found or email not available");
+      return res
+        .status(404)
+        .json({ message: "User not found or email not available" });
     }
 
     const otp = generateOtp();
@@ -41,9 +43,9 @@ const getOtp = async (req, res) => {
     };
 
     await transporter.sendMail(mailOptions);
-    res.status(200).json("OTP sent successfully");
+    res.status(200).json({ message: "OTP sent successfully" });
   } catch (error) {
-    res.status(500).json("Error sending OTP");
+    res.status(500).json({ message: "Error sending OTP" });
   }
 };
 
@@ -82,9 +84,9 @@ const verifyOtp = async (req, res) => {
           password: hashedPassword,
         },
       });
-    res.status(200).json("OTP Verified..");
+    res.status(200).json({ message: "OTP Verified.." });
   } else {
-    res.status(400).json("Invalid OTP");
+    res.status(400).json({ message: "Invalid OTP" });
   }
 };
 
@@ -93,7 +95,6 @@ const sendPrescriptionToStudent = async (treatmentData) => {
     const {
       studentId,
       nursingStationBy,
-      treatmentDate,
       temperature,
       bloodPressure,
       pulseRate,

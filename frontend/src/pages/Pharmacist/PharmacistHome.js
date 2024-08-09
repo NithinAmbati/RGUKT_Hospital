@@ -42,13 +42,13 @@ function PharmacistsHome() {
           return;
         }
 
-        const data1 = await response1.json();
-        const data2 = await response2.json();
+        const { studentTreatments } = await response1.json();
+        const { otherTreatments } = await response2.json();
 
-        const combinedPatientsList = [...data1, ...data2];
+        const combinedPatientsList = [...studentTreatments, ...otherTreatments];
         setPatientsList(combinedPatientsList);
       } catch (error) {
-        alert(`Error fetching patients: ${error.message}`);
+        toast.error(`Error fetching patients: ${error.message}`);
       }
     };
 
@@ -74,8 +74,8 @@ function PharmacistsHome() {
     try {
       const response = await fetch(url, options);
       if (response.ok) {
-        console.log("Medicines Issued successfully");
-        toast.success("Medicines Issued successfully");
+        const { message } = await response.json();
+        toast.success(message);
 
         // Update patientsList state after issuing medicines
         const updatedPatientsList = patientsList.filter(
@@ -83,8 +83,8 @@ function PharmacistsHome() {
         );
         setPatientsList(updatedPatientsList);
       } else {
-        const msg = await response.text();
-        toast.error(msg);
+        const { message } = await response.json();
+        toast.error(message);
       }
     } catch (error) {
       console.error("Error issuing medicines:", error);

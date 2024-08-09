@@ -110,9 +110,9 @@ function LoginForm() {
           <div className="mt-8">
             <div className="bg-green-100 text-green-800 border border-green-300 rounded-lg p-4 text-center">
               <p className="text-sm font-medium">
-                <strong>Security Reminder:</strong> For your protection, please
-                change your password immediately after logging in for the first
-                time.
+                <strong>Security Reminder:</strong> For enhanced security,
+                please change your password immediately after logging in for the
+                first time.
               </p>
             </div>
           </div>

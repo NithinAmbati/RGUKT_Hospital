@@ -7,6 +7,7 @@ const MainPageHeaderContent = [
 
 const DoctorsHeaderContent = [
   { title: "Home", link: "/doctor" },
+  { title: "Others", link: "/doctor/others" },
   { title: "Profile", link: "/doctor/profile" },
   { title: "Logout", link: "/logout" },
 ];

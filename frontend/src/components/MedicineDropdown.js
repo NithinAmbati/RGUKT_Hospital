@@ -9,7 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
 const SelectMedicines = (props) => {
-  const { medicines, selectedMedicines, onChange } = props;
+  const { medicines, availableMedicines, selectedMedicines, onChange } = props;
 
   const handleChange = (event, value) => {
     const newSelectedMedicines = value.map((name) => {
@@ -39,43 +39,53 @@ const SelectMedicines = (props) => {
   };
 
   const handleTimingClick = (name, timeOfDay) => {
-    const updatedMedicines = selectedMedicines.map((med) =>
-      med.name === name
-        ? {
-            ...med,
-            [timeOfDay]: med[timeOfDay] === 0 ? 1 : 0,
-            quantity:
-              (timeOfDay === "morning"
-                ? med.morning === 0
-                  ? 1
-                  : 0
-                : med.morning) *
-                med.numberOfDays +
-              (timeOfDay === "afternoon"
-                ? med.afternoon === 0
-                  ? 1
-                  : 0
-                : med.afternoon) *
-                med.numberOfDays +
-              (timeOfDay === "night" ? (med.night === 0 ? 1 : 0) : med.night) *
-                med.numberOfDays,
-          }
-        : med
+    const availableMedicine = availableMedicines.find(
+      (med) => med.name === name
     );
+
+    const updatedMedicines = selectedMedicines.map((med) => {
+      if (med.name === name) {
+        const updatedMed = {
+          ...med,
+          [timeOfDay]: med[timeOfDay] === 0 ? 1 : 0,
+        };
+        const newQuantity =
+          (updatedMed.morning + updatedMed.afternoon + updatedMed.night) *
+          updatedMed.numberOfDays;
+
+        if (newQuantity <= availableMedicine.quantity) {
+          updatedMed.quantity = newQuantity;
+        } else {
+          alert(`Cannot exceed available quantity for ${name}`);
+        }
+        return updatedMed;
+      }
+      return med;
+    });
+
     onChange(updatedMedicines);
   };
 
   const handleNumberOfDays = (name, value) => {
-    const updatedMedicines = selectedMedicines.map((med) =>
-      med.name === name
-        ? {
-            ...med,
-            numberOfDays: value,
-            quantity:
-              med.morning * value + med.afternoon * value + med.night * value,
-          }
-        : med
+    const availableMedicine = availableMedicines.find(
+      (med) => med.name === name
     );
+
+    const updatedMedicines = selectedMedicines.map((med) => {
+      if (med.name === name) {
+        const newQuantity = (med.morning + med.afternoon + med.night) * value;
+
+        // Ensure the new quantity does not exceed available quantity
+        if (newQuantity <= availableMedicine.quantity) {
+          return { ...med, numberOfDays: value, quantity: newQuantity };
+        } else {
+          alert(`Cannot exceed available quantity for ${name}`);
+          return med;
+        }
+      }
+      return med;
+    });
+
     onChange(updatedMedicines);
   };
 

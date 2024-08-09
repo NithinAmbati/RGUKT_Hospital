@@ -4,7 +4,6 @@ import { FaPrescription } from "react-icons/fa";
 
 const PrintablePatient = forwardRef(({ patient }, ref) => (
   <div ref={ref} className="p-6 border rounded-lg shadow-md">
-    {/* Header with University Logo and Name */}
     <div className="text-center mb-4">
       <img
         src="https://assets.thehansindia.com/h-upload/2023/11/30/1403425-rgukt.webp"
@@ -16,7 +15,6 @@ const PrintablePatient = forwardRef(({ patient }, ref) => (
       <p className="text-lg font-semibold">Hospital Prescription</p>
     </div>
 
-    {/* Patient Details Section */}
     <div className="border-b pb-4 mb-4">
       <div className="flex items-center justify-between">
         <div>
@@ -58,7 +56,6 @@ const PrintablePatient = forwardRef(({ patient }, ref) => (
       </div>
     </div>
 
-    {/* Medicines Section */}
     <div>
       <h3 className="text-lg font-semibold mb-2">Medicines</h3>
       <ul className="list-disc pl-5">

@@ -42,6 +42,8 @@ const DoctorsHome = () => {
     getAvailbleMedicines();
   }, []);
 
+  console.log(availableMedicines);
+
   const handleMedicineChange = (selectedMedicines) => {
     setMedicines(selectedMedicines);
   };
@@ -258,6 +260,7 @@ const DoctorsHome = () => {
                     selectedMedicines={medicines}
                     onChange={handleMedicineChange}
                     medicines={availableMedicines}
+                    availableMedicines={availableMedicines}
                   />
                 </div>
                 <div className="form-field">

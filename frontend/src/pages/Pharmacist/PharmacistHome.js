@@ -8,6 +8,7 @@ import ReactToPrint from "react-to-print";
 import PrintablePatient from "../../components/PrintPrescription";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoadingView from "../../services/loaderView";
 
 function PharmacistsHome() {
   const [patientsList, setPatientsList] = useState([]);
@@ -91,7 +92,9 @@ function PharmacistsHome() {
     }
   };
 
-  console.log(patientsList);
+  if (!patientsList) {
+    return <LoadingView />;
+  }
 
   const filteredPatientsList = patientsList.filter(
     (item) =>

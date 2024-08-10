@@ -10,6 +10,7 @@ import calculateAge from "../../services/calculateAge";
 import formatDate from "../../services/formatDate";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoadingView from "../../services/loaderView";
 
 const DoctorsHome = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -43,8 +44,6 @@ const DoctorsHome = () => {
     };
     getAvailbleMedicines();
   }, []);
-
-  console.log(availableMedicines);
 
   const handleMedicineChange = (selectedMedicines) => {
     setMedicines(selectedMedicines);
@@ -152,7 +151,7 @@ const DoctorsHome = () => {
           </Button>
         </section>
         {isLoading ? (
-          <p>Loading...</p>
+          <LoadingView />
         ) : showData ? (
           <>
             <section className="form-container">

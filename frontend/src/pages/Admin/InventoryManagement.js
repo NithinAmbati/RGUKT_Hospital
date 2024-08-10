@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import formatDate from "../../services/formatDate";
+import LoadingView from "../../services/loaderView";
 
 const InventoryManagement = () => {
   const [inventory, setInventory] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getMedicines = async () => {
@@ -19,12 +21,13 @@ const InventoryManagement = () => {
       const response = await fetch(url, options);
       const { medicinesData } = await response.json();
       setInventory(medicinesData);
+      setLoading(false);
     };
     getMedicines();
   }, []);
 
-  if (!inventory) {
-    return <div>Loading...</div>;
+  if (loading) {
+    return <LoadingView />;
   }
 
   return (

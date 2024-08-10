@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import ChangePasswordComponent from "./ChangePassword";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoadingView from "../services/loaderView";
 
 const ProfileComponent = ({ user }) => {
   const [profileData, setProfileData] = useState({});
@@ -58,6 +59,10 @@ const ProfileComponent = ({ user }) => {
       toast.error(message);
     }
   };
+
+  if (!profileData) {
+    return <LoadingView />;
+  }
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100">

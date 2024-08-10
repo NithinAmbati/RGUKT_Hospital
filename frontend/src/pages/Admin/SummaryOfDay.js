@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { Button } from "@mui/material";
 import ReactToPrint from "react-to-print";
 import PrintSummary from "../../components/PrintSummary";
+import LoadingView from "../../services/loaderView";
 
 const SummaryOfTheDay = () => {
   const [summary, updateSummary] = useState(null);
@@ -38,7 +39,7 @@ const SummaryOfTheDay = () => {
   }, [selectedDate]);
 
   if (!summary) {
-    return <div>Loading...</div>;
+    return <LoadingView />;
   }
 
   return (

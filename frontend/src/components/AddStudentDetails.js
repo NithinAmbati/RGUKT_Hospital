@@ -40,7 +40,8 @@ const StudentDetails = () => {
         if (typeof student.DOB === "number") {
           student.DOB = excelDateToJSDate(student.DOB);
         }
-        return student;
+
+        return { ...student, studentId: student.studentId.toUpperCase() };
       });
 
       const url = "http://localhost:8000/student-details";

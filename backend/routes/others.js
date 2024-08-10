@@ -5,7 +5,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const patients = await Others.find({ status: "PENDING" });
-    res.status(200).json({ patients });
+    res.status(200).json({ otherTreatments: patients });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

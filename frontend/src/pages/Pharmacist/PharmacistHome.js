@@ -96,6 +96,8 @@ function PharmacistsHome() {
     return <LoadingView />;
   }
 
+  console.log(patientsList);
+
   const filteredPatientsList = patientsList.filter(
     (item) =>
       (item.studentId &&

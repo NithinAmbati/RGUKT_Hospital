@@ -7,7 +7,7 @@ const getPatientsForPharmacist = async (req, res) => {
       const treatments = await Treatments.find({
         status: "ISSUE_MEDICINE",
       });
-      res.status(200).json(treatments);
+      res.status(200).json({ studentTreatments: treatments });
     } else {
       const treatments = await Treatments.find({
         status: "ISSUE_MEDICINE",

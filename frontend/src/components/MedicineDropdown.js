@@ -176,7 +176,7 @@ const SelectMedicines = (props) => {
                   </Select>
                 </FormControl>
                 <TextField
-                  label="Number of Days"
+                  label="No.of Days"
                   type="number"
                   value={numberOfDays}
                   className="w-24"

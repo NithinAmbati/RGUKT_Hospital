@@ -303,6 +303,7 @@ const DoctorsHome = () => {
               </form>
             </section>
             <section className="results-container">
+              <h1 className="results-title">Previous Treatments</h1>
               <ul className="results-list">
                 {treatedTreatments.map((item, index) => (
                   <li key={index} className="result-item">

@@ -80,8 +80,8 @@ const HomeBody = () => {
                 </h1>
                 <List>
                   <ListItem className="mr-4">
-                    <ListItemText primary="Emergency" secondary="911" />
-                    <ListItemText primary="Ambulance" secondary="911" />
+                    <ListItemText primary="Emergency" secondary="8333944120" />
+                    <ListItemText primary="Ambulance" secondary="108" />
                   </ListItem>
                 </List>
               </Paper>
@@ -104,7 +104,7 @@ const HomeBody = () => {
               <div>
                 <img
                   src="https://www.rgukt.ac.in/assets/images/rgukt/hospital.jpg"
-                  alt="Slide 1"
+                  alt="hospital_image1"
                 />
               </div>
             </Carousel>

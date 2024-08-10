@@ -70,9 +70,7 @@ const AddMedicines = () => {
   return (
     <main className="py-10">
       <ToastContainer />
-      <h1 className="text-2xl font-bold my-6 text-center">
-        Add Medicines Page
-      </h1>
+      <h1 className="text-2xl font-bold my-6 text-center">Add Medicines</h1>
       <form
         onSubmit={submitBtn}
         className="mt-4 bg-white p-6 rounded-lg shadow-md w-[90%] max-w-[600px] m-auto"

@@ -13,6 +13,13 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import LoginForm from "./LoginForm";
 import "../css/HomeBody.css";
 
+import Image1 from "../carousel_images/img1.jpg";
+import Image2 from "../carousel_images/img2.jpg";
+import Image3 from "../carousel_images/img3.jpg";
+import Image4 from "../carousel_images/img4.jpg";
+import Image5 from "../carousel_images/img5.jpg";
+import Image6 from "../carousel_images/img6.jpg";
+
 const HomeBody = () => {
   const staff = [
     { name: "Dr. Jagadheeshwar" },
@@ -102,10 +109,22 @@ const HomeBody = () => {
               showStatus={false}
             >
               <div>
-                <img
-                  src="https://www.rgukt.ac.in/assets/images/rgukt/hospital.jpg"
-                  alt="hospital_image1"
-                />
+                <img src={Image1} alt="hospital_image1" />
+              </div>
+              <div>
+                <img src={Image2} alt="hospital_image2" />
+              </div>
+              <div>
+                <img src={Image3} alt="hospital_image3" />
+              </div>
+              <div>
+                <img src={Image4} alt="hospital_image4" />
+              </div>
+              <div>
+                <img src={Image5} alt="hospital_image5" />
+              </div>
+              <div>
+                <img src={Image6} alt="hospital_image6" />
               </div>
             </Carousel>
             <Typography

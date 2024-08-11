@@ -104,9 +104,59 @@ const HomeBody = () => {
               autoPlay
               infiniteLoop
               showThumbs={false}
-              showArrows={false}
-              showIndicators={false}
+              showArrows={true}
+              showIndicators={true}
               showStatus={false}
+              emulateTouch
+              swipeable
+              dynamicHeight={false}
+              interval={5000} // Change the interval time as needed
+              renderArrowPrev={(onClickHandler, hasPrev, label) =>
+                hasPrev && (
+                  <button
+                    type="button"
+                    onClick={onClickHandler}
+                    title={label}
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "10px",
+                      transform: "translateY(-50%)",
+                      backgroundColor: "rgba(0,0,0,0.5)",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "50%",
+                      padding: "10px",
+                      zIndex: 1,
+                    }}
+                  >
+                    &#10094;
+                  </button>
+                )
+              }
+              renderArrowNext={(onClickHandler, hasNext, label) =>
+                hasNext && (
+                  <button
+                    type="button"
+                    onClick={onClickHandler}
+                    title={label}
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      right: "10px",
+                      transform: "translateY(-50%)",
+                      backgroundColor: "rgba(0,0,0,0.5)",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "50%",
+                      padding: "10px",
+                      zIndex: 1,
+                    }}
+                  >
+                    &#10095;
+                  </button>
+                )
+              }
             >
               <div>
                 <img src={Image1} alt="hospital_image1" />

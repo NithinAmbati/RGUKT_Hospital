@@ -12,51 +12,53 @@ const ProfileComponent = ({ user }) => {
 
   useEffect(() => {
     const getProfileData = async () => {
+      try {
+        const url = `http://localhost:8000/profile/${user}`;
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${jwtToken}`,
+          },
+        });
+        if (response.ok) {
+          const { profile } = await response.json();
+          setProfileData(profile);
+        } else {
+          const { message } = await response.json();
+          toast.error(message);
+        }
+      } catch (error) {
+        toast.error("Failed to fetch profile data");
+      }
+    };
+
+    getProfileData();
+  }, [user, jwtToken]);
+
+  const handleProfileChange = (field, value) => {
+    setProfileData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = async () => {
+    try {
       const url = `http://localhost:8000/profile/${user}`;
-      const options = {
-        method: "GET",
+      const response = await fetch(url, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          authorization: `Bearer ${Cookies.get("jwtToken")}`,
+          authorization: `Bearer ${jwtToken}`,
         },
-      };
-      const response = await fetch(url, options);
+        body: JSON.stringify(profileData),
+      });
       if (response.ok) {
-        const { profile } = await response.json();
-        setProfileData(profile);
+        setEditing(false);
       } else {
         const { message } = await response.json();
         toast.error(message);
       }
-    };
-    getProfileData();
-  }, [user]);
-
-  const handleProfileChange = (field, value) => {
-    setProfileData({ ...profileData, [field]: value });
-  };
-
-  const handleSubmit = async () => {
-    const updatedProfile = {
-      ...profileData,
-    };
-
-    const url = `http://localhost:8000/profile/${user}`;
-    const options = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${jwtToken}`,
-      },
-      body: JSON.stringify(updatedProfile),
-    };
-    const response = await fetch(url, options);
-    if (response.ok) {
-      setProfileData(updatedProfile);
-      setEditing(false);
-    } else {
-      const { message } = await response.json();
-      toast.error(message);
+    } catch (error) {
+      toast.error("Failed to update profile");
     }
   };
 
@@ -69,15 +71,16 @@ const ProfileComponent = ({ user }) => {
       <ToastContainer />
       <form className="bg-white rounded-lg shadow-lg p-7 mb-4 w-[390px] max-w-[400px]">
         <h1 className="text-2xl font-semibold mb-4 text-blue-600">Profile</h1>
+
         <div className="mb-3">
           <p>
-            <span className="font-bold">UserID : </span>
-            {profileData.userId}
+            <span className="font-bold">UserID:</span> {profileData.userId}
           </p>
         </div>
+
         <div className="mb-3">
           <p>
-            <span className="font-bold">Name : </span>{" "}
+            <span className="font-bold">Name:</span>{" "}
             {editing ? (
               <input
                 type="text"
@@ -92,34 +95,41 @@ const ProfileComponent = ({ user }) => {
             )}
           </p>
         </div>
+
         <div className="mb-3">
-          <span className="font-bold">Email : </span>{" "}
-          {editing ? (
-            <input
-              type="text"
-              className="border-2 p-2"
-              value={profileData.email}
-              onChange={(e) => handleProfileChange("email", e.target.value)}
-            />
-          ) : (
-            profileData.email
-          )}
+          <p>
+            <span className="font-bold">Email:</span>{" "}
+            {editing ? (
+              <input
+                type="text"
+                className="border-2 p-2"
+                value={profileData.email}
+                onChange={(e) => handleProfileChange("email", e.target.value)}
+              />
+            ) : (
+              profileData.email
+            )}
+          </p>
         </div>
+
         <div className="mb-3">
-          <span className="font-bold">Phone No:</span>
-          {editing ? (
-            <input
-              type="text"
-              className="border-2 p-2"
-              value={profileData.contactNumber}
-              onChange={(e) =>
-                handleProfileChange("contactNumber", e.target.value)
-              }
-            />
-          ) : (
-            profileData.contactNumber
-          )}
+          <p>
+            <span className="font-bold">Phone No:</span>{" "}
+            {editing ? (
+              <input
+                type="text"
+                className="border-2 p-2"
+                value={profileData.contactNumber}
+                onChange={(e) =>
+                  handleProfileChange("contactNumber", e.target.value)
+                }
+              />
+            ) : (
+              profileData.contactNumber
+            )}
+          </p>
         </div>
+
         <button
           type="button"
           onClick={editing ? handleSubmit : () => setEditing(true)}
@@ -128,6 +138,7 @@ const ProfileComponent = ({ user }) => {
           {editing ? "Save" : "Edit"}
         </button>
       </form>
+
       <ChangePasswordComponent user={user} />
     </main>
   );

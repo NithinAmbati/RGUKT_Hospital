@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 
-//"mongodb://localhost:27017/RGUKT_Hospital";
-
 const connectMongoDb = async (url) => {
   mongoose
     .connect(url)

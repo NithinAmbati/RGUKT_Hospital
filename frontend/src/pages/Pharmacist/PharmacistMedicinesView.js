@@ -49,6 +49,7 @@ const PharmacistMedicinesView = () => {
               <tr className="font-semibold">
                 <td className="py-2 px-4 border-b">Item Name</td>
                 <td className="py-2 px-4 border-b">Quantity</td>
+                <td className="py-2 px-4 border-b">Batch No</td>
                 <td className="py-2 px-4 border-b">expiryDate</td>
                 <td className="py-2 px-4 border-b">importDate</td>
               </tr>
@@ -58,6 +59,7 @@ const PharmacistMedicinesView = () => {
                 <tr key={index} className="hover:bg-gray-100 capitalize">
                   <td className="py-2 px-4 border-b">{item.name}</td>
                   <td className="py-2 px-4 border-b">{item.quantity}</td>
+                  <td className="py-2 px-4 border-b">{item.batchNo}</td>
                   <td className="py-2 px-4 border-b">
                     {formatDate(item.expiryDate)}
                   </td>

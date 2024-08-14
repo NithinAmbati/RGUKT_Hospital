@@ -10,7 +10,6 @@ import {
   Paper,
 } from "@mui/material";
 import Cookies from "js-cookie";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const SignUpForm = ({ userIds, fetchUserIds }) => {
@@ -53,12 +52,12 @@ const SignUpForm = ({ userIds, fetchUserIds }) => {
     };
     const response = await fetch(url, options);
     if (response.ok) {
-      const { message } = response.json();
-      toast.success(message);
+      alert(
+        `Successfully added ${userDetails.username} as ${userDetails.role}.`
+      );
       await fetchUserIds();
     } else {
-      const { message } = await response.json();
-      toast.error(message);
+      alert("Oops! Something went wrong.");
     }
     setUserId("");
     setUsername("");
@@ -71,7 +70,6 @@ const SignUpForm = ({ userIds, fetchUserIds }) => {
 
   return (
     <div className="mb-10">
-      <ToastContainer />
       <Paper sx={{ padding: 2, mt: 2 }}>
         <Typography variant="h6">Add Staff</Typography>
         <form onSubmit={submitBtn}>

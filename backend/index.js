@@ -3,8 +3,10 @@ const cors = require("cors");
 const routes = require("./routes");
 const connectMongoDb = require("./connection");
 
-const MONGO_URI =
-  "mongodb+srv://nithinambati2:yLbT7wHeE14Surh1@cluster0.9qpuxmc.mongodb.net/RGUKT_Hospital?retryWrites=true&w=majority";
+//LOCALHOST URL : "mongodb://localhost:27017/RGUKT_Hospital";
+// ATLAS URl : "mongodb+srv://nithinambati2:yLbT7wHeE14Surh1@cluster0.9qpuxmc.mongodb.net/RGUKT_Hospital?retryWrites=true&w=majority";
+
+const MONGO_URI = "mongodb://localhost:27017/RGUKT_Hospital";
 
 connectMongoDb(MONGO_URI);
 

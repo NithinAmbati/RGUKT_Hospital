@@ -19,6 +19,7 @@ import Image3 from "../carousel_images/img3.jpg";
 import Image4 from "../carousel_images/img4.jpg";
 import Image5 from "../carousel_images/img5.jpg";
 import Image6 from "../carousel_images/img6.jpg";
+import Image7 from "../carousel_images/img7.jpg";
 
 const HomeBody = () => {
   const staff = [
@@ -175,6 +176,9 @@ const HomeBody = () => {
               </div>
               <div>
                 <img src={Image6} alt="hospital_image6" />
+              </div>
+              <div>
+                <img src={Image7} alt="hospital_image7" />
               </div>
             </Carousel>
             <Typography

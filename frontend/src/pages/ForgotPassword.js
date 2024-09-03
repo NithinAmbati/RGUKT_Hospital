@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import mainUrl from "../utils/mainUrl";
 
 const ForgotPassword = () => {
   const [userId, setUserId] = useState("");
@@ -9,7 +10,7 @@ const ForgotPassword = () => {
   const [showOtpInput, setShowOtpInput] = useState(false);
 
   const sendEmailBtn = async () => {
-    const url = `http://localhost:8000/forgot-password?userId=${userId}`;
+    const url = `${mainUrl}/forgot-password?userId=${userId}`;
     const options = {
       method: "GET",
       headers: {
@@ -36,7 +37,7 @@ const ForgotPassword = () => {
     event.preventDefault();
     const otp = document.getElementById("otp").value;
     console.log(otp);
-    const url = `http://localhost:8000/forgot-password/verify`;
+    const url = `${mainUrl}/forgot-password/verify`;
     const options = {
       method: "POST",
       headers: {

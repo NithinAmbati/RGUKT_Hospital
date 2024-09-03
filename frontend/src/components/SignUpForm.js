@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import Cookies from "js-cookie";
 import "react-toastify/dist/ReactToastify.css";
+import mainUrl from "../utils/mainUrl";
 
 const SignUpForm = ({ userIds, fetchUserIds }) => {
   const [username, setUsername] = useState("");
@@ -41,7 +42,7 @@ const SignUpForm = ({ userIds, fetchUserIds }) => {
       password,
       role,
     };
-    const url = "http://localhost:8000/signup";
+    const url = `${mainUrl}/signup`;
     const options = {
       method: "POST",
       headers: {

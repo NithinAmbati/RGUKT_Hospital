@@ -3,6 +3,7 @@ import { Modal, Button, Box, TextField } from "@mui/material";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import mainUrl from "../utils/mainUrl";
 
 const style = {
   position: "absolute",
@@ -41,7 +42,7 @@ const ChangePasswordComponent = ({ user }) => {
       return;
     }
 
-    const url = `http://localhost:8000/profile/${user}/change-password`;
+    const url = `${mainUrl}/profile/${user}/change-password`;
     const options = {
       method: "PUT",
       headers: {

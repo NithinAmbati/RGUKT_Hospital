@@ -4,6 +4,7 @@ import ChangePasswordComponent from "./ChangePassword";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingView from "../services/loaderView";
+import mainUrl from "../utils/mainUrl";
 
 const ProfileComponent = ({ user }) => {
   const [profileData, setProfileData] = useState({});
@@ -13,7 +14,7 @@ const ProfileComponent = ({ user }) => {
   useEffect(() => {
     const getProfileData = async () => {
       try {
-        const url = `http://localhost:8000/profile/${user}`;
+        const url = `${mainUrl}/profile/${user}`;
         const response = await fetch(url, {
           method: "GET",
           headers: {
@@ -42,7 +43,7 @@ const ProfileComponent = ({ user }) => {
 
   const handleSubmit = async () => {
     try {
-      const url = `http://localhost:8000/profile/${user}`;
+      const url = `${mainUrl}/profile/${user}`;
       const response = await fetch(url, {
         method: "PUT",
         headers: {

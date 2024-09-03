@@ -14,6 +14,7 @@ import {
   LineElement,
 } from "chart.js";
 import LoadingView from "../../services/loaderView";
+import mainUrl from "../../utils/mainUrl";
 
 ChartJS.register(
   CategoryScale,
@@ -35,7 +36,7 @@ const ReportsAndAnalytics = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const chartsFetchingUrl = "http://localhost:8000/admin-charts-data";
+      const chartsFetchingUrl = `${mainUrl}/admin-charts-data`;
       const options = {
         method: "GET",
         headers: {

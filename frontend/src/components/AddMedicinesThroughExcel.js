@@ -4,6 +4,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import mainUrl from "../utils/mainUrl";
 
 const AddMedicinesThroughExcel = () => {
   const [file, setFile] = useState(null);
@@ -54,7 +55,7 @@ const AddMedicinesThroughExcel = () => {
       });
 
       try {
-        const url = "http://localhost:8000/medicines";
+        const url = `${mainUrl}/medicines`;
         const options = {
           method: "POST",
           headers: {

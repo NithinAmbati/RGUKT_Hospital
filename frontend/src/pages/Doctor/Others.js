@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import SelectMedicines from "../../components/MedicineDropdown";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import mainUrl from "../../utils/mainUrl";
 
 const Others = () => {
   const [medicines, setMedicines] = useState([]);
@@ -15,7 +16,7 @@ const Others = () => {
 
   useEffect(() => {
     const getAvailbleMedicines = async () => {
-      const url = "http://localhost:8000/medicines";
+      const url = `${mainUrl}/medicines`;
       const options = {
         method: "GET",
         headers: {
@@ -40,7 +41,7 @@ const Others = () => {
 
   const submitBtn = async (e) => {
     e.preventDefault();
-    const url = `http://localhost:8000/others/treatments/`;
+    const url = `${mainUrl}/others/treatments/`;
     const options = {
       method: "POST",
       headers: {

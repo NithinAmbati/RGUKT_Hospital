@@ -3,6 +3,7 @@ import * as XLSX from "xlsx";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import mainUrl from "../utils/mainUrl";
 
 const StudentDetails = () => {
   const [file, setFile] = useState(null);
@@ -44,7 +45,7 @@ const StudentDetails = () => {
         return { ...student, studentId: student.studentId.toUpperCase() };
       });
 
-      const url = "http://localhost:8000/student-details";
+      const url = `${mainUrl}/student-details`;
       const options = {
         method: "POST",
         headers: {

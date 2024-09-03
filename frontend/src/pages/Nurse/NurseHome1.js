@@ -5,6 +5,7 @@ import { NursingHeaderContent } from "../../store/data";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import mainUrl from "../../utils/mainUrl";
 
 const NursingHome = () => {
   const [temperature, setTemperature] = useState("");
@@ -37,7 +38,7 @@ const NursingHome = () => {
       treatmentDate: new Date(),
     };
 
-    const url = "http://localhost:8000/treatments";
+    const url = `${mainUrl}/treatments`;
     const options = {
       method: "POST",
       headers: {

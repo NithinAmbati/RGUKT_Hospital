@@ -9,6 +9,7 @@ import PrintablePatient from "../../components/PrintPrescription";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingView from "../../services/loaderView";
+import mainUrl from "../../utils/mainUrl";
 
 function PharmacistsHome() {
   const [patientsList, setPatientsList] = useState([]);
@@ -18,8 +19,8 @@ function PharmacistsHome() {
   useEffect(() => {
     const fetchPatientsList = async () => {
       try {
-        const url1 = `http://localhost:8000/treatments/pharmacist`;
-        const url2 = `http://localhost:8000/others/treatments`;
+        const url1 = `${mainUrl}/treatments/pharmacist`;
+        const url2 = `${mainUrl}/others/treatments`;
 
         const options = {
           method: "GET",
@@ -59,9 +60,8 @@ function PharmacistsHome() {
   const submitBtn = (medicinesWritten, treatmentId, name) => async () => {
     console.log(name);
     let url;
-    if (name) url = `http://localhost:8000/others/treatments/${treatmentId}`;
-    else
-      url = `http://localhost:8000/treatments/pharmacist-update/${treatmentId}`;
+    if (name) url = `${mainUrl}/others/treatments/${treatmentId}`;
+    else url = `${mainUrl}/treatments/pharmacist-update/${treatmentId}`;
     const options = {
       method: "PUT",
       headers: {

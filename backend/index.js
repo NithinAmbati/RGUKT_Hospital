@@ -16,6 +16,10 @@ app.use(cors());
 
 app.use("/", routes);
 
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Hello RGUKT!.." });
+});
+
 const startServer = () => {
   app.listen(8000, () => {
     console.log("server listening on 8000...");

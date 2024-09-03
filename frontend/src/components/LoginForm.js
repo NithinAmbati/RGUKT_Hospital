@@ -4,6 +4,7 @@ import Cookie from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import mainUrl from "../utils/mainUrl";
 
 function LoginForm() {
   const [userId, setUserId] = useState("");
@@ -17,7 +18,7 @@ function LoginForm() {
       userId,
       password,
     };
-    const url = "http://localhost:8000/login";
+    const url = `${mainUrl}/login`;
     const options = {
       method: "POST",
       headers: {

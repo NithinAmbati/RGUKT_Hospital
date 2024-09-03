@@ -11,6 +11,7 @@ import formatDate from "../../services/formatDate";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingView from "../../services/loaderView";
+import mainUrl from "../../utils/mainUrl";
 
 const DoctorsHome = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -26,7 +27,7 @@ const DoctorsHome = () => {
 
   useEffect(() => {
     const getAvailbleMedicines = async () => {
-      const url = "http://localhost:8000/medicines";
+      const url = `${mainUrl}/medicines`;
       const options = {
         method: "GET",
         headers: {
@@ -51,9 +52,9 @@ const DoctorsHome = () => {
 
   const searchBtn = async () => {
     setIsLoading(true);
-    const pendingTreatmentUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput.toUpperCase()}&status=PENDING`;
-    const treatedTreatmentsUrl = `http://localhost:8000/treatments/doctor?studentId=${searchInput.toUpperCase()}&status=TREATED`;
-    const studentDetailsUrl = `http://localhost:8000/student-details?studentId=${searchInput.toUpperCase()}`;
+    const pendingTreatmentUrl = `${mainUrl}/treatments/doctor?studentId=${searchInput.toUpperCase()}&status=PENDING`;
+    const treatedTreatmentsUrl = `${mainUrl}/treatments/doctor?studentId=${searchInput.toUpperCase()}&status=TREATED`;
+    const studentDetailsUrl = `${mainUrl}/student-details?studentId=${searchInput.toUpperCase()}`;
 
     const options = {
       method: "GET",
@@ -94,7 +95,7 @@ const DoctorsHome = () => {
 
   const submitBtn = async (e) => {
     e.preventDefault();
-    const url = `http://localhost:8000/treatments/doctor-update/${pendingTreatment._id}`;
+    const url = `${mainUrl}/treatments/doctor-update/${pendingTreatment._id}`;
     const options = {
       method: "PUT",
       headers: {

@@ -5,13 +5,14 @@ import Header from "../../components/Header";
 import { PharmacistsHeaderContent } from "../../store/data";
 import { toast } from "react-toastify";
 import LoadingView from "../../services/loaderView";
+import mainUrl from "../../utils/mainUrl";
 
 const PharmacistMedicinesView = () => {
   const [inventory, setInventory] = useState([]);
 
   useEffect(() => {
     const getMedicines = async () => {
-      const url = "http://localhost:8000/medicines/pharmacist";
+      const url = `${mainUrl}/medicines/pharmacist`;
       const options = {
         method: "GET",
         headers: {

@@ -6,6 +6,7 @@ import "../../components/AddStudentDetails";
 import StudentDetails from "../../components/AddStudentDetails";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import mainUrl from "../../utils/mainUrl";
 
 const StudentManagement = () => {
   const [studentData, setStudentData] = useState(null);
@@ -14,7 +15,7 @@ const StudentManagement = () => {
 
   const submitBtn = async () => {
     if (searchInput.length === 7) {
-      const studentDetailsUrl = `http://localhost:8000/student-details?studentId=${searchInput.toUpperCase()}`;
+      const studentDetailsUrl = `${mainUrl}/student-details?studentId=${searchInput.toUpperCase()}`;
       const options = {
         method: "GET",
         headers: {

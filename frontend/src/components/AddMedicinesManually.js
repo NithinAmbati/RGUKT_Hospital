@@ -3,6 +3,7 @@ import { Button, TextField } from "@mui/material";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import mainUrl from "../utils/mainUrl";
 
 const AddMedicines = () => {
   const [additionalMedicines, setAdditionalMedicines] = useState([]);
@@ -41,7 +42,7 @@ const AddMedicines = () => {
 
     console.log(newMedicines);
 
-    const url = "http://localhost:8000/medicines";
+    const url = `${mainUrl}/medicines`;
     const options = {
       method: "POST",
       headers: {

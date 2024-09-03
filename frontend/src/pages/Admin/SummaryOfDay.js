@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import ReactToPrint from "react-to-print";
 import PrintSummary from "../../components/PrintSummary";
 import LoadingView from "../../services/loaderView";
+import mainUrl from "../../utils/mainUrl";
 
 const SummaryOfTheDay = () => {
   const [summary, updateSummary] = useState(null);
@@ -12,9 +13,7 @@ const SummaryOfTheDay = () => {
 
   useEffect(() => {
     const fetchDetails = async () => {
-      const url = `http://localhost:8000/summary?date=${new Date(
-        selectedDate
-      )}`;
+      const url = `${mainUrl}/summary?date=${new Date(selectedDate)}`;
       const options = {
         method: "GET",
         headers: {

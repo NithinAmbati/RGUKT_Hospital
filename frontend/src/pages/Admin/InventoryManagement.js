@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import formatDate from "../../services/formatDate";
 import LoadingView from "../../services/loaderView";
+import mainUrl from "../../utils/mainUrl";
 
 const InventoryManagement = () => {
   const [inventory, setInventory] = useState([]);
@@ -9,7 +10,7 @@ const InventoryManagement = () => {
 
   useEffect(() => {
     const getMedicines = async () => {
-      const url = "http://localhost:8000/medicines/admin";
+      const url = `${mainUrl}/medicines/admin`;
       const options = {
         method: "GET",
         headers: {

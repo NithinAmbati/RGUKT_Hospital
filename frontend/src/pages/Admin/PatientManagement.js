@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import formatDate from "../../services/formatDate";
 import ViewPatientFullDetails from "../../components/ViewPatientFullDetails";
 import LoadingView from "../../services/loaderView";
+import mainUrl from "../../utils/mainUrl";
 
 const PatientsHistory = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -13,9 +14,7 @@ const PatientsHistory = () => {
 
   useEffect(() => {
     const getPatientData = async () => {
-      const url = `http://localhost:8000/treatments/admin?date=${new Date(
-        selectedDate
-      )}`;
+      const url = `${mainUrl}/treatments/admin?date=${new Date(selectedDate)}`;
       const options = {
         method: "GET",
         headers: {

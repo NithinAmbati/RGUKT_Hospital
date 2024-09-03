@@ -4,6 +4,7 @@ import { Button, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SignUpForm from "../../components/SignUpForm";
 import LoadingView from "../../services/loaderView";
+import mainUrl from "../../utils/mainUrl";
 
 const StaffManagement = () => {
   const [admins, setAdmins] = useState(null);
@@ -15,7 +16,7 @@ const StaffManagement = () => {
   const [showForm, setShowForm] = useState(false);
 
   const fetchUserIds = async () => {
-    const url = "http://localhost:8000/latest-user-ids";
+    const url = `${mainUrl}/latest-user-ids`;
     const options = {
       method: "GET",
       headers: {
@@ -33,7 +34,7 @@ const StaffManagement = () => {
 
   useEffect(() => {
     const fetchAdmins = async () => {
-      const url = "http://localhost:8000/users/admins";
+      const url = `${mainUrl}/users/admins`;
       const options = {
         method: "GET",
         headers: {
@@ -50,7 +51,7 @@ const StaffManagement = () => {
     };
 
     const fetchDoctors = async () => {
-      const url = "http://localhost:8000/users/doctors";
+      const url = `${mainUrl}/users/doctors`;
       const options = {
         method: "GET",
         headers: {
@@ -67,7 +68,7 @@ const StaffManagement = () => {
     };
 
     const fetchNurses = async () => {
-      const url = "http://localhost:8000/users/nurses";
+      const url = `${mainUrl}/users/nurses`;
       const options = {
         method: "GET",
         headers: {
@@ -84,7 +85,7 @@ const StaffManagement = () => {
     };
 
     const fetchPharmacists = async () => {
-      const url = "http://localhost:8000/users/pharmacists";
+      const url = `${mainUrl}/users/pharmacists`;
       const options = {
         method: "GET",
         headers: {

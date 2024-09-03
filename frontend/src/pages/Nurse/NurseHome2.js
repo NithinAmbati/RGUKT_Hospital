@@ -5,6 +5,7 @@ import { NursingHeaderContent } from "../../store/data";
 import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import mainUrl from "../../utils/mainUrl";
 
 const NursingSecondPage = () => {
   const [pendingList, setPendingList] = useState([]);
@@ -15,7 +16,7 @@ const NursingSecondPage = () => {
   // Fetch pending treatments on component mount
   useEffect(() => {
     const fetchPendingList = async () => {
-      const url = "http://localhost:8000/treatments/nurse";
+      const url = `${mainUrl}/treatments/nurse`;
       const options = {
         method: "GET",
         headers: {
@@ -60,7 +61,7 @@ const NursingSecondPage = () => {
   // Handle form submission
   const submitBtn = async (e) => {
     e.preventDefault();
-    const url = `http://localhost:8000/treatments/nurse-update/${selectedTreatment._id}`;
+    const url = `${mainUrl}/treatments/nurse-update/${selectedTreatment._id}`;
     const options = {
       method: "PUT",
       headers: {
